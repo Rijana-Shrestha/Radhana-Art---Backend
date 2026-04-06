@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery — Radhana Art</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#145faf", secondary: "#D93A6A" },
+            fontFamily: {
+              main: ["Playfair Display", "serif"],
+              sub: ["Poppins", "sans-serif"],
+            },
+            keyframes: {
+              scroll: {
+                "0%": { transform: "translateX(0%)" },
+                "100%": { transform: "translateX(-50%)" },
+              },
+              fadeInUp: {
+                from: { opacity: "0", transform: "translateY(20px)" },
+                to: { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+            animation: {
+              scroll: "scroll 30s linear infinite",
+              fadeInUp: "fadeInUp .5s ease forwards",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .nav-link {
+        position: relative;
+        padding-bottom: 4px;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #d93a6a;
+        transition: width 0.3s;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      .nav-link.active {
+        color: #d93a6a !important;
+      }
+      .nav-link.active::after {
+        width: 100%;
+      }
+      .wa-float {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        z-index: 999;
+        width: 56px;
+        height: 56px;
+        background: #25d366;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+        transition: transform 0.3s;
+        text-decoration: none;
+      }
+      .wa-float:hover {
+        transform: scale(1.12);
+      }
+
+      /* Filter buttons */
+      .gal-filter.active {
+        background: #145faf;
+        color: #fff;
+        border-color: #145faf;
+      }
+
+      /* Gallery items */
+      .gal-item {
+        animation: fadeInUp 0.4s ease both;
+      }
+      .gal-item img {
+        transition: transform 0.5s ease;
+      }
+      .gal-item:hover img {
+        transform: scale(1.07);
+      }
+      .gal-item .overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .gal-item:hover .overlay {
+        opacity: 1;
+      }
+
+      /* Lightbox */
+      #lightbox {
+        transition: opacity 0.3s ease;
+      }
+
+      /* Reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* Masonry effect via CSS columns */
+      .masonry {
+        columns: 2;
+        column-gap: 12px;
+      }
+      @media (min-width: 768px) {
+        .masonry {
+          columns: 3;
+          column-gap: 14px;
+        }
+      }
+      @media (min-width: 1024px) {
+        .masonry {
+          columns: 4;
+          column-gap: 16px;
+        }
+      }
+      .masonry .gal-item {
+        break-inside: avoid;
+        margin-bottom: 12px;
+      }
+      @media (min-width: 768px) {
+        .masonry .gal-item {
+          margin-bottom: 14px;
+        }
+      }
+      @media (min-width: 1024px) {
+        .masonry .gal-item {
+          margin-bottom: 16px;
+        }
+      }
+
+      /* stagger */
+      .masonry .gal-item:nth-child(1) {
+        animation-delay: 0ms;
+      }
+      .masonry .gal-item:nth-child(2) {
+        animation-delay: 60ms;
+      }
+      .masonry .gal-item:nth-child(3) {
+        animation-delay: 120ms;
+      }
+      .masonry .gal-item:nth-child(4) {
+        animation-delay: 180ms;
+      }
+      .masonry .gal-item:nth-child(5) {
+        animation-delay: 240ms;
+      }
+      .masonry .gal-item:nth-child(6) {
+        animation-delay: 300ms;
+      }
+      .masonry .gal-item:nth-child(7) {
+        animation-delay: 360ms;
+      }
+      .masonry .gal-item:nth-child(8) {
+        animation-delay: 420ms;
+      }
+      .masonry .gal-item:nth-child(9) {
+        animation-delay: 480ms;
+      }
+      .masonry .gal-item:nth-child(10) {
+        animation-delay: 540ms;
+      }
+      .masonry .gal-item:nth-child(11) {
+        animation-delay: 600ms;
+      }
+      .masonry .gal-item:nth-child(12) {
+        animation-delay: 660ms;
+      }
+
+      .lotus-bg {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23145faf' stroke-opacity='.04' stroke-width='2'/%3E%3C/svg%3E");
+      }
+    </style>
+    <script src="/frontend/api.js"></script>
+    <script src="/frontend/gallery-page.js"></script>
+  </head>
+  <body class="bg-white overflow-x-hidden">
+    <a href="https://wa.me/9779823939106" target="_blank" class="wa-float"
+      ><i class="fa-brands fa-whatsapp"></i
+    ></a>
+
+    <!-- Lightbox -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 bg-black/95 z-[200] hidden items-center justify-center p-4 opacity-0"
+    >
+      <button
+        onclick="closeLB()"
+        class="absolute top-5 right-5 text-white hover:text-gray-300 transition z-10 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center"
+      >
+        <i class="fas fa-times text-lg"></i>
+      </button>
+      <button
+        onclick="prevLB()"
+        class="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center"
+      >
+        <i class="fas fa-chevron-left text-xl"></i>
+      </button>
+      <div
+        class="max-w-4xl w-full max-h-[90vh] flex flex-col md:flex-row gap-4 items-center"
+      >
+        <img
+          id="lbImg"
+          src=""
+          class="max-h-[75vh] max-w-full rounded-2xl object-contain shadow-2xl"
+        />
+        <div
+          class="bg-white/10 backdrop-blur-md rounded-2xl p-5 min-w-[200px] text-white"
+          id="lbInfo"
+        >
+          <h3 id="lbTitle" class="font-main text-lg mb-1"></h3>
+          <p id="lbCat" class="font-sub text-xs text-gray-300 mb-3"></p>
+          <p
+            id="lbDesc"
+            class="font-sub text-sm text-gray-200 leading-relaxed mb-4"
+          ></p>
+          <a
+            href="https://wa.me/9779823939106"
+            target="_blank"
+            class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-sub text-sm font-medium px-4 py-2.5 rounded-xl transition w-full justify-center"
+          >
+            <i class="fa-brands fa-whatsapp"></i> Order This
+          </a>
+        </div>
+      </div>
+      <button
+        onclick="nextLB()"
+        class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center"
+      >
+        <i class="fas fa-chevron-right text-xl"></i>
+      </button>
+      <div
+        class="absolute bottom-5 left-1/2 -translate-x-1/2 font-sub text-xs text-gray-400"
+        id="lbCounter"
+      ></div>
+    </div>
+
+    <!-- Announcement Bar -->
+    <div
+      class="bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-gray-800 py-2.5 px-4 overflow-hidden sticky top-0 z-[70]"
+    >
+      <div class="flex whitespace-nowrap animate-scroll">
+        <p class="font-sub text-xs md:text-sm font-medium inline-block pr-20">
+          🎨 Premium Laser Engraving &nbsp;|&nbsp; ✨ Custom Wooden &amp;
+          Acrylic &nbsp;|&nbsp; 🎁 Perfect Gifts &nbsp;|&nbsp; 📞 +977
+          9823939106 &nbsp;|&nbsp; 🚚 Fast Delivery
+        </p>
+        <p class="font-sub text-xs md:text-sm font-medium inline-block pr-20">
+          🎨 Premium Laser Engraving &nbsp;|&nbsp; ✨ Custom Wooden &amp;
+          Acrylic &nbsp;|&nbsp; 🎁 Perfect Gifts &nbsp;|&nbsp; 📞 +977
+          9823939106 &nbsp;|&nbsp; 🚚 Fast Delivery
+        </p>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-[40px] z-50" id="mainHeader">
+      <div class="container mx-auto py-3 md:py-2 px-4 md:px-8 lg:px-12">
+        <div class="flex justify-between items-center">
+          <a href="/" class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-md shadow-primary/20"
+            >
+              <span class="text-white font-bold font-main text-lg">RA</span>
+            </div>
+            <div>
+              <span
+                class="font-main text-primary text-lg md:text-[22px] font-bold block"
+                >Radhana Art</span
+              >
+              <span class="font-sub text-[10px] text-gray-400 hidden md:block"
+                >Laser Engraving · Kathmandu</span
+              >
+            </div>
+          </a>
+          <button class="lg:hidden text-gray-700" onclick="toggleMenu()">
+            <i id="menuIcon" class="fas fa-bars text-2xl"></i>
+          </button>
+          <div class="hidden lg:flex flex-1 max-w-xl mx-6">
+            <div class="relative w-full">
+              <i
+                class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"
+              ></i>
+              <input
+                type="text"
+                placeholder="Search products..."
+                class="font-sub w-full py-2.5 pl-10 pr-24 border-2 border-gray-100 bg-gray-50 rounded-xl focus:outline-none focus:border-primary transition text-sm"
+              />
+              <button
+                class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1.5 rounded-lg hover:bg-secondary transition font-sub text-xs font-medium"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+          <div class="hidden lg:flex items-center gap-5">
+            <a
+              href="/frontend/src/login.html"
+              class="text-gray-600 hover:text-primary transition"
+              ><i class="text-2xl fa-solid fa-circle-user"></i
+            ></a>
+            <a
+              href="https://wa.me/9779823939106"
+              target="_blank"
+              class="flex items-center gap-1.5 text-green-600 font-sub text-sm font-medium hover:scale-105 transition"
+            >
+              <i class="fa-brands fa-whatsapp text-2xl"></i
+              ><span>+977 9823939106</span>
+            </a>
+            <a
+              href="/frontend/src/cart.html"
+              class="relative text-gray-600 hover:text-primary transition"
+            >
+              <i class="text-2xl fa-solid fa-shopping-cart"></i>
+              <span
+                class="cart-badge absolute -top-2 -right-2 bg-secondary text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center"
+                >0</span
+              >
+            </a>
+          </div>
+        </div>
+        <nav
+          class="font-sub hidden lg:flex gap-8 items-center justify-center text-[14px] mt-3 pt-2.5 border-t border-gray-100"
+        >
+          <a
+            href="/frontend/src/index.html"
+            class="nav-link text-gray-700 hover:text-secondary transition"
+            >Home</a
+          >
+          <a
+            href="/frontend/src/product.html"
+            class="nav-link text-gray-700 hover:text-secondary transition"
+            >Products</a
+          >
+          <a
+            href="/frontend/src/gallery.html"
+            class="nav-link active text-gray-700"
+            >Gallery</a
+          >
+          <a
+            href="/frontend/src/aboutUs.html"
+            class="nav-link text-gray-700 hover:text-secondary transition"
+            >About Us</a
+          >
+          <a
+            href="/frontend/src/faq.html"
+            class="nav-link text-gray-700 hover:text-secondary transition"
+            >FAQ</a
+          >
+          <a
+            href="/frontend/src/contact.html"
+            class="nav-link text-gray-700 hover:text-secondary transition"
+            >Contact Us</a
+          >
+        </nav>
+        <div
+          id="mobileMenu"
+          class="hidden lg:hidden mt-4 pb-4 border-t border-gray-100 pt-4"
+        >
+          <nav class="font-sub flex flex-col">
+            <a
+              href="/"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >Home</a
+            >
+            <a
+              href="/product.html"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >Products</a
+            >
+            <a
+              href="/gallery.html"
+              class="py-3 border-b border-gray-100 text-secondary font-medium text-sm"
+              >Gallery</a
+            >
+            <a
+              href="/aboutUs.html"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >About Us</a
+            >
+            <a
+              href="/faq.html"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >FAQ</a
+            >
+            <a href="/contact.html" class="py-3 text-gray-700 text-sm"
+              >Contact Us</a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Page Hero -->
+      <section
+        class="py-12 md:py-16 px-6 md:px-8 lg:px-12 bg-gradient-to-br from-slate-50 via-blue-50/30 to-pink-50/30 lotus-bg relative overflow-hidden"
+      >
+        <div
+          class="absolute -top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"
+        ></div>
+        <div
+          class="absolute -bottom-10 -left-10 w-48 h-48 bg-secondary/5 rounded-full blur-3xl pointer-events-none"
+        ></div>
+        <div class="container mx-auto text-center relative z-10">
+          <div
+            class="inline-flex items-center gap-2 bg-secondary/10 text-secondary border border-secondary/20 rounded-full px-4 py-1.5 text-sm font-sub font-medium mb-4"
+          >
+            <i class="fas fa-images text-xs"></i> Real Work, Real Customers
+          </div>
+          <h1
+            class="font-main text-3xl md:text-4xl lg:text-5xl text-gray-800 mb-3"
+          >
+            Our Gallery
+          </h1>
+          <p class="font-sub text-gray-400 text-[15px] max-w-xl mx-auto mb-4">
+            Browse real engravings crafted from our customers' photos — every
+            piece unique, every piece handmade with love
+          </p>
+          <div
+            class="flex items-center justify-center gap-2 font-sub text-sm text-gray-400"
+          >
+            <a href="/" class="hover:text-primary transition">Home</a>
+            <i class="fas fa-chevron-right text-[9px]"></i>
+            <span class="text-secondary font-medium">Gallery</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Bar -->
+      <section
+        class="bg-white border-b border-gray-100 sticky top-[88px] z-40 shadow-sm"
+      >
+        <div class="container mx-auto px-4 md:px-8 lg:px-12 py-3">
+          <div class="flex items-center gap-2 overflow-x-auto pb-1">
+            <button
+              onclick="filterGallery('all', this)"
+              class="gal-filter active flex-shrink-0 px-4 py-2 rounded-xl font-sub text-sm font-medium border border-primary bg-primary text-white transition-all duration-200"
+            >
+              <i class="fas fa-th-large mr-1.5"></i> All Work
+            </button>
+            <button
+              onclick="filterGallery('wooden', this)"
+              class="gal-filter flex-shrink-0 px-4 py-2 rounded-xl font-sub text-sm font-medium border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary transition-all duration-200"
+            >
+              <i class="fas fa-tree mr-1.5 text-green-600"></i> Wooden Engraving
+            </button>
+            <button
+              onclick="filterGallery('qr', this)"
+              class="gal-filter flex-shrink-0 px-4 py-2 rounded-xl font-sub text-sm font-medium border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary transition-all duration-200"
+            >
+              <i class="fas fa-qrcode mr-1.5 text-blue-500"></i> QR Codes
+            </button>
+            <button
+              onclick="filterGallery('keyring', this)"
+              class="gal-filter flex-shrink-0 px-4 py-2 rounded-xl font-sub text-sm font-medium border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary transition-all duration-200"
+            >
+              <i class="fas fa-key mr-1.5 text-amber-500"></i> Keyrings
+            </button>
+            <button
+              onclick="filterGallery('award', this)"
+              class="gal-filter flex-shrink-0 px-4 py-2 rounded-xl font-sub text-sm font-medium border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary transition-all duration-200"
+            >
+              <i class="fas fa-trophy mr-1.5 text-yellow-500"></i> Awards
+            </button>
+            <button
+              onclick="filterGallery('numberplate', this)"
+              class="gal-filter flex-shrink-0 px-4 py-2 rounded-xl font-sub text-sm font-medium border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary transition-all duration-200"
+            >
+              <i class="fas fa-car mr-1.5 text-gray-500"></i> Number Plates
+            </button>
+            <button
+              onclick="filterGallery('signboard', this)"
+              class="gal-filter flex-shrink-0 px-4 py-2 rounded-xl font-sub text-sm font-medium border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary transition-all duration-200"
+            >
+              <i class="fas fa-sign-hanging mr-1.5 text-purple-500"></i>
+              Signboards
+            </button>
+            <button
+              onclick="filterGallery('mug', this)"
+              class="gal-filter flex-shrink-0 px-4 py-2 rounded-xl font-sub text-sm font-medium border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary transition-all duration-200"
+            >
+              <i class="fas fa-mug-hot mr-1.5 text-orange-500"></i> Mugs
+            </button>
+          </div>
+          <div class="flex items-center justify-between mt-2.5">
+            <p class="font-sub text-sm text-gray-400">
+              Showing
+              <span id="galleryCount" class="font-semibold text-gray-700"
+                >0</span
+              >
+              photos
+            </p>
+            <div class="flex gap-2">
+              <button
+                onclick="setMasonry()"
+                id="masonryBtn"
+                class="px-3 py-1.5 bg-primary text-white font-sub text-xs rounded-lg transition"
+              >
+                <i class="fas fa-columns"></i> Masonry
+              </button>
+              <button
+                onclick="setGrid()"
+                id="gridBtn"
+                class="px-3 py-1.5 bg-white border border-gray-200 text-gray-600 font-sub text-xs rounded-lg hover:border-primary hover:text-primary transition"
+              >
+                <i class="fas fa-th"></i> Grid
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery -->
+      <section class="py-10 px-4 md:px-8 lg:px-12 bg-white min-h-[400px]">
+        <div class="container mx-auto">
+          <!-- Empty state -->
+          <div id="galEmpty" class="hidden text-center py-20">
+            <i class="fas fa-images text-5xl text-gray-200 mb-4 block"></i>
+            <h3 class="font-main text-xl text-gray-500 mb-2">
+              No photos in this category
+            </h3>
+            <p class="font-sub text-gray-400 text-sm">
+              Check back soon or browse all work
+            </p>
+          </div>
+          <!-- Masonry grid -->
+          <div id="galleryGrid" class="masonry"></div>
+          <!-- Load more -->
+          <div class="flex justify-center mt-10" id="galLoadMoreWrap">
+            <button
+              onclick="loadMoreGallery()"
+              class="font-sub bg-primary hover:bg-secondary text-white px-8 py-3.5 rounded-xl transition-all hover:shadow-lg flex items-center gap-2 font-medium"
+            >
+              Load More <i class="fas fa-arrow-down"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section
+        class="py-14 bg-gradient-to-br from-secondary via-pink-600 to-secondary px-6 text-center relative overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 opacity-[0.06] text-white text-[400px] font-main leading-none flex items-center justify-center pointer-events-none select-none"
+        >
+          ॐ
+        </div>
+        <div class="container mx-auto relative z-10">
+          <h2 class="font-main text-white text-2xl md:text-3xl mb-3">
+            Want Your Creation Featured Here?
+          </h2>
+          <p class="font-sub text-pink-100 text-[15px] mb-7 max-w-lg mx-auto">
+            Share your order photos with us on WhatsApp and join our gallery of
+            happy customers!
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a
+              href="https://wa.me/9779823939106"
+              target="_blank"
+              class="inline-flex items-center justify-center gap-2 bg-white text-secondary font-sub font-semibold px-8 py-3.5 rounded-xl hover:bg-gray-50 transition hover:shadow-lg hover:-translate-y-0.5"
+            >
+              <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i> Order
+              &amp; Get Featured
+            </a>
+            <a
+              href="/product.html"
+              class="inline-flex items-center justify-center gap-2 bg-white/20 border border-white/30 text-white font-sub font-semibold px-8 py-3.5 rounded-xl hover:bg-white/30 transition hover:-translate-y-0.5"
+            >
+              <i class="fas fa-store text-xl"></i> Browse Products
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+      <div class="container mx-auto px-6 md:px-8 lg:px-12">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center"
+            >
+              <span class="text-white font-bold font-main">RA</span>
+            </div>
+            <span class="font-main text-amber-400 text-lg font-semibold"
+              >Radhana Art</span
+            >
+          </div>
+          <p class="font-sub text-gray-500 text-sm">
+            © 2025 Radhana Art. All rights reserved. 🪈
+          </p>
+          <div class="flex gap-5 font-sub text-sm">
+            <a
+              href="/product.html"
+              class="text-gray-500 hover:text-white transition"
+              >Products</a
+            >
+            <a
+              href="/contact.html"
+              class="text-gray-500 hover:text-white transition"
+              >Contact</a
+            >
+            <a
+              href="/faq.html"
+              class="text-gray-500 hover:text-white transition"
+              >FAQ</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /* ════ GALLERY DATA ════ */
+      const galleryItems = [
+        {
+          id: 1,
+          cat: "wooden",
+          title: "Family Portrait Engraving",
+          desc: "A family of four beautifully engraved on premium Haldu wood.",
+          img: "https://images.unsplash.com/photo-1582269847642-87432658c952?q=80&w=600",
+        },
+        {
+          id: 2,
+          cat: "qr",
+          title: "Restaurant QR Code Stand",
+          desc: "Wooden QR code menu stands for a popular Thamel restaurant.",
+          img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600",
+        },
+        {
+          id: 3,
+          cat: "award",
+          title: "Corporate Acrylic Trophy",
+          desc: "Annual excellence award for a Kathmandu-based company.",
+          img: "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?q=80&w=600",
+        },
+        {
+          id: 4,
+          cat: "wooden",
+          title: "Anniversary Gift Plaque",
+          desc: "Custom wooden plaque with couple names and special date.",
+          img: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?q=80&w=600",
+        },
+        {
+          id: 5,
+          cat: "keyring",
+          title: "Bulk Wedding Keyrings",
+          desc: "200 personalized keyrings made for a wedding ceremony.",
+          img: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=600",
+        },
+        {
+          id: 6,
+          cat: "signboard",
+          title: "ACP Shop Signboard",
+          desc: "Backlit ACP signboard for a boutique in Lazimpat.",
+          img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600",
+        },
+        {
+          id: 7,
+          cat: "wooden",
+          title: "Pet Memorial Engraving",
+          desc: "A heartfelt engraving of a beloved pet on natural wood.",
+          img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600",
+        },
+        {
+          id: 8,
+          cat: "award",
+          title: "School Achievement Plaque",
+          desc: "Recognition plaques for top students at an annual ceremony.",
+          img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=600",
+        },
+        {
+          id: 9,
+          cat: "mug",
+          title: "Birthday Gift Mug",
+          desc: "Custom engraved mug with name and birth year — perfect birthday gift.",
+          img: "https://images.unsplash.com/photo-1512054502232-10a0a035d672?q=80&w=600",
+        },
+        {
+          id: 10,
+          cat: "numberplate",
+          title: "3D Bike Number Plate",
+          desc: "Premium 3D acrylic number plate for a Royal Enfield.",
+          img: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=600",
+        },
+        {
+          id: 11,
+          cat: "wooden",
+          title: "Wedding Invitation Set",
+          desc: "Elegant laser-engraved wooden wedding invitations for 150 guests.",
+          img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=600",
+        },
+        {
+          id: 12,
+          cat: "qr",
+          title: "Hotel Digital Menu QR",
+          desc: "Polished wooden QR stands for a 4-star hotel in Pokhara.",
+          img: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=600",
+        },
+        {
+          id: 13,
+          cat: "keyring",
+          title: "Corporate Logo Keyrings",
+          desc: "500 branded keyrings for a company's product launch event.",
+          img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=600",
+        },
+        {
+          id: 14,
+          cat: "signboard",
+          title: "Neon Salon Signboard",
+          desc: "Eye-catching neon signboard for a beauty salon.",
+          img: "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?q=80&w=600",
+        },
+        {
+          id: 15,
+          cat: "wooden",
+          title: "Religious Text Plaque",
+          desc: "Shree Ganesh mantra engraved on natural sal wood.",
+          img: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?q=80&w=600",
+        },
+        {
+          id: 16,
+          cat: "award",
+          title: "Sports Tournament Trophy",
+          desc: "Custom acrylic trophies for a corporate cricket tournament.",
+          img: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=600",
+        },
+      ];
+
+      let currentCat = "all";
+      let currentView = "masonry";
+      let visibleCount = 12;
+      let currentLBIdx = 0;
+      let filteredItems = [];
+
+      /* ════ FILTER ════ */
+      function filterGallery(cat, btn) {
+        currentCat = cat;
+        visibleCount = 12;
+        document.querySelectorAll(".gal-filter").forEach((b) => {
+          b.classList.remove(
+            "active",
+            "bg-primary",
+            "text-white",
+            "border-primary",
+          );
+          b.classList.add("bg-white", "text-gray-600", "border-gray-200");
+        });
+        btn.classList.add(
+          "active",
+          "bg-primary",
+          "text-white",
+          "border-primary",
+        );
+        btn.classList.remove("bg-white", "text-gray-600", "border-gray-200");
+        renderGallery();
+      }
+
+      /* ════ VIEW TOGGLE ════ */
+      function setMasonry() {
+        currentView = "masonry";
+        document.getElementById("masonryBtn").className =
+          "px-3 py-1.5 bg-primary text-white font-sub text-xs rounded-lg transition";
+        document.getElementById("gridBtn").className =
+          "px-3 py-1.5 bg-white border border-gray-200 text-gray-600 font-sub text-xs rounded-lg hover:border-primary hover:text-primary transition";
+        renderGallery();
+      }
+      function setGrid() {
+        currentView = "grid";
+        document.getElementById("gridBtn").className =
+          "px-3 py-1.5 bg-primary text-white font-sub text-xs rounded-lg transition";
+        document.getElementById("masonryBtn").className =
+          "px-3 py-1.5 bg-white border border-gray-200 text-gray-600 font-sub text-xs rounded-lg hover:border-primary hover:text-primary transition";
+        renderGallery();
+      }
+
+      /* ════ RENDER ════ */
+      function renderGallery() {
+        const grid = document.getElementById("galleryGrid");
+        const empty = document.getElementById("galEmpty");
+        const lmWrap = document.getElementById("galLoadMoreWrap");
+
+        filteredItems =
+          currentCat === "all"
+            ? galleryItems
+            : galleryItems.filter((i) => i.cat === currentCat);
+        document.getElementById("galleryCount").textContent =
+          filteredItems.length;
+
+        if (filteredItems.length === 0) {
+          grid.innerHTML = "";
+          empty.classList.remove("hidden");
+          lmWrap.classList.add("hidden");
+          return;
+        }
+
+        empty.classList.add("hidden");
+        const visible = filteredItems.slice(0, visibleCount);
+        lmWrap.classList.toggle("hidden", filteredItems.length <= visibleCount);
+
+        if (currentView === "masonry") {
+          grid.className = "masonry";
+        } else {
+          grid.className =
+            "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4";
+        }
+
+        grid.innerHTML = visible
+          .map(
+            (item, idx) => `
+    <div class="gal-item group relative overflow-hidden rounded-2xl cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300 bg-gray-100"
+         onclick="openLB(${idx})" style="animation-delay:${idx * 50}ms">
+      <img src="${item.img}" alt="${item.title}" class="w-full object-cover"
+           style="${currentView === "grid" ? "height:220px;object-fit:cover" : ""}"/>
+      <!-- Overlay -->
+      <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl flex flex-col justify-end p-4">
+        <span class="font-sub text-[10px] text-white/70 uppercase tracking-wider mb-1 capitalize">${item.cat.replace("numberplate", "Number Plate")}</span>
+        <h3 class="font-main text-white text-sm leading-tight mb-2">${item.title}</h3>
+        <div class="flex items-center gap-2">
+          <span class="bg-white/20 backdrop-blur-sm text-white font-sub text-xs px-2.5 py-1 rounded-lg flex items-center gap-1">
+            <i class="fas fa-eye text-[9px]"></i> View
+          </span>
+          <a href="https://wa.me/9779823939106" onclick="event.stopPropagation()" target="_blank"
+             class="bg-green-600/90 backdrop-blur-sm text-white font-sub text-xs px-2.5 py-1 rounded-lg flex items-center gap-1 hover:bg-green-600 transition">
+            <i class="fa-brands fa-whatsapp text-[10px]"></i> Order
+          </a>
+        </div>
+      </div>
+    </div>`,
+          )
+          .join("");
+      }
+
+      /* ════ LOAD MORE ════ */
+      function loadMoreGallery() {
+        visibleCount += 8;
+        renderGallery();
+      }
+
+      /* ════ LIGHTBOX ════ */
+      function openLB(idx) {
+        currentLBIdx = idx;
+        updateLB();
+        const lb = document.getElementById("lightbox");
+        lb.classList.remove("hidden");
+        lb.classList.add("flex");
+        setTimeout(() => {
+          lb.style.opacity = "1";
+        }, 10);
+        document.body.style.overflow = "hidden";
+      }
+      function closeLB() {
+        const lb = document.getElementById("lightbox");
+        lb.style.opacity = "0";
+        setTimeout(() => {
+          lb.classList.add("hidden");
+          lb.classList.remove("flex");
+        }, 300);
+        document.body.style.overflow = "";
+      }
+      function nextLB() {
+        currentLBIdx = (currentLBIdx + 1) % filteredItems.length;
+        updateLB();
+      }
+      function prevLB() {
+        currentLBIdx =
+          (currentLBIdx - 1 + filteredItems.length) % filteredItems.length;
+        updateLB();
+      }
+      function updateLB() {
+        const item = filteredItems[currentLBIdx];
+        if (!item) return;
+        const img = document.getElementById("lbImg");
+        img.style.opacity = "0";
+        setTimeout(() => {
+          img.src = item.img.replace("w=600", "w=1200");
+          img.style.opacity = "1";
+          img.style.transition = "opacity .3s ease";
+        }, 150);
+        document.getElementById("lbTitle").textContent = item.title;
+        document.getElementById("lbCat").textContent =
+          "📦 " +
+          item.cat.charAt(0).toUpperCase() +
+          item.cat.slice(1).replace("numberplate", "Number Plate");
+        document.getElementById("lbDesc").textContent = item.desc;
+        document.getElementById("lbCounter").textContent =
+          `${currentLBIdx + 1} / ${filteredItems.length}`;
+      }
+
+      /* ════ KEYBOARD ════ */
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLB();
+        if (e.key === "ArrowRight") nextLB();
+        if (e.key === "ArrowLeft") prevLB();
+      });
+      document
+        .getElementById("lightbox")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeLB();
+        });
+
+      /* ════ MOBILE MENU ════ */
+      function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("hidden");
+        const icon = document.getElementById("menuIcon");
+        icon.classList.toggle("fa-bars");
+        icon.classList.toggle("fa-times");
+      }
+
+      /* ════ CART BADGE ════ */
+      function updateBadge() {
+        const total = JSON.parse(
+          localStorage.getItem("radhana_cart") || "[]",
+        ).reduce((s, i) => s + i.qty, 0);
+        document
+          .querySelectorAll(".cart-badge")
+          .forEach((el) => (el.textContent = total));
+      }
+
+      /* ════ REVEAL ════ */
+      const ro = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              ro.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => ro.observe(el));
+
+      /* ════ INIT ════ */
+      renderGallery();
+      updateBadge();
+    </script>
+  </body>
+</html>

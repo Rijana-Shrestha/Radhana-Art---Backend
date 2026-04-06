@@ -1,0 +1,3033 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radhana Art — Laser Engraving & Customized Gifts, Kathmandu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#145faf", secondary: "#D93A6A" },
+            fontFamily: {
+              main: ["Playfair Display", "serif"],
+              sub: ["Poppins", "sans-serif"],
+            },
+            keyframes: {
+              scroll: {
+                "0%": { transform: "translateX(0%)" },
+                "100%": { transform: "translateX(-50%)" },
+              },
+              fadeInUp: {
+                from: { opacity: "0", transform: "translateY(30px)" },
+                to: { opacity: "1", transform: "translateY(0)" },
+              },
+              float: {
+                "0%,100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-14px)" },
+              },
+              marquee: {
+                "0%": { transform: "translateX(0)" },
+                "100%": { transform: "translateX(-50%)" },
+              },
+            },
+            animation: {
+              scroll: "scroll 30s linear infinite",
+              float: "float 5s ease-in-out infinite",
+              marquee: "marquee 28s linear infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Reveal animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-36px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(36px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal-left.visible,
+      .reveal-right.visible {
+        opacity: 1;
+        transform: none;
+      }
+      .stagger .reveal:nth-child(1) {
+        transition-delay: 0ms;
+      }
+      .stagger .reveal:nth-child(2) {
+        transition-delay: 80ms;
+      }
+      .stagger .reveal:nth-child(3) {
+        transition-delay: 160ms;
+      }
+      .stagger .reveal:nth-child(4) {
+        transition-delay: 240ms;
+      }
+      .stagger .reveal:nth-child(5) {
+        transition-delay: 320ms;
+      }
+      .stagger .reveal:nth-child(6) {
+        transition-delay: 400ms;
+      }
+
+      /* Hero entrance */
+      .h-anim-1 {
+        animation: fadeInUp 0.7s 0.05s ease both;
+      }
+      .h-anim-2 {
+        animation: fadeInUp 0.7s 0.15s ease both;
+      }
+      .h-anim-3 {
+        animation: fadeInUp 0.7s 0.28s ease both;
+      }
+      .h-anim-4 {
+        animation: fadeInUp 0.7s 0.42s ease both;
+      }
+      .h-anim-5 {
+        animation: fadeInUp 0.7s 0.55s ease both;
+      }
+      .h-anim-6 {
+        animation: fadeInUp 0.9s 0.18s ease both;
+      }
+
+      /* Patterns */
+      .lotus-bg {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23145faf' stroke-opacity='.04' stroke-width='2'/%3E%3C/svg%3E");
+      }
+      .peacock-bg {
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D93A6A' fill-opacity='.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z'/%3E%3C/g%3E%3C/svg%3E");
+      }
+
+      /* WhatsApp float */
+      .wa-float {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        z-index: 999;
+        width: 58px;
+        height: 58px;
+        background: #25d366;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        text-decoration: none;
+      }
+      .wa-float:hover {
+        transform: scale(1.12);
+        box-shadow: 0 6px 28px rgba(37, 211, 102, 0.65);
+      }
+
+      /* Nav */
+      .nav-link {
+        position: relative;
+        padding-bottom: 4px;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #d93a6a;
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+      .nav-link.active {
+        color: #d93a6a !important;
+      }
+
+      /* Megamenu */
+      .mega-parent {
+        position: relative;
+      }
+      .mega-menu {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        z-index: 200;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease,
+          visibility 0.25s;
+        pointer-events: none;
+      }
+      .mega-parent:hover .mega-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: all;
+      }
+      .simple-dd {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        z-index: 200;
+        min-width: 190px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease,
+          visibility 0.25s;
+        pointer-events: none;
+      }
+      .mega-parent:hover .simple-dd {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: all;
+      }
+      .dd-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        border-radius: 10px;
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #4b5563;
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+      .dd-item:hover {
+        background: #f8f5ff;
+        color: #d93a6a;
+      }
+      .dd-section-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 8px 14px 4px;
+      }
+
+      /* Category cards */
+      .cat-card {
+        transition: all 0.35s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .cat-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(0, 0, 0, 0.2) 50%,
+          transparent 100%
+        );
+        z-index: 1;
+      }
+      .cat-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+      .cat-card img {
+        transition: transform 0.5s ease;
+      }
+      .cat-card:hover img {
+        transform: scale(1.08);
+      }
+      .cat-card-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        padding: 20px 16px 16px;
+      }
+
+      /* Card shine */
+      .card-shine {
+        position: relative;
+        overflow: hidden;
+      }
+      .card-shine::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.18),
+          transparent
+        );
+        transition: left 0.5s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .card-shine:hover::before {
+        left: 125%;
+      }
+
+      /* Companies marquee */
+      @keyframes marqueeAnim {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      .marquee-track {
+        display: flex;
+        animation: marqueeAnim 30s linear infinite;
+        will-change: transform;
+      }
+      .marquee-track:hover {
+        animation-play-state: paused;
+      }
+      .company-card {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        border: 1.5px solid #f0f0f0;
+        border-radius: 16px;
+        padding: 14px 18px;
+        margin: 0 8px;
+        width: 130px;
+        transition: all 0.3s;
+        cursor: default;
+      }
+      .company-card:hover {
+        border-color: #145faf;
+        box-shadow: 0 4px 16px rgba(20, 95, 175, 0.12);
+        transform: translateY(-3px);
+      }
+      .company-logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Payment badges */
+      .pay-badge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        padding: 6px 12px;
+        font-family: "Poppins", sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* Search suggest */
+      #searchSuggest {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border: 2px solid #e5e7eb;
+        border-top: none;
+        border-radius: 0 0 12px 12px;
+        z-index: 100;
+        max-height: 280px;
+        overflow-y: auto;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Lightbox */
+      #lightbox {
+        transition: opacity 0.3s ease;
+      }
+
+      /* Toast */
+      .toast-enter {
+        animation: fadeInUp 0.3s ease;
+      }
+
+      /* Stats counter */
+      .counter {
+        display: inline-block;
+      }
+    </style>
+    <script src="/frontend/api.js"></script>
+  </head>
+  <body class="bg-white overflow-x-hidden">
+    <!-- WhatsApp Float -->
+    <a
+      href="https://wa.me/9779823939106"
+      target="_blank"
+      class="wa-float"
+      title="Chat on WhatsApp"
+    >
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Toast notification -->
+    <div
+      id="toast"
+      class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[400] hidden"
+    >
+      <div
+        class="bg-gray-900 text-white font-sub text-sm px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2"
+      >
+        <i id="toastIcon" class="fas fa-check-circle text-green-400"></i>
+        <span id="toastMsg">Added to cart!</span>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 bg-black/95 z-[200] hidden items-center justify-center p-4 opacity-0"
+    >
+      <button
+        onclick="closeLB()"
+        class="absolute top-5 right-5 text-white w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition"
+      >
+        <i class="fas fa-times text-lg"></i>
+      </button>
+      <button
+        onclick="prevLB()"
+        class="absolute left-4 top-1/2 -translate-y-1/2 text-white w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition"
+      >
+        <i class="fas fa-chevron-left text-xl"></i>
+      </button>
+      <img
+        id="lbImg"
+        src=""
+        class="max-w-full max-h-[90vh] rounded-xl object-contain shadow-2xl"
+      />
+      <button
+        onclick="nextLB()"
+        class="absolute right-4 top-1/2 -translate-y-1/2 text-white w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition"
+      >
+        <i class="fas fa-chevron-right text-xl"></i>
+      </button>
+    </div>
+
+    <!-- ══ ANNOUNCEMENT BAR ══ -->
+    <div
+      class="bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-gray-800 py-2 px-4 overflow-hidden sticky top-0 z-[70]"
+    >
+      <div class="flex whitespace-nowrap animate-scroll">
+        <p class="font-sub text-xs md:text-sm font-medium inline-block pr-20">
+          🎨 Premium Laser Engraving &nbsp;|&nbsp; 📦 Custom Wooden &amp;
+          Acrylic Products &nbsp;|&nbsp; 🎁 Perfect Gifts &nbsp;|&nbsp; 📞 +977
+          9823939106 &nbsp;|&nbsp; 🚚 Fast Delivery Kathmandu &nbsp;|&nbsp; 💳
+          eSewa · Khalti · FonePay Accepted
+        </p>
+        <p class="font-sub text-xs md:text-sm font-medium inline-block pr-20">
+          🎨 Premium Laser Engraving &nbsp;|&nbsp; 📦 Custom Wooden &amp;
+          Acrylic Products &nbsp;|&nbsp; 🎁 Perfect Gifts &nbsp;|&nbsp; 📞 +977
+          9823939106 &nbsp;|&nbsp; 🚚 Fast Delivery Kathmandu &nbsp;|&nbsp; 💳
+          eSewa · Khalti · FonePay Accepted
+        </p>
+      </div>
+    </div>
+
+    <!-- ══ HEADER ══ -->
+    <header
+      class="bg-white shadow-sm sticky top-[40px] z-50 transition-shadow duration-300"
+      id="mainHeader"
+    >
+      <div class="container mx-auto py-3 md:py-2 px-4 md:px-8 lg:px-12">
+        <div class="flex justify-between items-center gap-4">
+          <!-- Logo -->
+          <a href="/" class="flex items-center gap-3 flex-shrink-0">
+            <div
+              class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-md shadow-primary/20"
+            >
+              <span class="text-white font-bold font-main text-lg md:text-xl"
+                >RA</span
+              >
+            </div>
+            <div>
+              <span
+                class="font-main text-primary text-lg md:text-[22px] font-bold leading-tight block"
+                >Radhana Art</span
+              >
+              <span class="font-sub text-[10px] text-gray-400 hidden md:block"
+                >Laser Engraving · Kathmandu</span
+              >
+            </div>
+          </a>
+
+          <button
+            class="lg:hidden text-gray-700 hover:text-primary transition"
+            onclick="toggleMenu()"
+          >
+            <i id="menuIcon" class="fas fa-bars text-2xl"></i>
+          </button>
+
+          <!-- Search with suggestions -->
+          <div
+            class="hidden lg:flex flex-1 max-w-xl mx-6 relative"
+            id="searchWrapper"
+          >
+            <div class="relative w-full">
+              <i
+                class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm z-10"
+              ></i>
+              <input
+                type="text"
+                id="globalSearch"
+                placeholder="Search products, categories..."
+                class="font-sub w-full py-2.5 pl-10 pr-24 border-2 border-gray-100 bg-gray-50 rounded-xl focus:outline-none focus:border-primary focus:bg-white transition text-sm"
+                oninput="handleSearch(this.value)"
+                onkeydown="searchEnter(event)"
+                autocomplete="off"
+              />
+              <button
+                onclick="doSearch()"
+                class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1.5 rounded-lg hover:bg-secondary transition font-sub text-xs font-medium"
+              >
+                Search
+              </button>
+              <div id="searchSuggest" class="hidden"></div>
+            </div>
+          </div>
+
+          <!-- Icons -->
+          <div class="hidden lg:flex items-center gap-5">
+            <a
+              href="/frontend/src/login.html"
+              class="text-gray-600 hover:text-primary transition hover:scale-110 inline-block"
+              title="Account"
+            >
+              <i class="text-2xl fa-solid fa-circle-user"></i>
+            </a>
+            <a
+              href="https://wa.me/9779823939106"
+              target="_blank"
+              class="flex items-center gap-1.5 text-green-600 font-sub text-sm font-medium hover:scale-105 transition"
+            >
+              <i class="fa-brands fa-whatsapp text-2xl"></i
+              ><span>+977 9823939106</span>
+            </a>
+            <a
+              href="/frontend/src/cart.html"
+              class="relative text-gray-600 hover:text-primary transition hover:scale-110 inline-block"
+            >
+              <i class="text-2xl fa-solid fa-shopping-cart"></i>
+              <span
+                class="cart-badge absolute -top-2 -right-2 bg-secondary text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center"
+                >0</span
+              >
+            </a>
+          </div>
+        </div>
+
+        <!-- ══ DESKTOP MEGA NAV ══ -->
+        <nav
+          class="font-sub hidden lg:flex gap-1 items-center justify-center text-[14px] mt-3 pt-2.5 border-t border-gray-100"
+        >
+          <a
+            href="/"
+            class="nav-link active text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >Home</a
+          >
+
+          <!-- Personalized Gifts MEGA
+          <div class="mega-parent">
+            <button
+              class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium flex items-center gap-1"
+            >
+              Personalized Gifts
+              <i class="fas fa-chevron-down text-[10px] ml-0.5"></i>
+            </button>
+            <div class="mega-menu w-[680px] p-6">
+              <div class="grid grid-cols-4 gap-5">
+                <div>
+                  <p class="dd-section-title">Shop by Festival</p>
+                  <a href="/product.html?festival=mothers-day" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Mother's Day</a
+                  >
+                  <a href="/product.html?festival=fathers-day" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Father's Day</a
+                  >
+                  <a href="/product.html?festival=rakhi" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Rakhi</a
+                  >
+                  <a href="/product.html?festival=dashain" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Dashain</a
+                  >
+                  <a href="/product.html?festival=tihar" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Tihar</a
+                  >
+                  <a href="/product.html?festival=christmas" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Christmas</a
+                  >
+                </div>
+                <div>
+                  <p class="dd-section-title">Shop by Occasion</p>
+                  <a href="/product.html?occ=anniversary" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Anniversary</a
+                  >
+                  <a href="/product.html?occ=birthday" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Birthday</a
+                  >
+                  <a href="/product.html?occ=wedding" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Wedding</a
+                  >
+                  <a href="/product.html?occ=baby-shower" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Baby Shower</a
+                  >
+                  <a href="/product.html?occ=valentines" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Valentine's Day</a
+                  >
+                  <p class="dd-section-title mt-2">Shop for Him</p>
+                  <a href="/product.html?for=father" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Father</a
+                  >
+                  <a href="/product.html?for=brother" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Brother</a
+                  >
+                  <a href="/product.html?for=husband" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Husband</a
+                  >
+                  <a href="/product.html?for=boyfriend" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Boyfriend</a
+                  >
+                </div>
+                <div>
+                  <p class="dd-section-title">Shop for Her</p>
+                  <a href="/product.html?for=mother" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Mother</a
+                  >
+                  <a href="/product.html?for=sister" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Sister</a
+                  >
+                  <a href="/product.html?for=wife" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Wife</a
+                  >
+                  <a href="/product.html?for=girlfriend" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Girlfriend</a
+                  >
+                  <a href="/product.html?for=friend" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Friend</a
+                  >
+                </div>
+                <div>
+                  <p class="dd-section-title">Shop by Product</p>
+                  <a href="/product.html?type=wooden" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Photo Frames</a
+                  >
+                  <a href="/product.html?type=keyring" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Keyrings</a
+                  >
+                  <a href="/product.html?type=mug" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Mugs</a
+                  >
+                  <a href="/product.html?type=wooden" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Wooden Engravings</a
+                  >
+                  <a href="/product.html?type=plaque" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Plaques</a
+                  >
+                  <p class="dd-section-title mt-2">Shop by Price</p>
+                  <a href="/product.html?maxprice=500" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Under Rs.500</a
+                  >
+                  <a href="/product.html?maxprice=1000" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Under Rs.1,000</a
+                  >
+                  <a href="/product.html?maxprice=1500" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Under Rs.1,500</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+          Home Decor -->
+          <!-- <div class="mega-parent">
+            <button
+              class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium flex items-center gap-1"
+            >
+              Home Decor <i class="fas fa-chevron-down text-[10px] ml-0.5"></i>
+            </button>
+            <div class="simple-dd p-3">
+              <a
+                href="/product.html?cat=homedecor&type=fridge-magnet"
+                class="dd-item"
+                ><i class="fas fa-magnet text-secondary text-xs w-4"></i> Fridge
+                Magnet</a
+              >
+              <a
+                href="/product.html?cat=homedecor&type=home-signs"
+                class="dd-item"
+                ><i class="fas fa-home text-secondary text-xs w-4"></i> Home
+                Signs</a
+              >
+              <a
+                href="/product.html?cat=homedecor&type=wall-clock"
+                class="dd-item"
+                ><i class="fas fa-clock text-secondary text-xs w-4"></i> Wall
+                Clock</a
+              >
+              <a
+                href="/product.html?cat=homedecor&type=wall-decor"
+                class="dd-item"
+                ><i class="fas fa-palette text-secondary text-xs w-4"></i> Wall
+                Decor</a
+              >
+              <a href="/product.html?cat=homedecor&type=neon" class="dd-item"
+                ><i class="fas fa-lightbulb text-secondary text-xs w-4"></i>
+                Neon Lights</a
+              >
+              <a href="/product.html?cat=homedecor&type=leafart" class="dd-item"
+                ><i class="fas fa-leaf text-secondary text-xs w-4"></i> Leaf
+                Art</a
+              >
+            </div>
+          </div>
+
+        <-- Corporate Gifting -->
+          <!-- <div class="mega-parent">
+            <button
+              class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium flex items-center gap-1"
+            >
+              Corporate Gifting
+              <i class="fas fa-chevron-down text-[10px] ml-0.5"></i>
+            </button>
+            <div class="simple-dd p-3">
+              <a
+                href="/product.html?cat=corporate&type=souvenir"
+                class="dd-item"
+                ><i class="fas fa-gift text-secondary text-xs w-4"></i>
+                Souvenir</a
+              >
+              <a
+                href="/product.html?cat=corporate&type=work-essential"
+                class="dd-item"
+                ><i class="fas fa-briefcase text-secondary text-xs w-4"></i>
+                Work Essential</a
+              >
+              <a href="/product.html?cat=corporate&type=award" class="dd-item"
+                ><i class="fas fa-trophy text-secondary text-xs w-4"></i> Trophy
+                &amp; Award</a
+              >
+              <a
+                href="/product.html?cat=corporate&type=signboard"
+                class="dd-item"
+                ><i class="fas fa-sign-hanging text-secondary text-xs w-4"></i>
+                Signboards</a
+              >
+              <a href="/product.html?cat=corporate&type=qr" class="dd-item"
+                ><i class="fas fa-qrcode text-secondary text-xs w-4"></i> QR
+                Code Stands</a
+              >
+              <a
+                href="/product.html?cat=corporate&type=numberplate"
+                class="dd-item"
+                ><i class="fas fa-car text-secondary text-xs w-4"></i> Number
+                Plates</a
+              >
+            </div>
+          </div>
+
+          Events 
+          <div class="mega-parent">
+            <button
+              class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium flex items-center gap-1"
+            >
+              Events <i class="fas fa-chevron-down text-[10px] ml-0.5"></i>
+            </button>
+            <div class="simple-dd p-3">
+              <a href="/product.html?occ=wedding" class="dd-item"
+                ><i class="fas fa-heart text-secondary text-xs w-4"></i>
+                Wedding</a
+              >
+              <a href="/product.html?occ=birthday" class="dd-item"
+                ><i class="fas fa-birthday-cake text-secondary text-xs w-4"></i>
+                Birthday Party</a
+              >
+              <a href="/product.html?occ=graduation" class="dd-item"
+                ><i
+                  class="fas fa-graduation-cap text-secondary text-xs w-4"
+                ></i>
+                Graduation</a
+              >
+              <a href="/product.html?cat=corporate" class="dd-item"
+                ><i class="fas fa-building text-secondary text-xs w-4"></i>
+                Corporate Events</a
+              >
+            </div>
+          </div>  -->
+
+          <a
+            href="/frontend/src/product.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >Products</a
+          >
+
+          <a
+            href="/frontend/src/gallery.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >Gallery</a
+          >
+          <a
+            href="/frontend/src//aboutUs.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >About Us</a
+          >
+          <a
+            href="/frontend/src//faq.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >FAQ</a
+          >
+          <a
+            href="/frontend/src//contact.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >Contact</a
+          >
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div
+          id="mobileMenu"
+          class="hidden lg:hidden mt-4 pb-4 border-t border-gray-100 pt-4"
+        >
+          <div class="relative mb-4">
+            <i
+              class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"
+            ></i>
+            <input
+              type="text"
+              id="mobileSearch"
+              placeholder="Search products..."
+              class="font-sub w-full py-2.5 pl-9 pr-4 border-2 border-gray-100 rounded-xl text-sm focus:outline-none focus:border-primary bg-gray-50"
+              oninput="handleSearch(this.value)"
+              onkeydown="searchEnter(event)"
+            />
+          </div>
+          <nav class="font-sub flex flex-col">
+            <a
+              href="/"
+              class="py-3 border-b border-gray-100 text-secondary font-medium text-sm"
+              >Home</a
+            >
+            <a
+              href="/product.html"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >Products</a
+            >
+            <a
+              href="/gallery.html"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >Gallery</a
+            >
+            <a
+              href="/aboutUs.html"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >About Us</a
+            >
+            <a href="/contact.html" class="py-3 text-gray-700 text-sm"
+              >Contact Us</a
+            >
+          </nav>
+          <div
+            class="flex items-center gap-4 mt-4 pt-4 border-t border-gray-100"
+          >
+            <a href="/login.html" class="text-gray-600"
+              ><i class="text-2xl fa-solid fa-circle-user"></i
+            ></a>
+            <a
+              href="https://wa.me/9779823939106"
+              target="_blank"
+              class="flex items-center gap-2 text-green-600 font-sub text-sm font-medium"
+            >
+              <i class="fa-brands fa-whatsapp text-2xl"></i
+              ><span>+977 9823939106</span>
+            </a>
+            <a href="/cart.html" class="relative text-gray-600">
+              <i class="text-2xl fa-solid fa-shopping-cart"></i>
+              <span
+                class="cart-badge absolute -top-2 -right-2 bg-secondary text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center"
+                >0</span
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
+      <section
+        class="relative min-h-[88vh] flex items-center py-16 md:py-20 px-6 md:px-8 lg:px-12 bg-gradient-to-br from-slate-50 via-blue-50/40 to-pink-50/30 lotus-bg overflow-hidden"
+      >
+        <div
+          class="absolute -top-40 -right-40 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none"
+        ></div>
+        <div
+          class="absolute -bottom-32 -left-32 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-3xl pointer-events-none"
+        ></div>
+        <div
+          class="absolute top-10 right-10 text-[120px] text-primary/5 font-main leading-none pointer-events-none select-none"
+        >
+          ॐ
+        </div>
+
+        <div class="container mx-auto">
+          <div
+            class="flex flex-col lg:flex-row items-center lg:justify-between gap-12 lg:gap-16"
+          >
+            <!-- LEFT -->
+            <div class="lg:w-1/2">
+              <div
+                class="h-anim-1 inline-flex items-center gap-2 bg-secondary/10 text-secondary border border-secondary/20 rounded-full px-4 py-1.5 text-sm font-sub font-medium mb-5"
+              >
+                <i class="fas fa-om text-xs"></i> Divine Craftsmanship from
+                Kathmandu
+              </div>
+              <h1
+                class="h-anim-2 font-main text-3xl md:text-4xl lg:text-5xl xl:text-[56px] font-bold mb-5 leading-tight text-gray-800"
+              >
+                Laser Engraving &amp;<br />
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-secondary"
+                  >Customized Gifts</span
+                >
+              </h1>
+              <p
+                class="h-anim-3 font-sub text-gray-500 text-[15px] md:text-[17px] mb-8 leading-relaxed max-w-lg"
+              >
+                Transform your memories into timeless art. From wooden QR codes
+                to personalized photo engravings — each piece crafted with
+                divine precision and love.
+              </p>
+              <div class="h-anim-4 flex flex-col sm:flex-row gap-3 mb-9">
+                <a
+                  href="/product.html"
+                  class="font-sub bg-primary text-white px-7 py-3.5 rounded-xl text-center hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-0.5 transition-all duration-300 font-medium flex items-center justify-center gap-2"
+                >
+                  <i class="fas fa-store"></i> Explore Products
+                </a>
+                <a
+                  href="/contact.html"
+                  class="font-sub bg-secondary text-white px-7 py-3.5 rounded-xl text-center hover:bg-secondary/90 hover:shadow-xl hover:shadow-secondary/25 hover:-translate-y-0.5 transition-all duration-300 font-medium flex items-center justify-center gap-2"
+                >
+                  <i class="fas fa-envelope"></i> Get Custom Quote
+                </a>
+              </div>
+              <div class="h-anim-5 flex flex-wrap gap-3">
+                <div
+                  class="flex items-center gap-2 text-sm font-sub text-gray-600 bg-white/80 backdrop-blur-sm rounded-xl px-3 py-2 shadow-sm border border-gray-100"
+                >
+                  <div
+                    class="w-7 h-7 bg-green-100 rounded-lg flex items-center justify-center"
+                  >
+                    <i class="fas fa-check text-green-600 text-xs"></i>
+                  </div>
+                  Premium Quality
+                </div>
+                <div
+                  class="flex items-center gap-2 text-sm font-sub text-gray-600 bg-white/80 backdrop-blur-sm rounded-xl px-3 py-2 shadow-sm border border-gray-100"
+                >
+                  <div
+                    class="w-7 h-7 bg-blue-100 rounded-lg flex items-center justify-center"
+                  >
+                    <i class="fas fa-truck-fast text-blue-600 text-xs"></i>
+                  </div>
+                  Fast Delivery
+                </div>
+                <div
+                  class="flex items-center gap-2 text-sm font-sub text-gray-600 bg-white/80 backdrop-blur-sm rounded-xl px-3 py-2 shadow-sm border border-gray-100"
+                >
+                  <div
+                    class="w-7 h-7 bg-pink-100 rounded-lg flex items-center justify-center"
+                  >
+                    <i class="fas fa-heart text-secondary text-xs"></i>
+                  </div>
+                  Laser Engraved
+                </div>
+                <div
+                  class="flex items-center gap-2 text-sm font-sub text-gray-600 bg-white/80 backdrop-blur-sm rounded-xl px-3 py-2 shadow-sm border border-gray-100"
+                >
+                  <div
+                    class="w-7 h-7 bg-amber-100 rounded-lg flex items-center justify-center"
+                  >
+                    <i class="fas fa-star text-amber-500 text-xs"></i>
+                  </div>
+                  4.9★ Rated
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT: Image -->
+            <div class="lg:w-1/2 h-anim-6">
+              <div class="relative">
+                <div
+                  class="relative rounded-2xl overflow-hidden shadow-2xl shadow-gray-300/50 animate-float"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?q=80&w=800&auto=format&fit=crop"
+                    class="w-full h-[380px] md:h-[460px] object-cover"
+                    alt="Laser Engraved Products"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
+                  ></div>
+                  <div class="absolute bottom-4 left-4 right-4">
+                    <div
+                      class="bg-white/90 backdrop-blur-md rounded-xl p-3.5 flex items-center justify-between shadow-lg"
+                    >
+                      <div>
+                        <p class="font-main text-primary text-sm font-semibold">
+                          Custom Wooden Engraving
+                        </p>
+                        <div class="flex items-center gap-0.5 mt-0.5">
+                          <i class="fas fa-star text-amber-400 text-xs"></i
+                          ><i class="fas fa-star text-amber-400 text-xs"></i
+                          ><i class="fas fa-star text-amber-400 text-xs"></i
+                          ><i class="fas fa-star text-amber-400 text-xs"></i
+                          ><i class="fas fa-star text-amber-400 text-xs"></i>
+                          <span class="font-sub text-gray-400 text-xs ml-1"
+                            >5.0</span
+                          >
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <p class="font-sub text-gray-400 text-[10px]">
+                          Starting from
+                        </p>
+                        <p class="font-sub text-secondary font-bold text-base">
+                          Rs. 500
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="absolute -top-5 -left-5 bg-white rounded-2xl shadow-xl p-3.5 text-center min-w-[90px] border border-gray-100"
+                >
+                  <div class="font-main text-2xl font-bold text-primary">
+                    5K+
+                  </div>
+                  <div class="font-sub text-xs text-gray-500 mt-0.5">
+                    Happy Clients
+                  </div>
+                </div>
+                <div
+                  class="absolute -bottom-5 -right-5 bg-secondary text-white rounded-2xl shadow-xl p-3.5 text-center min-w-[90px]"
+                >
+                  <div class="font-main text-2xl font-bold">4.9★</div>
+                  <div class="font-sub text-xs opacity-90 mt-0.5">
+                    Avg Rating
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════ SHOP BY CATEGORY ══════════════════════════ -->
+      <section class="py-14 md:py-16 px-6 md:px-8 lg:px-12 bg-white">
+        <div class="container mx-auto">
+          <div class="text-center mb-10 reveal">
+            <span
+              class="font-sub text-secondary text-sm font-semibold uppercase tracking-widest"
+              >Browse By Category</span
+            >
+            <h2
+              class="font-main text-2xl md:text-3xl lg:text-4xl mt-2 mb-2 text-gray-800"
+            >
+              Shop Our Collections
+            </h2>
+            <p class="font-sub text-gray-400 text-[15px] max-w-lg mx-auto">
+              Find the perfect gift for every person, occasion, and budget
+            </p>
+          </div>
+
+          <!-- Main category cards (big) -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5 stagger">
+            <!-- Personalized Gifts -->
+            <div
+              class="reveal cat-card rounded-2xl cursor-pointer h-64 md:h-72"
+              onclick="location.href = '/product.html'"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1582269847642-87432658c952?q=80&w=800&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover"
+                alt="Personalized Gifts"
+              />
+              <div class="cat-card-content">
+                <div
+                  class="inline-flex items-center gap-1.5 bg-secondary/90 text-white font-sub text-[10px] font-bold px-2.5 py-1 rounded-full mb-2 uppercase tracking-wider"
+                >
+                  <i class="fas fa-heart text-[8px]"></i> Best Seller
+                </div>
+                <h3
+                  class="font-main text-white text-xl font-bold leading-tight mb-1"
+                >
+                  Personalized Gifts
+                </h3>
+                <p class="font-sub text-white/80 text-xs mb-3">
+                  Wooden engravings, keyrings, mugs &amp; more
+                </p>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="font-sub text-white text-xs bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full"
+                    >50+ Products</span
+                  >
+                  <span
+                    class="font-sub text-white text-xs flex items-center gap-1 hover:gap-2 transition-all"
+                    >Shop Now <i class="fas fa-arrow-right text-[10px]"></i
+                  ></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Home Decor -->
+            <div
+              class="reveal cat-card rounded-2xl cursor-pointer h-64 md:h-72"
+              onclick="location.href = '/product.html?cat=homedecor'"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=800&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover"
+                alt="Home Decor"
+              />
+              <div class="cat-card-content">
+                <div
+                  class="inline-flex items-center gap-1.5 bg-primary/90 text-white font-sub text-[10px] font-bold px-2.5 py-1 rounded-full mb-2 uppercase tracking-wider"
+                >
+                  <i class="fas fa-home text-[8px]"></i> New Arrivals
+                </div>
+                <h3
+                  class="font-main text-white text-xl font-bold leading-tight mb-1"
+                >
+                  Home Decor
+                </h3>
+                <p class="font-sub text-white/80 text-xs mb-3">
+                  Wall clocks, neon lights, fridge magnets &amp; more
+                </p>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="font-sub text-white text-xs bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full"
+                    >25+ Products</span
+                  >
+                  <span
+                    class="font-sub text-white text-xs flex items-center gap-1 hover:gap-2 transition-all"
+                    >Shop Now <i class="fas fa-arrow-right text-[10px]"></i
+                  ></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Corporate Gifting -->
+            <div
+              class="reveal cat-card rounded-2xl cursor-pointer h-64 md:h-72"
+              onclick="location.href = '/product.html?cat=corporate'"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1495121553079-4c61bcce1894?q=80&w=800&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover"
+                alt="Corporate Gifting"
+              />
+              <div class="cat-card-content">
+                <div
+                  class="inline-flex items-center gap-1.5 bg-amber-500/90 text-white font-sub text-[10px] font-bold px-2.5 py-1 rounded-full mb-2 uppercase tracking-wider"
+                >
+                  <i class="fas fa-briefcase text-[8px]"></i> Corporate
+                </div>
+                <h3
+                  class="font-main text-white text-xl font-bold leading-tight mb-1"
+                >
+                  Corporate Gifting
+                </h3>
+                <p class="font-sub text-white/80 text-xs mb-3">
+                  Awards, trophies, QR codes, signboards &amp; more
+                </p>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="font-sub text-white text-xs bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full"
+                    >30+ Products</span
+                  >
+                  <span
+                    class="font-sub text-white text-xs flex items-center gap-1 hover:gap-2 transition-all"
+                    >Shop Now <i class="fas fa-arrow-right text-[10px]"></i
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-category pills -->
+          <div
+            class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 stagger"
+          >
+            <a
+              href="/product.html?for=mother"
+              class="reveal flex flex-col items-center gap-2 bg-pink-50 border border-pink-100 rounded-2xl p-4 hover:bg-pink-100 hover:border-pink-300 transition group"
+            >
+              <div
+                class="w-10 h-10 bg-pink-200 rounded-xl flex items-center justify-center text-pink-600 text-lg group-hover:bg-pink-500 group-hover:text-white transition"
+              >
+                <i class="fas fa-heart"></i>
+              </div>
+              <span
+                class="font-sub text-xs font-semibold text-gray-700 text-center"
+                >For Mother</span
+              >
+            </a>
+            <a
+              href="/product.html?for=father"
+              class="reveal flex flex-col items-center gap-2 bg-blue-50 border border-blue-100 rounded-2xl p-4 hover:bg-blue-100 hover:border-blue-300 transition group"
+            >
+              <div
+                class="w-10 h-10 bg-blue-200 rounded-xl flex items-center justify-center text-blue-600 text-lg group-hover:bg-blue-500 group-hover:text-white transition"
+              >
+                <i class="fas fa-user-tie"></i>
+              </div>
+              <span
+                class="font-sub text-xs font-semibold text-gray-700 text-center"
+                >For Father</span
+              >
+            </a>
+            <a
+              href="/product.html?occ=anniversary"
+              class="reveal flex flex-col items-center gap-2 bg-rose-50 border border-rose-100 rounded-2xl p-4 hover:bg-rose-100 hover:border-rose-300 transition group"
+            >
+              <div
+                class="w-10 h-10 bg-rose-200 rounded-xl flex items-center justify-center text-rose-600 text-lg group-hover:bg-rose-500 group-hover:text-white transition"
+              >
+                <i class="fas fa-rings-wedding"></i>
+              </div>
+              <span
+                class="font-sub text-xs font-semibold text-gray-700 text-center"
+                >Anniversary</span
+              >
+            </a>
+            <a
+              href="/product.html?occ=birthday"
+              class="reveal flex flex-col items-center gap-2 bg-amber-50 border border-amber-100 rounded-2xl p-4 hover:bg-amber-100 hover:border-amber-300 transition group"
+            >
+              <div
+                class="w-10 h-10 bg-amber-200 rounded-xl flex items-center justify-center text-amber-600 text-lg group-hover:bg-amber-500 group-hover:text-white transition"
+              >
+                <i class="fas fa-birthday-cake"></i>
+              </div>
+              <span
+                class="font-sub text-xs font-semibold text-gray-700 text-center"
+                >Birthday</span
+              >
+            </a>
+            <a
+              href="/product.html?type=qr"
+              class="reveal flex flex-col items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-2xl p-4 hover:bg-indigo-100 hover:border-indigo-300 transition group"
+            >
+              <div
+                class="w-10 h-10 bg-indigo-200 rounded-xl flex items-center justify-center text-indigo-600 text-lg group-hover:bg-indigo-500 group-hover:text-white transition"
+              >
+                <i class="fas fa-qrcode"></i>
+              </div>
+              <span
+                class="font-sub text-xs font-semibold text-gray-700 text-center"
+                >QR Codes</span
+              >
+            </a>
+            <a
+              href="/product.html?maxprice=500"
+              class="reveal flex flex-col items-center gap-2 bg-green-50 border border-green-100 rounded-2xl p-4 hover:bg-green-100 hover:border-green-300 transition group"
+            >
+              <div
+                class="w-10 h-10 bg-green-200 rounded-xl flex items-center justify-center text-green-600 text-lg group-hover:bg-green-500 group-hover:text-white transition"
+              >
+                <i class="fas fa-tag"></i>
+              </div>
+              <span
+                class="font-sub text-xs font-semibold text-gray-700 text-center"
+                >Under Rs.500</span
+              >
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════ HOW IT WORKS ═══════════════════════════════ -->
+      <section
+        class="py-16 md:py-20 px-6 md:px-8 lg:px-12 bg-slate-50 peacock-bg"
+      >
+        <div class="container mx-auto">
+          <div class="text-center mb-12 reveal">
+            <span
+              class="font-sub text-secondary text-sm font-semibold uppercase tracking-widest"
+              >Simple Process</span
+            >
+            <h2
+              class="font-main text-2xl md:text-3xl lg:text-4xl mt-2 mb-3 text-gray-800"
+            >
+              How It Works
+            </h2>
+            <p class="font-sub text-gray-400 text-[15px] max-w-xl mx-auto">
+              Ordering your custom engraving is simple — you'll see a design
+              preview before we ever craft it
+            </p>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 stagger"
+          >
+            <div class="reveal text-center group">
+              <div class="relative mb-5 inline-block">
+                <div
+                  class="w-20 h-20 bg-white border-2 border-primary/15 rounded-2xl flex items-center justify-center mx-auto shadow-sm group-hover:bg-primary group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/30 group-hover:-translate-y-1 transition-all duration-400"
+                >
+                  <i
+                    class="fas fa-image text-primary text-3xl group-hover:text-white transition-colors duration-300"
+                  ></i>
+                </div>
+                <div
+                  class="absolute -top-2 -right-2 w-7 h-7 bg-primary text-white rounded-full text-xs font-sub font-bold flex items-center justify-center shadow"
+                >
+                  1
+                </div>
+              </div>
+              <h3 class="font-main text-gray-800 text-lg mb-2">
+                Upload Your Photo
+              </h3>
+              <p class="font-sub text-gray-400 text-sm leading-relaxed">
+                Send us your image via WhatsApp or email after placing your
+                order
+              </p>
+            </div>
+            <div class="reveal text-center group">
+              <div class="relative mb-5 inline-block">
+                <div
+                  class="w-20 h-20 bg-white border-2 border-secondary/15 rounded-2xl flex items-center justify-center mx-auto shadow-sm group-hover:bg-secondary group-hover:border-secondary group-hover:shadow-lg group-hover:shadow-secondary/30 group-hover:-translate-y-1 transition-all duration-400"
+                >
+                  <i
+                    class="fas fa-pencil-ruler text-secondary text-3xl group-hover:text-white transition-colors duration-300"
+                  ></i>
+                </div>
+                <div
+                  class="absolute -top-2 -right-2 w-7 h-7 bg-secondary text-white rounded-full text-xs font-sub font-bold flex items-center justify-center shadow"
+                >
+                  2
+                </div>
+              </div>
+              <h3 class="font-main text-gray-800 text-lg mb-2">
+                Design Preview
+              </h3>
+              <p class="font-sub text-gray-400 text-sm leading-relaxed">
+                We create and send your preview for approval — unlimited edits
+                included
+              </p>
+            </div>
+            <div class="reveal text-center group">
+              <div class="relative mb-5 inline-block">
+                <div
+                  class="w-20 h-20 bg-white border-2 border-green-300/30 rounded-2xl flex items-center justify-center mx-auto shadow-sm group-hover:bg-green-600 group-hover:border-green-600 group-hover:shadow-lg group-hover:shadow-green-500/30 group-hover:-translate-y-1 transition-all duration-400"
+                >
+                  <i
+                    class="fas fa-check-double text-green-600 text-3xl group-hover:text-white transition-colors duration-300"
+                  ></i>
+                </div>
+                <div
+                  class="absolute -top-2 -right-2 w-7 h-7 bg-green-600 text-white rounded-full text-xs font-sub font-bold flex items-center justify-center shadow"
+                >
+                  3
+                </div>
+              </div>
+              <h3 class="font-main text-gray-800 text-lg mb-2">You Approve</h3>
+              <p class="font-sub text-gray-400 text-sm leading-relaxed">
+                Request changes freely until you're completely happy — no
+                surprises
+              </p>
+            </div>
+            <div class="reveal text-center group">
+              <div class="relative mb-5 inline-block">
+                <div
+                  class="w-20 h-20 bg-white border-2 border-amber-300/30 rounded-2xl flex items-center justify-center mx-auto shadow-sm group-hover:bg-amber-500 group-hover:border-amber-500 group-hover:shadow-lg group-hover:shadow-amber-400/30 group-hover:-translate-y-1 transition-all duration-400"
+                >
+                  <i
+                    class="fas fa-truck-fast text-amber-500 text-3xl group-hover:text-white transition-colors duration-300"
+                  ></i>
+                </div>
+                <div
+                  class="absolute -top-2 -right-2 w-7 h-7 bg-amber-500 text-white rounded-full text-xs font-sub font-bold flex items-center justify-center shadow"
+                >
+                  4
+                </div>
+              </div>
+              <h3 class="font-main text-gray-800 text-lg mb-2">
+                Craft &amp; Deliver
+              </h3>
+              <p class="font-sub text-gray-400 text-sm leading-relaxed">
+                We engrave with precision and deliver safely to your door in 2–3
+                days
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════ WHY CHOOSE US ═════════════════════════════ -->
+      <section
+        class="py-16 md:py-20 px-6 md:px-8 lg:px-12 relative overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900"
+        ></div>
+        <div
+          class="absolute inset-0 opacity-[0.07]"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?q=80&w=1600&auto=format&fit=crop&quot;);
+            background-size: cover;
+            background-position: center;
+          "
+        ></div>
+        <div
+          class="absolute inset-0 flex items-center justify-center opacity-[0.03] text-white text-[500px] font-main leading-none pointer-events-none select-none"
+        >
+          ॐ
+        </div>
+        <div class="container mx-auto relative z-10">
+          <div class="text-center mb-12 reveal">
+            <span
+              class="font-sub text-amber-400 text-sm font-semibold uppercase tracking-widest"
+              >Our Promise</span
+            >
+            <h2
+              class="font-main text-white text-2xl md:text-3xl lg:text-4xl mt-2 mb-3"
+            >
+              Why Choose Radhana Art?
+            </h2>
+            <p class="font-sub text-gray-300 text-[15px] max-w-xl mx-auto">
+              We combine traditional craftsmanship with modern laser technology
+              to deliver excellence
+            </p>
+          </div>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger"
+          >
+            <div
+              class="reveal bg-white/8 backdrop-blur-sm border border-white/10 p-7 rounded-2xl hover:bg-white hover:shadow-2xl transition-all duration-500 group cursor-default"
+            >
+              <div
+                class="w-14 h-14 bg-primary/20 group-hover:bg-primary rounded-2xl flex items-center justify-center mb-5 transition-all"
+              >
+                <i
+                  class="fas fa-award text-primary group-hover:text-white text-2xl transition-colors"
+                ></i>
+              </div>
+              <h3
+                class="font-main text-white group-hover:text-primary text-lg mb-2 transition-colors"
+              >
+                Premium Quality
+              </h3>
+              <p
+                class="font-sub text-gray-400 group-hover:text-gray-500 text-sm leading-relaxed transition-colors"
+              >
+                Precision laser-engraved with sharp details and a flawless
+                finish guaranteed on every piece
+              </p>
+            </div>
+            <div
+              class="reveal bg-white/8 backdrop-blur-sm border border-white/10 p-7 rounded-2xl hover:bg-white hover:shadow-2xl transition-all duration-500 group cursor-default"
+            >
+              <div
+                class="w-14 h-14 bg-green-500/20 group-hover:bg-green-500 rounded-2xl flex items-center justify-center mb-5 transition-all"
+              >
+                <i
+                  class="fas fa-sliders text-green-400 group-hover:text-white text-2xl transition-colors"
+                ></i>
+              </div>
+              <h3
+                class="font-main text-white group-hover:text-green-600 text-lg mb-2 transition-colors"
+              >
+                Fully Customizable
+              </h3>
+              <p
+                class="font-sub text-gray-400 group-hover:text-gray-500 text-sm leading-relaxed transition-colors"
+              >
+                Every item designed exactly the way you want — unlimited edits
+                before we start crafting
+              </p>
+            </div>
+            <div
+              class="reveal bg-white/8 backdrop-blur-sm border border-white/10 p-7 rounded-2xl hover:bg-white hover:shadow-2xl transition-all duration-500 group cursor-default"
+            >
+              <div
+                class="w-14 h-14 bg-amber-500/20 group-hover:bg-amber-500 rounded-2xl flex items-center justify-center mb-5 transition-all"
+              >
+                <i
+                  class="fas fa-hand-holding-dollar text-amber-400 group-hover:text-white text-2xl transition-colors"
+                ></i>
+              </div>
+              <h3
+                class="font-main text-white group-hover:text-amber-600 text-lg mb-2 transition-colors"
+              >
+                Affordable Pricing
+              </h3>
+              <p
+                class="font-sub text-gray-400 group-hover:text-gray-500 text-sm leading-relaxed transition-colors"
+              >
+                Top craftsmanship at transparent prices — bulk order discounts
+                always available
+              </p>
+            </div>
+            <div
+              class="reveal bg-white/8 backdrop-blur-sm border border-white/10 p-7 rounded-2xl hover:bg-white hover:shadow-2xl transition-all duration-500 group cursor-default"
+            >
+              <div
+                class="w-14 h-14 bg-secondary/20 group-hover:bg-secondary rounded-2xl flex items-center justify-center mb-5 transition-all"
+              >
+                <i
+                  class="fas fa-truck-fast text-secondary group-hover:text-white text-2xl transition-colors"
+                ></i>
+              </div>
+              <h3
+                class="font-main text-white group-hover:text-secondary text-lg mb-2 transition-colors"
+              >
+                Fast &amp; Reliable
+              </h3>
+              <p
+                class="font-sub text-gray-400 group-hover:text-gray-500 text-sm leading-relaxed transition-colors"
+              >
+                2–3 day turnaround with reliable delivery across Kathmandu
+                valley
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════ COMPANIES MARQUEE ═════════════════════════ -->
+      <section class="py-12 md:py-14 bg-white border-y border-gray-100">
+        <div class="container mx-auto px-6 mb-8 reveal">
+          <div class="text-center">
+            <span
+              class="font-sub text-secondary text-sm font-semibold uppercase tracking-widest"
+              >Trusted By</span
+            >
+            <h2 class="font-main text-2xl md:text-3xl text-gray-800 mt-2">
+              Companies We've Worked With
+            </h2>
+            <p class="font-sub text-gray-400 text-sm mt-1 max-w-lg mx-auto">
+              From local restaurants to large corporations — trusted by
+              businesses across Nepal
+            </p>
+          </div>
+        </div>
+        <div class="overflow-hidden relative">
+          <div
+            class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"
+          ></div>
+          <div
+            class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"
+          ></div>
+          <div class="marquee-track py-2">
+            <!-- Companies - first set -->
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-orange-400 to-red-500"
+              >
+                <i class="fas fa-utensils text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Himalayan Kitchen
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Restaurant</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-blue-500 to-blue-700"
+              >
+                <i class="fas fa-hotel text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Hotel Annapurna
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">5-Star Hotel</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-green-500 to-emerald-600"
+              >
+                <i class="fas fa-leaf text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Organic Nepal
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Organic Products</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-purple-500 to-purple-700"
+              >
+                <i class="fas fa-graduation-cap text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                KTM Academy
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Education</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-amber-400 to-yellow-600"
+              >
+                <i class="fas fa-building text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                NIC Asia Bank
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Banking</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-pink-500 to-rose-600"
+              >
+                <i class="fas fa-spa text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Bliss Salon
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Beauty</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-teal-500 to-cyan-600"
+              >
+                <i class="fas fa-laptop text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                TechNepal
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">IT Company</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-indigo-500 to-blue-700"
+              >
+                <i class="fas fa-plane text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Yeti Airlines
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Aviation</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-red-500 to-rose-600"
+              >
+                <i class="fas fa-heartbeat text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Grande Hospital
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Healthcare</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-orange-500 to-amber-600"
+              >
+                <i class="fas fa-store text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Bhat-Bhateni
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Retail</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-sky-500 to-blue-600"
+              >
+                <i class="fas fa-broadcast-tower text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Nepal Telecom
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Telecom</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-emerald-500 to-green-700"
+              >
+                <i class="fas fa-car text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Sipradi Trading
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Automobile</p>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-orange-400 to-red-500"
+              >
+                <i class="fas fa-utensils text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Himalayan Kitchen
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Restaurant</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-blue-500 to-blue-700"
+              >
+                <i class="fas fa-hotel text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Hotel Annapurna
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">5-Star Hotel</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-green-500 to-emerald-600"
+              >
+                <i class="fas fa-leaf text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Organic Nepal
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Organic Products</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-purple-500 to-purple-700"
+              >
+                <i class="fas fa-graduation-cap text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                KTM Academy
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Education</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-amber-400 to-yellow-600"
+              >
+                <i class="fas fa-building text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                NIC Asia Bank
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Banking</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-pink-500 to-rose-600"
+              >
+                <i class="fas fa-spa text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Bliss Salon
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Beauty</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-teal-500 to-cyan-600"
+              >
+                <i class="fas fa-laptop text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                TechNepal
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">IT Company</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-indigo-500 to-blue-700"
+              >
+                <i class="fas fa-plane text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Yeti Airlines
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Aviation</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-red-500 to-rose-600"
+              >
+                <i class="fas fa-heartbeat text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Grande Hospital
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Healthcare</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-orange-500 to-amber-600"
+              >
+                <i class="fas fa-store text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Bhat-Bhateni
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Retail</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-sky-500 to-blue-600"
+              >
+                <i class="fas fa-broadcast-tower text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Nepal Telecom
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Telecom</p>
+            </div>
+            <div class="company-card">
+              <div
+                class="company-logo bg-gradient-to-br from-emerald-500 to-green-700"
+              >
+                <i class="fas fa-car text-white text-lg"></i>
+              </div>
+              <p
+                class="font-sub font-semibold text-gray-800 text-xs text-center leading-tight"
+              >
+                Sipradi Trading
+              </p>
+              <p class="font-sub text-gray-400 text-[10px]">Automobile</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════ STATS ═════════════════════════════════════ -->
+      <section
+        class="py-14 bg-gradient-to-r from-primary to-blue-700 px-6 relative overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 text-white/5 font-main text-[300px] flex items-center justify-center leading-none pointer-events-none select-none"
+        >
+          ॐ
+        </div>
+        <div class="container mx-auto relative z-10">
+          <div
+            class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white stagger"
+          >
+            <div class="reveal">
+              <div
+                class="font-main text-4xl md:text-5xl font-bold counter"
+                data-target="5000"
+                data-suffix="+"
+              >
+                5000+
+              </div>
+              <p class="font-sub text-sm mt-2 text-blue-100">Happy Customers</p>
+            </div>
+            <div class="reveal">
+              <div
+                class="font-main text-4xl md:text-5xl font-bold counter"
+                data-target="10000"
+                data-suffix="+"
+              >
+                10,000+
+              </div>
+              <p class="font-sub text-sm mt-2 text-blue-100">
+                Products Crafted
+              </p>
+            </div>
+            <div class="reveal">
+              <div class="font-main text-4xl md:text-5xl font-bold">
+                4.9<span class="text-amber-300 text-3xl">★</span>
+              </div>
+              <p class="font-sub text-sm mt-2 text-blue-100">Average Rating</p>
+            </div>
+            <div class="reveal">
+              <div
+                class="font-main text-4xl md:text-5xl font-bold counter"
+                data-target="5"
+                data-suffix="+"
+              >
+                5+
+              </div>
+              <p class="font-sub text-sm mt-2 text-blue-100">
+                Years Experience
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════ GALLERY / OUR WORK ════════════════════════ -->
+      <section class="py-16 md:py-20 px-6 md:px-8 lg:px-12 bg-white">
+        <div class="container mx-auto">
+          <div class="text-center mb-12 reveal">
+            <span
+              class="font-sub text-secondary text-sm font-semibold uppercase tracking-widest"
+              >Our Work</span
+            >
+            <h2
+              class="font-main text-2xl md:text-3xl lg:text-4xl mt-2 mb-3 text-gray-800"
+            >
+              Customer Creations
+            </h2>
+            <p class="font-sub text-gray-400 text-[15px] max-w-lg mx-auto">
+              Real engravings made from our customers' photos and ideas — each
+              one unique
+            </p>
+          </div>
+          <div
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4"
+          >
+            <div
+              class="reveal group relative overflow-hidden rounded-2xl aspect-square cursor-pointer"
+              onclick="openLB(0)"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?q=80&w=500"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                alt=""
+              />
+              <div
+                class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center rounded-2xl"
+              >
+                <i class="fas fa-search-plus text-white text-2xl"></i>
+              </div>
+            </div>
+            <div
+              class="reveal group relative overflow-hidden rounded-2xl aspect-square cursor-pointer"
+              onclick="openLB(1)"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=500"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                alt=""
+              />
+              <div
+                class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center rounded-2xl"
+              >
+                <i class="fas fa-search-plus text-white text-2xl"></i>
+              </div>
+            </div>
+            <div
+              class="reveal group relative overflow-hidden rounded-2xl cursor-pointer col-span-2"
+              style="aspect-ratio: 2/1"
+              onclick="openLB(2)"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=800"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                alt=""
+              />
+              <div
+                class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center rounded-2xl"
+              >
+                <i class="fas fa-search-plus text-white text-2xl"></i>
+              </div>
+            </div>
+            <div
+              class="reveal group relative overflow-hidden rounded-2xl aspect-square cursor-pointer"
+              onclick="openLB(3)"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=500"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                alt=""
+              />
+              <div
+                class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center rounded-2xl"
+              >
+                <i class="fas fa-search-plus text-white text-2xl"></i>
+              </div>
+            </div>
+            <div
+              class="reveal group relative overflow-hidden rounded-2xl aspect-square cursor-pointer"
+              onclick="openLB(4)"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=500"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                alt=""
+              />
+              <div
+                class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center rounded-2xl"
+              >
+                <i class="fas fa-search-plus text-white text-2xl"></i>
+              </div>
+            </div>
+            <div
+              class="reveal group relative overflow-hidden rounded-2xl aspect-square cursor-pointer"
+              onclick="openLB(5)"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=500"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                alt=""
+              />
+              <div
+                class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center rounded-2xl"
+              >
+                <i class="fas fa-search-plus text-white text-2xl"></i>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-center mt-10 reveal">
+            <a
+              href="/gallery.html"
+              class="font-sub border-2 border-primary text-primary px-8 py-3.5 rounded-xl hover:bg-primary hover:text-white transition-all duration-300 font-medium flex items-center gap-2 hover:shadow-lg hover:shadow-primary/30"
+            >
+              View Full Gallery <i class="fas fa-images"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════ TESTIMONIALS ═══════════════════════════════ -->
+      <section
+        class="py-16 md:py-20 bg-slate-50 peacock-bg px-6 md:px-8 lg:px-12"
+      >
+        <div class="container mx-auto">
+          <div class="text-center mb-12 reveal">
+            <span
+              class="font-sub text-secondary text-sm font-semibold uppercase tracking-widest"
+              >Happy Customers</span
+            >
+            <h2
+              class="font-main text-2xl md:text-3xl lg:text-4xl mt-2 mb-3 text-gray-800"
+            >
+              What Our Customers Say
+            </h2>
+            <p class="font-sub text-gray-400 text-[15px]">
+              Trusted by businesses and individuals across Kathmandu
+            </p>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger"
+          >
+            <div
+              class="reveal bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 relative overflow-hidden group"
+            >
+              <div
+                class="absolute -top-2 -right-2 text-[90px] text-secondary/8 font-serif leading-none select-none group-hover:text-secondary/15 transition"
+              >
+                "
+              </div>
+              <div class="flex items-center gap-3 mb-4">
+                <img
+                  src="https://randomuser.me/api/portraits/men/45.jpg"
+                  class="w-14 h-14 rounded-full object-cover border-2 border-primary/10"
+                />
+                <div>
+                  <h3 class="font-sub font-semibold text-gray-800 text-sm">
+                    Ramesh Shrestha
+                  </h3>
+                  <p class="font-sub text-xs text-gray-400">Business Owner</p>
+                </div>
+              </div>
+              <div class="flex gap-1 mb-3">
+                <i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i>
+              </div>
+              <p class="font-sub text-gray-500 text-sm leading-relaxed">
+                "The wooden QR code plaques for my restaurant are beautiful and
+                functional. Customers love scanning them. Highly recommended!"
+              </p>
+            </div>
+            <div
+              class="reveal bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 relative overflow-hidden group"
+            >
+              <div
+                class="absolute -top-2 -right-2 text-[90px] text-secondary/8 font-serif leading-none select-none group-hover:text-secondary/15 transition"
+              >
+                "
+              </div>
+              <div class="flex items-center gap-3 mb-4">
+                <img
+                  src="https://randomuser.me/api/portraits/women/32.jpg"
+                  class="w-14 h-14 rounded-full object-cover border-2 border-secondary/10"
+                />
+                <div>
+                  <h3 class="font-sub font-semibold text-gray-800 text-sm">
+                    Sita Poudel
+                  </h3>
+                  <p class="font-sub text-xs text-gray-400">Wedding Planner</p>
+                </div>
+              </div>
+              <div class="flex gap-1 mb-3">
+                <i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i>
+              </div>
+              <p class="font-sub text-gray-500 text-sm leading-relaxed">
+                "Custom wooden wedding invitations that were absolutely
+                stunning! Quality exceeded expectations. The design preview made
+                everything perfect!"
+              </p>
+            </div>
+            <div
+              class="reveal bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 relative overflow-hidden group"
+            >
+              <div
+                class="absolute -top-2 -right-2 text-[90px] text-secondary/8 font-serif leading-none select-none group-hover:text-secondary/15 transition"
+              >
+                "
+              </div>
+              <div class="flex items-center gap-3 mb-4">
+                <img
+                  src="https://randomuser.me/api/portraits/men/22.jpg"
+                  class="w-14 h-14 rounded-full object-cover border-2 border-green-200"
+                />
+                <div>
+                  <h3 class="font-sub font-semibold text-gray-800 text-sm">
+                    Bikram Thapa
+                  </h3>
+                  <p class="font-sub text-xs text-gray-400">
+                    Corporate Manager
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-1 mb-3">
+                <i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i
+                ><i class="fas fa-star text-amber-400 text-sm"></i>
+              </div>
+              <p class="font-sub text-gray-500 text-sm leading-relaxed">
+                "Amazing acrylic awards for our company event. Precision
+                engraving and premium finish beyond our expectations!"
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════ CTA ═══════════════════════════════════════ -->
+      <section
+        class="py-16 md:py-20 bg-gradient-to-br from-secondary via-pink-600 to-secondary px-6 md:px-8 lg:px-12 relative overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 peacock-bg opacity-20 pointer-events-none"
+        ></div>
+        <div
+          class="absolute inset-0 flex items-center justify-center opacity-[0.04] text-white text-[500px] font-main leading-none pointer-events-none select-none"
+        >
+          ॐ
+        </div>
+        <div class="container mx-auto relative z-10 text-center reveal">
+          <h2
+            class="font-main text-white text-2xl md:text-3xl lg:text-4xl mb-3"
+          >
+            Ready to Create Something Timeless?
+          </h2>
+          <p class="font-sub text-pink-100 text-[15px] mb-8 max-w-xl mx-auto">
+            Experience the quality and craftsmanship that makes Radhana Art the
+            top choice in Kathmandu
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a
+              href="https://wa.me/9779823939106"
+              target="_blank"
+              class="flex justify-center items-center gap-2 px-7 py-3.5 bg-green-600 hover:bg-green-700 rounded-xl text-white font-sub font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <i class="fa-brands fa-whatsapp text-xl"></i> Order on WhatsApp
+            </a>
+            <a
+              href="/contact.html"
+              class="flex justify-center items-center gap-2 px-7 py-3.5 bg-white/20 hover:bg-white/30 border border-white/30 rounded-xl text-white font-sub font-medium hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <i class="fas fa-envelope text-lg"></i> Send a Message
+            </a>
+            <a
+              href="/product.html"
+              class="flex justify-center items-center gap-2 px-7 py-3.5 bg-white text-secondary hover:bg-gray-50 rounded-xl font-sub font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <i class="fas fa-store text-lg"></i> Browse Products
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ══ FOOTER ══ -->
+    <footer class="bg-gray-900 text-white pt-14 pb-6">
+      <div class="container mx-auto px-6 md:px-8 lg:px-12">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10"
+        >
+          <!-- Brand + Payment -->
+          <div>
+            <div class="flex items-center gap-3 mb-5">
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-lg"
+              >
+                <span class="text-white font-bold font-main text-xl">RA</span>
+              </div>
+              <div>
+                <h3 class="font-main text-xl font-semibold text-amber-400">
+                  Radhana Art
+                </h3>
+                <p class="font-sub text-xs text-gray-500">
+                  Laser Engraving · Kathmandu
+                </p>
+              </div>
+            </div>
+            <p class="font-sub text-gray-400 text-sm mb-5 leading-relaxed">
+              Crafting premium laser engravings inspired by the divine love of
+              Radha &amp; Krishna.
+            </p>
+            <div class="flex gap-3 mb-5">
+              <a
+                href="#"
+                class="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition hover:scale-110 text-sm"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="#"
+                class="w-9 h-9 bg-gradient-to-br from-purple-600 to-pink-500 rounded-full flex items-center justify-center hover:opacity-80 transition hover:scale-110 text-sm"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="w-9 h-9 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition hover:scale-110 text-sm"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a
+                href="https://wa.me/9779823939106"
+                class="w-9 h-9 bg-green-600 rounded-full flex items-center justify-center hover:bg-green-700 transition hover:scale-110 text-sm"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+
+            <!-- Payment Methods -->
+            <p
+              class="font-sub text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2.5"
+            >
+              We Accept
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <div class="pay-badge">
+                <div
+                  class="w-4 h-4 bg-green-500 rounded flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-mobile-alt text-white text-[8px]"></i>
+                </div>
+                eSewa
+              </div>
+              <div class="pay-badge">
+                <div
+                  class="w-4 h-4 bg-purple-600 rounded flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-wallet text-white text-[8px]"></i>
+                </div>
+                Khalti
+              </div>
+              <div class="pay-badge">
+                <div
+                  class="w-4 h-4 bg-orange-500 rounded flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-phone text-white text-[8px]"></i>
+                </div>
+                FonePay
+              </div>
+              <div class="pay-badge">
+                <div
+                  class="w-4 h-4 bg-blue-600 rounded flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-link text-white text-[8px]"></i>
+                </div>
+                ConnectIPS
+              </div>
+              <div class="pay-badge">
+                <div
+                  class="w-4 h-4 bg-gray-600 rounded flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-university text-white text-[8px]"></i>
+                </div>
+                Bank
+              </div>
+              <div class="pay-badge">
+                <div
+                  class="w-4 h-4 bg-amber-600 rounded flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-money-bill text-white text-[8px]"></i>
+                </div>
+                Cash
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="font-main text-lg text-amber-400 mb-4">Quick Links</h3>
+            <ul class="font-sub space-y-2 text-sm">
+              <li>
+                <a
+                  href="/"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Personalized Gifts</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html?cat=homedecor"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Home Decor</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html?cat=corporate"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Corporate Gifting</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/gallery.html"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Gallery</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/aboutUs.html"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/faq.html"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/contact.html"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Products -->
+          <div>
+            <h3 class="font-main text-lg text-amber-400 mb-4">Our Products</h3>
+            <ul class="font-sub space-y-2 text-sm">
+              <li>
+                <a
+                  href="/product.html?type=wooden"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Wooden Engravings</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html?type=qr"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Wooden QR Codes</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html?type=keyring"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Custom Keyrings</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html?type=numberplate"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >3D Number Plates</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html?type=award"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Acrylic Awards</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html?type=signboard"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >ACP Signboards</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html?type=neon"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Neon Lights</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/product.html?type=mug"
+                  class="text-gray-400 hover:text-white transition flex items-center gap-2"
+                  ><i class="fas fa-chevron-right text-[9px] text-secondary"></i
+                  >Custom Mugs</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h3 class="font-main text-lg text-amber-400 mb-4">Contact Us</h3>
+            <ul class="font-sub space-y-3 text-sm mb-5">
+              <li class="flex items-start gap-3 text-gray-400">
+                <i
+                  class="fas fa-map-marker-alt text-green-400 mt-0.5 flex-shrink-0"
+                ></i
+                ><span>Sitapaila, Kathmandu, Nepal</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-phone text-green-400 flex-shrink-0"></i
+                ><a
+                  href="tel:+9779823939106"
+                  class="text-gray-400 hover:text-white transition"
+                  >+977 9823939106</a
+                >
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-envelope text-green-400 flex-shrink-0"></i
+                ><a
+                  href="mailto:radhanaart@gmail.com"
+                  class="text-gray-400 hover:text-white transition"
+                  >radhanaart@gmail.com</a
+                >
+              </li>
+            </ul>
+            <div
+              class="bg-gradient-to-r from-green-700 to-green-600 rounded-xl p-4"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <i class="fas fa-clock text-green-200 text-sm"></i>
+                <h4 class="font-sub font-semibold text-sm text-white">
+                  Workshop Hours
+                </h4>
+              </div>
+              <p class="font-sub text-sm text-green-100">
+                Sun – Fri: 10:00 AM – 7:00 PM
+              </p>
+              <p class="font-sub text-sm text-green-200">
+                Saturday: <span class="text-red-300 font-medium">Closed</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-3"
+        >
+          <p class="font-sub text-gray-500 text-sm text-center md:text-left">
+            © 2025 Radhana Art. All rights reserved. Inspired by the divine love
+            of Radha &amp; Krishna 🪈
+          </p>
+          <div class="flex gap-5 font-sub text-sm">
+            <a
+              href="/gallery.html"
+              class="text-gray-500 hover:text-white transition"
+              >Gallery</a
+            >
+            <a
+              href="/faq.html"
+              class="text-gray-500 hover:text-white transition"
+              >FAQ</a
+            >
+            <a
+              href="/aboutUs.html"
+              class="text-gray-500 hover:text-white transition"
+              >About</a
+            >
+            <a
+              href="/contact.html"
+              class="text-gray-500 hover:text-white transition"
+              >Contact</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /* ════ CART ════ */
+      function getCart() {
+        return JSON.parse(localStorage.getItem("radhana_cart") || "[]");
+      }
+      function saveCart(c) {
+        localStorage.setItem("radhana_cart", JSON.stringify(c));
+        updateBadges();
+      }
+
+      function addToCart(id, name, price, image) {
+        const c = getCart();
+        const ex = c.find((i) => i.id === id);
+        if (ex) ex.qty += 1;
+        else c.push({ id, name, price, image, qty: 1 });
+        saveCart(c);
+        showToast(`"${name}" added to cart!`);
+      }
+
+      function updateBadges() {
+        const total = getCart().reduce((s, i) => s + i.qty, 0);
+        document
+          .querySelectorAll(".cart-badge")
+          .forEach((el) => (el.textContent = total));
+      }
+
+      let toastTimer;
+      function showToast(msg, type = "success") {
+        const t = document.getElementById("toast");
+        document.getElementById("toastMsg").textContent = msg;
+        document.getElementById("toastIcon").className =
+          `fas fa-${type === "success" ? "check-circle text-green-400" : "exclamation-circle text-red-400"}`;
+        t.classList.remove("hidden");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.add("hidden"), 2500);
+      }
+
+      /* ════ SEARCH ════ */
+      const searchIndex = [
+        {
+          name: "Wooden Photo Engraving",
+          url: "/product.html?type=wooden",
+          cat: "Personalized",
+          tags: ["photo", "wooden", "portrait", "memory", "gift"],
+        },
+        {
+          name: "Wooden QR Code Stand",
+          url: "/product.html?type=qr",
+          cat: "Corporate",
+          tags: ["qr", "code", "restaurant", "business", "scan"],
+        },
+        {
+          name: "Custom Keyrings",
+          url: "/product.html?type=keyring",
+          cat: "Personalized",
+          tags: ["keyring", "key", "custom", "name", "logo"],
+        },
+        {
+          name: "Acrylic Awards",
+          url: "/product.html?type=award",
+          cat: "Corporate",
+          tags: ["award", "trophy", "corporate", "recognition"],
+        },
+        {
+          name: "3D Number Plate",
+          url: "/product.html?type=numberplate",
+          cat: "Corporate",
+          tags: ["number", "plate", "bike", "car", "vehicle", "3d"],
+        },
+        {
+          name: "ACP Signboard",
+          url: "/product.html?type=signboard",
+          cat: "Corporate",
+          tags: ["sign", "signboard", "acp", "business", "shop"],
+        },
+        {
+          name: "Custom Mug",
+          url: "/product.html?type=mug",
+          cat: "Personalized",
+          tags: ["mug", "cup", "coffee", "tea", "gift", "photo"],
+        },
+        {
+          name: "Neon Light Board",
+          url: "/product.html?type=neon",
+          cat: "Home Decor",
+          tags: ["neon", "light", "led", "sign", "decor", "bright"],
+        },
+        {
+          name: "Leaf Art & Framing",
+          url: "/product.html?type=leafart",
+          cat: "Home Decor",
+          tags: ["leaf", "art", "frame", "decor", "natural"],
+        },
+        {
+          name: "Wedding Gifts",
+          url: "/product.html?occ=wedding",
+          cat: "Events",
+          tags: ["wedding", "bride", "groom", "marriage", "couple"],
+        },
+        {
+          name: "Birthday Gifts",
+          url: "/product.html?occ=birthday",
+          cat: "Occasions",
+          tags: ["birthday", "party", "celebrate", "gift"],
+        },
+        {
+          name: "Mother's Day",
+          url: "/product.html?festival=mothers-day",
+          cat: "Festival",
+          tags: ["mother", "mom", "mum", "mothers day"],
+        },
+        {
+          name: "Father's Day",
+          url: "/product.html?festival=fathers-day",
+          cat: "Festival",
+          tags: ["father", "dad", "papa", "fathers day"],
+        },
+        {
+          name: "Gifts for Sister",
+          url: "/product.html?for=sister",
+          cat: "For Her",
+          tags: ["sister", "didi", "bahini", "girl"],
+        },
+        {
+          name: "Gifts for Brother",
+          url: "/product.html?for=brother",
+          cat: "For Him",
+          tags: ["brother", "dai", "bhai", "boy"],
+        },
+        {
+          name: "Corporate Gifting",
+          url: "/product.html?cat=corporate",
+          cat: "Corporate",
+          tags: ["corporate", "company", "office", "bulk", "business"],
+        },
+        {
+          name: "Home Decor",
+          url: "/product.html?cat=homedecor",
+          cat: "Home",
+          tags: ["home", "decor", "room", "house", "wall"],
+        },
+        {
+          name: "Gifts Under Rs.500",
+          url: "/product.html?maxprice=500",
+          cat: "Budget",
+          tags: ["cheap", "affordable", "budget", "500", "low price"],
+        },
+        {
+          name: "Anniversary Gifts",
+          url: "/product.html?occ=anniversary",
+          cat: "Occasions",
+          tags: ["anniversary", "couple", "love", "valentine"],
+        },
+        {
+          name: "Gallery",
+          url: "/gallery.html",
+          cat: "Page",
+          tags: ["gallery", "photos", "work", "portfolio"],
+        },
+        {
+          name: "Contact Us",
+          url: "/contact.html",
+          cat: "Page",
+          tags: ["contact", "call", "message", "whatsapp", "location"],
+        },
+        {
+          name: "About Radhana Art",
+          url: "/aboutUs.html",
+          cat: "Page",
+          tags: ["about", "story", "team", "company"],
+        },
+        {
+          name: "FAQ",
+          url: "/faq.html",
+          cat: "Page",
+          tags: ["faq", "question", "help", "answer"],
+        },
+      ];
+
+      let searchTimer;
+      function handleSearch(val) {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => showSuggestions(val), 200);
+      }
+
+      function showSuggestions(query) {
+        const box = document.getElementById("searchSuggest");
+        if (!box) return;
+        if (!query || query.length < 2) {
+          box.classList.add("hidden");
+          return;
+        }
+
+        const q = query.toLowerCase().trim();
+        const results = searchIndex
+          .filter((item) => {
+            return (
+              item.name.toLowerCase().includes(q) ||
+              item.tags.some((tag) => tag.includes(q) || q.includes(tag))
+            );
+          })
+          .slice(0, 6);
+
+        if (results.length === 0) {
+          box.innerHTML = `<div class="px-4 py-3 font-sub text-sm text-gray-400">No results for "${query}" — <a href="/contact.html" class="text-primary hover:underline">ask us</a></div>`;
+          box.classList.remove("hidden");
+          return;
+        }
+
+        box.innerHTML = results
+          .map(
+            (r) => `
+      <a href="${r.url}" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition border-b border-gray-100 last:border-0">
+        <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i class="fas fa-search text-primary text-xs"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="font-sub text-sm text-gray-800 font-medium truncate">${r.name}</p>
+          <p class="font-sub text-xs text-gray-400">${r.cat}</p>
+        </div>
+        <i class="fas fa-arrow-right text-gray-300 text-xs"></i>
+      </a>`,
+          )
+          .join("");
+        box.classList.remove("hidden");
+      }
+
+      function doSearch() {
+        const val =
+          document.getElementById("globalSearch")?.value ||
+          document.getElementById("mobileSearch")?.value ||
+          "";
+        if (val.trim())
+          window.location.href =
+            "/product.html?q=" + encodeURIComponent(val.trim());
+      }
+
+      function searchEnter(e) {
+        if (e.key === "Enter") doSearch();
+      }
+
+      // Close suggestions on outside click
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#searchWrapper")) {
+          const box = document.getElementById("searchSuggest");
+          if (box) box.classList.add("hidden");
+        }
+      });
+
+      /* ════ MOBILE MENU ════ */
+      function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("hidden");
+        const icon = document.getElementById("menuIcon");
+        icon.classList.toggle("fa-bars");
+        icon.classList.toggle("fa-times");
+      }
+
+      /* ════ SCROLL REVEAL ════ */
+      const ro = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              ro.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal,.reveal-left,.reveal-right")
+        .forEach((el) => ro.observe(el));
+
+      /* ════ COUNTER ════ */
+      const co = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              const target = +e.target.getAttribute("data-target");
+              const suffix = e.target.getAttribute("data-suffix") || "";
+              let cur = 0;
+              const step = target / 80;
+              const t = setInterval(() => {
+                cur += step;
+                if (cur >= target) {
+                  e.target.textContent = target.toLocaleString() + suffix;
+                  clearInterval(t);
+                } else
+                  e.target.textContent =
+                    Math.floor(cur).toLocaleString() + suffix;
+              }, 20);
+              co.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      document.querySelectorAll(".counter").forEach((el) => co.observe(el));
+
+      /* ════ STICKY HEADER ════ */
+      window.addEventListener("scroll", () => {
+        document
+          .getElementById("mainHeader")
+          .classList.toggle("shadow-lg", window.scrollY > 10);
+      });
+
+      /* ════ LIGHTBOX ════ */
+      const lbImgs = [
+        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?q=80&w=1200",
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200",
+        "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=1200",
+        "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1200",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1200",
+        "https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=1200",
+      ];
+      let lbIdx = 0;
+      function openLB(idx) {
+        lbIdx = idx;
+        document.getElementById("lbImg").src = lbImgs[idx];
+        const lb = document.getElementById("lightbox");
+        lb.classList.remove("hidden");
+        lb.classList.add("flex");
+        setTimeout(() => (lb.style.opacity = "1"), 10);
+        document.body.style.overflow = "hidden";
+      }
+      function closeLB() {
+        const lb = document.getElementById("lightbox");
+        lb.style.opacity = "0";
+        setTimeout(() => {
+          lb.classList.add("hidden");
+          lb.classList.remove("flex");
+        }, 300);
+        document.body.style.overflow = "";
+      }
+      function nextLB() {
+        lbIdx = (lbIdx + 1) % lbImgs.length;
+        document.getElementById("lbImg").src = lbImgs[lbIdx];
+      }
+      function prevLB() {
+        lbIdx = (lbIdx - 1 + lbImgs.length) % lbImgs.length;
+        document.getElementById("lbImg").src = lbImgs[lbIdx];
+      }
+      document
+        .getElementById("lightbox")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeLB();
+        });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLB();
+        if (e.key === "ArrowRight") nextLB();
+        if (e.key === "ArrowLeft") prevLB();
+      });
+
+      /* ════ INIT ════ */
+      updateBadges();
+    </script>
+  </body>
+</html>

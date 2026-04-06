@@ -1,0 +1,2511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products — Radhana Art</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#145faf", secondary: "#D93A6A" },
+            fontFamily: {
+              main: ["Playfair Display", "serif"],
+              sub: ["Poppins", "sans-serif"],
+            },
+            keyframes: {
+              scroll: {
+                "0%": { transform: "translateX(0%)" },
+                "100%": { transform: "translateX(-50%)" },
+              },
+              popIn: {
+                "0%": { opacity: "0", transform: "scale(.94) translateY(8px)" },
+                "100%": { opacity: "1", transform: "scale(1) translateY(0)" },
+              },
+              fadeInUp: {
+                from: { opacity: "0", transform: "translateY(16px)" },
+                to: { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+            animation: {
+              scroll: "scroll 30s linear infinite",
+              popIn: "popIn .35s ease forwards",
+              fadeInUp: "fadeInUp .4s ease forwards",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Nav */
+      .nav-link {
+        position: relative;
+        padding-bottom: 4px;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #d93a6a;
+        transition: width 0.3s;
+      }
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+      .nav-link.active {
+        color: #d93a6a !important;
+      }
+
+      /* Megamenu */
+      .mega-parent {
+        position: relative;
+      }
+      .mega-menu {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        z-index: 200;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease,
+          visibility 0.25s;
+        pointer-events: none;
+      }
+      .mega-parent:hover .mega-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: all;
+      }
+      .simple-dd {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        z-index: 200;
+        min-width: 190px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease,
+          visibility 0.25s;
+        pointer-events: none;
+      }
+      .mega-parent:hover .simple-dd {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: all;
+      }
+      .dd-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        border-radius: 10px;
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #4b5563;
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+      .dd-item:hover {
+        background: #f8f5ff;
+        color: #d93a6a;
+      }
+      .dd-section-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 8px 14px 4px;
+      }
+
+      /* Product cards */
+      .prod-card {
+        animation: popIn 0.35s ease both;
+      }
+      .card-shine {
+        position: relative;
+        overflow: hidden;
+      }
+      .card-shine::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.18),
+          transparent
+        );
+        transition: left 0.5s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .card-shine:hover::before {
+        left: 125%;
+      }
+
+      /* Patterns */
+      .lotus-bg {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23145faf' stroke-opacity='.04' stroke-width='2'/%3E%3C/svg%3E");
+      }
+
+      /* WhatsApp float */
+      .wa-float {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        z-index: 999;
+        width: 56px;
+        height: 56px;
+        background: #25d366;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+        transition: transform 0.3s;
+        text-decoration: none;
+      }
+      .wa-float:hover {
+        transform: scale(1.12);
+      }
+
+      /* Sidebar filter */
+      .filter-section {
+        border-bottom: 1px solid #f3f4f6;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+      }
+      .filter-section:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      /* Price range slider */
+      .price-range {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        border-radius: 4px;
+        background: linear-gradient(
+          to right,
+          #145faf var(--val, 50%),
+          #e5e7eb var(--val, 50%)
+        );
+        outline: none;
+        cursor: pointer;
+      }
+      .price-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #145faf;
+        cursor: pointer;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 8px rgba(20, 95, 175, 0.4);
+      }
+      .price-range::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #145faf;
+        cursor: pointer;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 8px rgba(20, 95, 175, 0.4);
+      }
+
+      /* Checkbox filter */
+      .filter-check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 5px 0;
+      }
+      .filter-check input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        border: 2px solid #d1d5db;
+        appearance: none;
+        -webkit-appearance: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+      .filter-check input[type="checkbox"]:checked {
+        background: #145faf;
+        border-color: #145faf;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+      }
+
+      /* Mobile filter drawer */
+      #filterDrawer {
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Sort/view active */
+      .view-btn.active {
+        background: #145faf;
+        color: #fff;
+      }
+
+      /* Stagger delays */
+      #productGrid .prod-card:nth-child(1) {
+        animation-delay: 0ms;
+      }
+      #productGrid .prod-card:nth-child(2) {
+        animation-delay: 50ms;
+      }
+      #productGrid .prod-card:nth-child(3) {
+        animation-delay: 100ms;
+      }
+      #productGrid .prod-card:nth-child(4) {
+        animation-delay: 150ms;
+      }
+      #productGrid .prod-card:nth-child(5) {
+        animation-delay: 200ms;
+      }
+      #productGrid .prod-card:nth-child(6) {
+        animation-delay: 250ms;
+      }
+      #productGrid .prod-card:nth-child(7) {
+        animation-delay: 300ms;
+      }
+      #productGrid .prod-card:nth-child(8) {
+        animation-delay: 350ms;
+      }
+      #productGrid .prod-card:nth-child(9) {
+        animation-delay: 400ms;
+      }
+
+      /* Quick view modal */
+      #quickView {
+        transition: opacity 0.3s ease;
+      }
+
+      /* Toast */
+      #toast2 {
+        transition: all 0.3s ease;
+      }
+    </style>
+    <script src="/frontend/api.js"></script>
+    <script src="/frontend/product-page.js"></script>
+  </head>
+  <body class="bg-gray-50">
+    <a href="https://wa.me/9779823939106" target="_blank" class="wa-float"
+      ><i class="fa-brands fa-whatsapp"></i
+    ></a>
+
+    <!-- Toast -->
+    <div
+      id="toast2"
+      class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[400] hidden"
+    >
+      <div
+        class="bg-gray-900 text-white font-sub text-sm px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2"
+      >
+        <i id="toastIcon2" class="fas fa-check-circle text-green-400"></i>
+        <span id="toastMsg2">Added to cart!</span>
+      </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div
+      id="quickView"
+      class="fixed inset-0 bg-black/70 z-[180] hidden items-center justify-center p-4 opacity-0"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[92vh] overflow-y-auto"
+      >
+        <div
+          class="flex justify-between items-center p-5 border-b sticky top-0 bg-white z-10"
+        >
+          <h3 class="font-main text-xl text-primary" id="qvTitle">Product</h3>
+          <button
+            onclick="closeQV()"
+            class="text-gray-400 hover:text-gray-600 transition"
+          >
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <img
+            id="qvImg"
+            src=""
+            alt=""
+            class="w-full h-64 md:h-full object-cover"
+          />
+          <div class="p-6">
+            <div id="qvBadge" class="mb-3"></div>
+            <p
+              id="qvDesc"
+              class="font-sub text-gray-500 text-sm leading-relaxed mb-4"
+            ></p>
+            <div id="qvStars" class="flex gap-1 mb-3"></div>
+            <p class="font-sub text-gray-400 text-xs">Starting from</p>
+            <p
+              id="qvPrice"
+              class="font-sub text-secondary font-bold text-3xl mb-1"
+            ></p>
+            <p
+              id="qvCat"
+              class="font-sub text-xs text-gray-400 mb-5 capitalize"
+            ></p>
+            <div class="flex items-center gap-3 mb-5">
+              <label class="font-sub text-sm text-gray-600 font-medium"
+                >Qty:</label
+              >
+              <div
+                class="flex items-center border-2 border-gray-100 rounded-xl overflow-hidden bg-gray-50"
+              >
+                <button
+                  onclick="qvQtyChange(-1)"
+                  class="w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition font-bold text-lg"
+                >
+                  −
+                </button>
+                <span
+                  id="qvQtyNum"
+                  class="w-10 text-center font-sub font-semibold text-sm"
+                  >1</span
+                >
+                <button
+                  onclick="qvQtyChange(1)"
+                  class="w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition font-bold text-lg"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <button
+              onclick="addFromQV()"
+              class="w-full bg-primary hover:bg-secondary text-white font-sub font-semibold py-3 rounded-xl transition-all hover:shadow-lg mb-2 flex items-center justify-center gap-2"
+            >
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+            <a
+              href="https://wa.me/9779823939106"
+              target="_blank"
+              class="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-sub font-medium py-2.5 rounded-xl transition"
+            >
+              <i class="fa-brands fa-whatsapp"></i> Order on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Filter Overlay -->
+    <div
+      id="filterOverlay"
+      class="fixed inset-0 bg-black/50 z-[150] hidden"
+      onclick="toggleFilterDrawer()"
+    ></div>
+    <div
+      id="filterDrawer"
+      class="fixed top-0 left-0 h-full w-80 bg-white z-[160] shadow-2xl transform -translate-x-full overflow-y-auto"
+    >
+      <div
+        class="flex justify-between items-center p-5 border-b sticky top-0 bg-white"
+      >
+        <h2 class="font-main text-lg text-gray-800">Product Filters</h2>
+        <button
+          onclick="toggleFilterDrawer()"
+          class="text-gray-400 hover:text-gray-600"
+        >
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <div class="p-5" id="mobileFilterBody"><!-- Populated by JS --></div>
+    </div>
+
+    <!-- Announcement Bar -->
+    <div
+      class="bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-gray-800 py-2.5 px-4 overflow-hidden sticky top-0 z-[70]"
+    >
+      <div class="flex whitespace-nowrap animate-scroll">
+        <p class="font-sub text-xs md:text-sm font-medium inline-block pr-20">
+          🎨 Premium Laser Engraving &nbsp;|&nbsp; ✨ Custom Wooden &amp;
+          Acrylic &nbsp;|&nbsp; 🎁 Perfect Gifts &nbsp;|&nbsp; 📞 +977
+          9823939106 &nbsp;|&nbsp; 🚚 Fast Delivery &nbsp;|&nbsp; 💳 eSewa ·
+          Khalti · FonePay
+        </p>
+        <p class="font-sub text-xs md:text-sm font-medium inline-block pr-20">
+          🎨 Premium Laser Engraving &nbsp;|&nbsp; ✨ Custom Wooden &amp;
+          Acrylic &nbsp;|&nbsp; 🎁 Perfect Gifts &nbsp;|&nbsp; 📞 +977
+          9823939106 &nbsp;|&nbsp; 🚚 Fast Delivery &nbsp;|&nbsp; 💳 eSewa ·
+          Khalti · FonePay
+        </p>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-[40px] z-50" id="mainHeader">
+      <div class="container mx-auto py-3 md:py-2 px-4 md:px-8 lg:px-12">
+        <div class="flex justify-between items-center gap-4">
+          <a href="/" class="flex items-center gap-3 flex-shrink-0">
+            <div
+              class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-md shadow-primary/20"
+            >
+              <span class="text-white font-bold font-main text-lg">RA</span>
+            </div>
+            <div>
+              <span
+                class="font-main text-primary text-lg md:text-[22px] font-bold block"
+                >Radhana Art</span
+              >
+              <span class="font-sub text-[10px] text-gray-400 hidden md:block"
+                >Laser Engraving · Kathmandu</span
+              >
+            </div>
+          </a>
+          <button class="lg:hidden text-gray-700" onclick="toggleMenu()">
+            <i id="menuIcon" class="fas fa-bars text-2xl"></i>
+          </button>
+          <div class="hidden lg:flex flex-1 max-w-xl mx-6 relative">
+            <div class="relative w-full">
+              <i
+                class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"
+              ></i>
+              <input
+                type="text"
+                id="headerSearch"
+                placeholder="Search products..."
+                class="font-sub w-full py-2.5 pl-10 pr-24 border-2 border-gray-100 bg-gray-50 rounded-xl focus:outline-none focus:border-primary focus:bg-white transition text-sm"
+                oninput="handleHeaderSearch(this.value)"
+                onkeydown="if (e.key === 'Enter') doHeaderSearch();"
+              />
+              <button
+                onclick="doHeaderSearch()"
+                class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1.5 rounded-lg hover:bg-secondary transition font-sub text-xs font-medium"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+          <div class="hidden lg:flex items-center gap-5">
+            <a
+              href="/frontend/src/login.html"
+              class="text-gray-600 hover:text-primary transition"
+              ><i class="text-2xl fa-solid fa-circle-user"></i
+            ></a>
+            <a
+              href="https://wa.me/9779823939106"
+              target="_blank"
+              class="flex items-center gap-1.5 text-green-600 font-sub text-sm font-medium hover:scale-105 transition"
+            >
+              <i class="fa-brands fa-whatsapp text-2xl"></i
+              ><span>+977 9823939106</span>
+            </a>
+            <a
+              href="/frontend/src/cart.html"
+              class="relative text-gray-600 hover:text-primary transition"
+            >
+              <i class="text-2xl fa-solid fa-shopping-cart"></i>
+              <span
+                class="cart-badge absolute -top-2 -right-2 bg-secondary text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center"
+                >0</span
+              >
+            </a>
+          </div>
+        </div>
+
+        <!-- Desktop Mega Nav -->
+        <nav
+          class="font-sub hidden lg:flex gap-1 items-center justify-center text-[14px] mt-3 pt-2.5 border-t border-gray-100"
+        >
+          <a
+            href="/frontend/src/index.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >Home</a
+          >
+          <!-- <div class="mega-parent">
+            <button
+              class="nav-link active text-gray-700 px-3 py-1.5 font-medium flex items-center gap-1"
+            >
+              Personalized Gifts
+              <i class="fas fa-chevron-down text-[10px] ml-0.5"></i>
+            </button>
+            <div class="mega-menu w-[620px] p-5">
+              <div class="grid grid-cols-4 gap-4">
+                <div>
+                  <p class="dd-section-title">Festival</p>
+                  <a href="/product.html?festival=mothers-day" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Mother's Day</a
+                  >
+                  <a href="/product.html?festival=fathers-day" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Father's Day</a
+                  >
+                  <a href="/product.html?festival=rakhi" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Rakhi</a
+                  >
+                  <a href="/product.html?festival=dashain" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Dashain</a
+                  >
+                  <a href="/product.html?festival=tihar" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Tihar</a
+                  >
+                </div>
+                <div>
+                  <p class="dd-section-title">Occasion</p>
+                  <a href="/product.html?occ=anniversary" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Anniversary</a
+                  >
+                  <a href="/product.html?occ=birthday" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Birthday</a
+                  >
+                  <a href="/product.html?occ=wedding" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Wedding</a
+                  >
+                  <a href="/product.html?occ=valentines" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Valentine's</a
+                  >
+                  <p class="dd-section-title mt-2">For Him</p>
+                  <a href="/product.html?for=father" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Father</a
+                  >
+                  <a href="/product.html?for=brother" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Brother</a
+                  >
+                  <a href="/product.html?for=husband" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Husband</a
+                  >
+                </div>
+                <div>
+                  <p class="dd-section-title">For Her</p>
+                  <a href="/product.html?for=mother" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Mother</a
+                  >
+                  <a href="/product.html?for=sister" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Sister</a
+                  >
+                  <a href="/product.html?for=wife" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Wife</a
+                  >
+                  <a href="/product.html?for=girlfriend" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Girlfriend</a
+                  >
+                </div>
+                <div>
+                  <p class="dd-section-title">Products</p>
+                  <a href="/product.html?type=wooden" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Wooden</a
+                  >
+                  <a href="/product.html?type=keyring" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Keyrings</a
+                  >
+                  <a href="/product.html?type=mug" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Mugs</a
+                  >
+                  <p class="dd-section-title mt-2">Price</p>
+                  <a href="/product.html?maxprice=500" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Under Rs.500</a
+                  >
+                  <a href="/product.html?maxprice=1000" class="dd-item"
+                    ><i
+                      class="fas fa-chevron-right text-[9px] text-secondary"
+                    ></i
+                    >Under Rs.1,000</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mega-parent">
+            <button
+              class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium flex items-center gap-1"
+            >
+              Home Decor <i class="fas fa-chevron-down text-[10px] ml-0.5"></i>
+            </button>
+            <div class="simple-dd p-3">
+              <a
+                href="/product.html?cat=homedecor&type=fridge-magnet"
+                class="dd-item"
+                ><i class="fas fa-magnet text-secondary text-xs w-4"></i>Fridge
+                Magnet</a
+              >
+              <a
+                href="/product.html?cat=homedecor&type=wall-clock"
+                class="dd-item"
+                ><i class="fas fa-clock text-secondary text-xs w-4"></i>Wall
+                Clock</a
+              >
+              <a href="/product.html?cat=homedecor&type=neon" class="dd-item"
+                ><i class="fas fa-lightbulb text-secondary text-xs w-4"></i>Neon
+                Lights</a
+              >
+              <a href="/product.html?cat=homedecor&type=leafart" class="dd-item"
+                ><i class="fas fa-leaf text-secondary text-xs w-4"></i>Leaf
+                Art</a
+              >
+            </div>
+          </div>
+          <div class="mega-parent">
+            <button
+              class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium flex items-center gap-1"
+            >
+              Corporate <i class="fas fa-chevron-down text-[10px] ml-0.5"></i>
+            </button>
+            <div class="simple-dd p-3">
+              <a href="/product.html?cat=corporate&type=award" class="dd-item"
+                ><i class="fas fa-trophy text-secondary text-xs w-4"></i
+                >Awards</a
+              >
+              <a href="/product.html?cat=corporate&type=qr" class="dd-item"
+                ><i class="fas fa-qrcode text-secondary text-xs w-4"></i>QR
+                Codes</a
+              >
+              <a
+                href="/product.html?cat=corporate&type=signboard"
+                class="dd-item"
+                ><i class="fas fa-sign-hanging text-secondary text-xs w-4"></i
+                >Signboards</a
+              >
+              <a
+                href="/product.html?cat=corporate&type=numberplate"
+                class="dd-item"
+                ><i class="fas fa-car text-secondary text-xs w-4"></i>Number
+                Plates</a
+              >
+            </div>
+          </div> -->
+
+          <a
+            href="/frontend/src/product.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >Products</a
+          >
+
+          <a
+            href="/frontend/src/gallery.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >Gallery</a
+          >
+          <a
+            href="/frontend/src/aboutUs.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >About Us</a
+          >
+          <a
+            href="/frontend/src/faq"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >FAQ</a
+          >
+          <a
+            href="/frontend/src/contact.html"
+            class="nav-link text-gray-700 hover:text-secondary transition px-3 py-1.5 font-medium"
+            >Contact</a
+          >
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div
+          id="mobileMenu"
+          class="hidden lg:hidden mt-4 pb-4 border-t border-gray-100 pt-4"
+        >
+          <nav class="font-sub flex flex-col">
+            <a
+              href="/frontend/src/index.html"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >Home</a
+            >
+            <a
+              href="/frontend/src/product.html"
+              class="py-3 border-b border-gray-100 text-secondary font-medium text-sm"
+              >Products</a
+            >
+            <a
+              href="/product.html?cat=homedecor"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >Home Decor</a
+            >
+            <a
+              href="/product.html?cat=corporate"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >Corporate</a
+            >
+            <a
+              href="/frontend/src/gallery.html"
+              class="py-3 border-b border-gray-100 text-gray-700 text-sm"
+              >Gallery</a
+            >
+            <a
+              href="/frontend/src/contact.html"
+              class="py-3 text-gray-700 text-sm"
+              >Contact</a
+            >
+          </nav>
+          <div
+            class="flex items-center gap-4 mt-4 pt-4 border-t border-gray-100"
+          >
+            <a href="/frontend/src/login.html" class="text-gray-600"
+              ><i class="text-2xl fa-solid fa-circle-user"></i
+            ></a>
+            <a
+              href="https://wa.me/9779823939106"
+              target="_blank"
+              class="flex items-center gap-2 text-green-600 font-sub text-sm font-medium"
+            >
+              <i class="fa-brands fa-whatsapp text-2xl"></i
+              ><span>+977 9823939106</span>
+            </a>
+            <a href="/frontend/src/cart.html" class="relative text-gray-600">
+              <i class="text-2xl fa-solid fa-shopping-cart"></i>
+              <span
+                class="cart-badge absolute -top-2 -right-2 bg-secondary text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center"
+                >0</span
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Page Hero -->
+      <section
+        class="py-8 md:py-10 px-6 md:px-8 lg:px-12 bg-white border-b border-gray-100 lotus-bg"
+      >
+        <div class="container mx-auto">
+          <div
+            class="flex items-center gap-2 font-sub text-sm text-gray-400 mb-3"
+          >
+            <a href="/" class="hover:text-primary transition">Home</a>
+            <i class="fas fa-chevron-right text-[9px]"></i>
+            <span id="breadcrumb2" class="text-secondary font-medium"
+              >All Products</span
+            >
+          </div>
+          <div
+            class="flex flex-col md:flex-row md:items-end justify-between gap-4"
+          >
+            <div>
+              <h1
+                id="pageHeading"
+                class="font-main text-2xl md:text-3xl lg:text-4xl text-gray-800 mb-1"
+              >
+                All Products
+              </h1>
+              <p id="pageSubtext" class="font-sub text-gray-400 text-sm">
+                Explore our full collection of laser-engraved products
+              </p>
+            </div>
+            <!-- Mobile filter button -->
+            <button
+              onclick="toggleFilterDrawer()"
+              class="lg:hidden flex items-center gap-2 bg-primary text-white font-sub text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-secondary transition self-start"
+            >
+              <i class="fas fa-sliders"></i> Filters &amp; Sort
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main content: sidebar + grid -->
+      <section class="py-8 px-4 md:px-8 lg:px-12">
+        <div class="container mx-auto">
+          <div class="flex gap-7">
+            <!-- ══ LEFT SIDEBAR FILTERS ══ -->
+            <aside class="hidden lg:block w-64 flex-shrink-0">
+              <div class="bg-white rounded-2xl shadow-sm p-5 sticky top-28">
+                <div class="flex justify-between items-center mb-5">
+                  <h2 class="font-main text-lg text-gray-800">
+                    Product Filters
+                  </h2>
+                  <button
+                    onclick="clearAllFilters()"
+                    class="font-sub text-xs text-secondary hover:text-pink-700 transition font-medium"
+                  >
+                    Clear All
+                  </button>
+                </div>
+
+                <!-- Price Range -->
+                <div class="filter-section">
+                  <button
+                    onclick="toggleSection('priceSection')"
+                    class="w-full flex justify-between items-center font-sub font-semibold text-sm text-gray-700 mb-3"
+                  >
+                    Price
+                    <i
+                      class="fas fa-chevron-up text-xs text-gray-400"
+                      id="priceIcon"
+                    ></i>
+                  </button>
+                  <div id="priceSection">
+                    <div class="flex gap-2 mb-3">
+                      <div class="flex-1">
+                        <label
+                          class="font-sub text-[10px] text-gray-400 font-semibold uppercase tracking-wider block mb-1"
+                          >From</label
+                        >
+                        <div class="relative">
+                          <span
+                            class="absolute left-2.5 top-1/2 -translate-y-1/2 font-sub text-xs text-gray-500 font-medium"
+                            >Rs.</span
+                          >
+                          <input
+                            type="number"
+                            id="priceMin"
+                            value="0"
+                            min="0"
+                            max="100000"
+                            class="font-sub w-full border border-gray-200 rounded-lg py-2 pl-8 pr-2 text-xs focus:outline-none focus:border-primary"
+                            oninput="applyPriceFilter()"
+                          />
+                        </div>
+                      </div>
+                      <div class="flex-1">
+                        <label
+                          class="font-sub text-[10px] text-gray-400 font-semibold uppercase tracking-wider block mb-1"
+                          >To</label
+                        >
+                        <div class="relative">
+                          <span
+                            class="absolute left-2.5 top-1/2 -translate-y-1/2 font-sub text-xs text-gray-500 font-medium"
+                            >Rs.</span
+                          >
+                          <input
+                            type="number"
+                            id="priceMax"
+                            value="100000"
+                            min="0"
+                            max="200000"
+                            class="font-sub w-full border border-gray-200 rounded-lg py-2 pl-8 pr-2 text-xs focus:outline-none focus:border-primary"
+                            oninput="applyPriceFilter()"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="space-y-1.5 mt-3">
+                      <p
+                        class="font-sub text-[10px] text-gray-400 font-semibold uppercase tracking-wider"
+                      >
+                        Quick Select
+                      </p>
+                      <button
+                        onclick="setPriceRange(0, 500)"
+                        class="price-quick w-full text-left font-sub text-xs text-gray-600 hover:text-secondary transition px-2 py-1.5 rounded-lg hover:bg-secondary/5"
+                      >
+                        Under Rs. 500
+                      </button>
+                      <button
+                        onclick="setPriceRange(0, 1000)"
+                        class="price-quick w-full text-left font-sub text-xs text-gray-600 hover:text-secondary transition px-2 py-1.5 rounded-lg hover:bg-secondary/5"
+                      >
+                        Under Rs. 1,000
+                      </button>
+                      <button
+                        onclick="setPriceRange(0, 1500)"
+                        class="price-quick w-full text-left font-sub text-xs text-gray-600 hover:text-secondary transition px-2 py-1.5 rounded-lg hover:bg-secondary/5"
+                      >
+                        Under Rs. 1,500
+                      </button>
+                      <button
+                        onclick="setPriceRange(1500, 5000)"
+                        class="price-quick w-full text-left font-sub text-xs text-gray-600 hover:text-secondary transition px-2 py-1.5 rounded-lg hover:bg-secondary/5"
+                      >
+                        Rs. 1,500 – 5,000
+                      </button>
+                      <button
+                        onclick="setPriceRange(5000, 100000)"
+                        class="price-quick w-full text-left font-sub text-xs text-gray-600 hover:text-secondary transition px-2 py-1.5 rounded-lg hover:bg-secondary/5"
+                      >
+                        Above Rs. 5,000
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Stock Status -->
+                <div class="filter-section">
+                  <button
+                    onclick="toggleSection('stockSection')"
+                    class="w-full flex justify-between items-center font-sub font-semibold text-sm text-gray-700 mb-3"
+                  >
+                    Stock Status
+                    <i class="fas fa-chevron-up text-xs text-gray-400"></i>
+                  </button>
+                  <div id="stockSection">
+                    <label class="filter-check">
+                      <input
+                        type="checkbox"
+                        id="inStock"
+                        onchange="renderProducts()"
+                      />
+                      <span class="font-sub text-sm text-gray-600"
+                        >In Stock</span
+                      >
+                    </label>
+                    <label class="filter-check">
+                      <input
+                        type="checkbox"
+                        id="outStock"
+                        onchange="renderProducts()"
+                      />
+                      <span class="font-sub text-sm text-gray-600"
+                        >Out of Stock</span
+                      >
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Category -->
+                <div class="filter-section">
+                  <button
+                    onclick="toggleSection('catSection')"
+                    class="w-full flex justify-between items-center font-sub font-semibold text-sm text-gray-700 mb-3"
+                  >
+                    Category
+                    <i class="fas fa-chevron-up text-xs text-gray-400"></i>
+                  </button>
+                  <div id="catSection" class="space-y-0.5">
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="cat-check"
+                        value="wooden"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Wooden Engraving</span
+                      ><span
+                        class="ml-auto font-sub text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded"
+                        >4</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="cat-check"
+                        value="qr"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >QR Code Stands</span
+                      ><span
+                        class="ml-auto font-sub text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded"
+                        >1</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="cat-check"
+                        value="keyring"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Keyrings</span
+                      ><span
+                        class="ml-auto font-sub text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded"
+                        >1</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="cat-check"
+                        value="award"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Awards &amp; Trophies</span
+                      ><span
+                        class="ml-auto font-sub text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded"
+                        >1</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="cat-check"
+                        value="numberplate"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Number Plates</span
+                      ><span
+                        class="ml-auto font-sub text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded"
+                        >1</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="cat-check"
+                        value="signboard"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Signboards</span
+                      ><span
+                        class="ml-auto font-sub text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded"
+                        >2</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="cat-check"
+                        value="neon"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Neon Lights</span
+                      ><span
+                        class="ml-auto font-sub text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded"
+                        >1</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="cat-check"
+                        value="mug"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Custom Mugs</span
+                      ><span
+                        class="ml-auto font-sub text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded"
+                        >1</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="cat-check"
+                        value="leafart"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Leaf Art</span
+                      ><span
+                        class="ml-auto font-sub text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded"
+                        >1</span
+                      ></label
+                    >
+                  </div>
+                </div>
+
+                <!-- For Whom -->
+                <div class="filter-section">
+                  <button
+                    onclick="toggleSection('forSection')"
+                    class="w-full flex justify-between items-center font-sub font-semibold text-sm text-gray-700 mb-3"
+                  >
+                    Shop For
+                    <i class="fas fa-chevron-up text-xs text-gray-400"></i>
+                  </button>
+                  <div id="forSection" class="space-y-0.5">
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="for-check"
+                        value="mother"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Mother</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="for-check"
+                        value="father"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Father</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="for-check"
+                        value="sister"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Sister</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="for-check"
+                        value="brother"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Brother</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="for-check"
+                        value="wife"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Wife / Girlfriend</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="for-check"
+                        value="husband"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Husband / Boyfriend</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="checkbox"
+                        class="for-check"
+                        value="friend"
+                        onchange="renderProducts()"
+                      /><span class="font-sub text-sm text-gray-600"
+                        >Friend</span
+                      ></label
+                    >
+                  </div>
+                </div>
+
+                <!-- Rating -->
+                <div class="filter-section">
+                  <button
+                    onclick="toggleSection('ratingSection')"
+                    class="w-full flex justify-between items-center font-sub font-semibold text-sm text-gray-700 mb-3"
+                  >
+                    Min Rating
+                    <i class="fas fa-chevron-up text-xs text-gray-400"></i>
+                  </button>
+                  <div id="ratingSection" class="space-y-1.5">
+                    <label class="filter-check"
+                      ><input
+                        type="radio"
+                        name="rating"
+                        value="5"
+                        onchange="renderProducts()"
+                        class="w-4 h-4"
+                      /><span class="flex gap-0.5"
+                        ><i class="fas fa-star text-amber-400 text-xs"></i
+                        ><i class="fas fa-star text-amber-400 text-xs"></i
+                        ><i class="fas fa-star text-amber-400 text-xs"></i
+                        ><i class="fas fa-star text-amber-400 text-xs"></i
+                        ><i
+                          class="fas fa-star text-amber-400 text-xs"
+                        ></i></span
+                      ><span class="font-sub text-xs text-gray-400 ml-1"
+                        >only</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="radio"
+                        name="rating"
+                        value="4"
+                        onchange="renderProducts()"
+                        class="w-4 h-4"
+                      /><span class="flex gap-0.5"
+                        ><i class="fas fa-star text-amber-400 text-xs"></i
+                        ><i class="fas fa-star text-amber-400 text-xs"></i
+                        ><i class="fas fa-star text-amber-400 text-xs"></i
+                        ><i class="fas fa-star text-amber-400 text-xs"></i
+                        ><i
+                          class="far fa-star text-amber-400 text-xs"
+                        ></i></span
+                      ><span class="font-sub text-xs text-gray-400 ml-1"
+                        >& up</span
+                      ></label
+                    >
+                    <label class="filter-check"
+                      ><input
+                        type="radio"
+                        name="rating"
+                        value="0"
+                        onchange="renderProducts()"
+                        class="w-4 h-4"
+                        checked
+                      /><span class="font-sub text-xs text-gray-500"
+                        >All Ratings</span
+                      ></label
+                    >
+                  </div>
+                </div>
+              </div>
+            </aside>
+
+            <!-- ══ RIGHT: Products ══ -->
+            <div class="flex-1 min-w-0">
+              <!-- Top bar: count + sort + view -->
+              <div
+                class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-5"
+              >
+                <div>
+                  <p class="font-sub text-sm text-gray-500">
+                    Showing
+                    <span id="productCount" class="font-semibold text-gray-800"
+                      >0</span
+                    >
+                    results
+                    <span id="activeFiltersText" class="text-secondary"></span>
+                  </p>
+                </div>
+                <div class="flex items-center gap-3">
+                  <!-- Sort -->
+                  <select
+                    id="sortSelect"
+                    onchange="sortProducts(this.value)"
+                    class="font-sub text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-primary bg-white text-gray-600 cursor-pointer"
+                  >
+                    <option value="default">Sort: Default</option>
+                    <option value="popular">Most Popular</option>
+                    <option value="price-asc">Price: Low → High</option>
+                    <option value="price-desc">Price: High → Low</option>
+                    <option value="name-asc">Name: A → Z</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="newest">Newest</option>
+                  </select>
+                  <!-- Per page -->
+                  <select
+                    id="perPage"
+                    onchange="renderProducts()"
+                    class="font-sub text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-primary bg-white text-gray-600 cursor-pointer"
+                  >
+                    <option value="12">12 Per Page</option>
+                    <option value="24">24 Per Page</option>
+                    <option value="48">48 Per Page</option>
+                  </select>
+                  <!-- Grid/List toggle -->
+                  <div
+                    class="flex border border-gray-200 rounded-xl overflow-hidden"
+                  >
+                    <button
+                      id="gridViewBtn"
+                      onclick="setView('grid')"
+                      class="view-btn active px-3 py-2 transition"
+                    >
+                      <i class="fas fa-th-large text-sm"></i>
+                    </button>
+                    <button
+                      id="listViewBtn"
+                      onclick="setView('list')"
+                      class="view-btn px-3 py-2 bg-white text-gray-400 hover:text-primary transition"
+                    >
+                      <i class="fas fa-list text-sm"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Active filter chips -->
+              <div
+                id="activeFilterChips"
+                class="flex flex-wrap gap-2 mb-4"
+              ></div>
+
+              <!-- Empty state -->
+              <div
+                id="emptyState"
+                class="hidden text-center py-20 bg-white rounded-2xl shadow-sm"
+              >
+                <div
+                  class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-5"
+                >
+                  <i class="fas fa-box-open text-4xl text-gray-200"></i>
+                </div>
+                <h3 class="font-main text-xl text-gray-500 mb-2">
+                  No products found
+                </h3>
+                <p class="font-sub text-gray-400 text-sm mb-5">
+                  Try adjusting your filters or browse all products
+                </p>
+                <button
+                  onclick="clearAllFilters()"
+                  class="bg-primary text-white font-sub text-sm font-medium px-7 py-2.5 rounded-xl hover:bg-secondary transition"
+                >
+                  Clear Filters
+                </button>
+              </div>
+
+              <!-- Product grid -->
+              <div
+                id="productGrid"
+                class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"
+              ></div>
+
+              <!-- Load More -->
+              <div class="flex justify-center mt-10" id="loadMoreWrap">
+                <button
+                  onclick="loadMore()"
+                  class="font-sub bg-primary hover:bg-secondary text-white px-8 py-3.5 rounded-xl transition-all hover:shadow-lg flex items-center gap-2 font-medium hover:-translate-y-0.5"
+                >
+                  Load More Products <i class="fas fa-arrow-down"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section
+        class="py-14 bg-gradient-to-r from-primary to-blue-600 px-6 text-center mt-6"
+      >
+        <div class="container mx-auto">
+          <h2 class="font-main text-white text-2xl md:text-3xl mb-3">
+            Can't Find What You're Looking For?
+          </h2>
+          <p class="font-sub text-blue-100 text-[15px] mb-7 max-w-lg mx-auto">
+            We do fully custom orders! Share your idea on WhatsApp and we'll
+            craft it for you.
+          </p>
+          <a
+            href="https://wa.me/9779823939106"
+            target="_blank"
+            class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-sub font-semibold px-8 py-3.5 rounded-xl transition-all hover:shadow-lg hover:-translate-y-0.5"
+          >
+            <i class="fa-brands fa-whatsapp text-xl"></i> Request Custom Order
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+      <div class="container mx-auto px-6 md:px-8 lg:px-12">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center"
+            >
+              <span class="text-white font-bold font-main">RA</span>
+            </div>
+            <span class="font-main text-amber-400 text-lg font-semibold"
+              >Radhana Art</span
+            >
+          </div>
+          <p class="font-sub text-gray-500 text-sm">
+            © 2025 Radhana Art. All rights reserved. 🪈
+          </p>
+          <div class="flex gap-5 font-sub text-sm">
+            <a href="/" class="text-gray-500 hover:text-white transition"
+              >Home</a
+            >
+            <a
+              href="/gallery.html"
+              class="text-gray-500 hover:text-white transition"
+              >Gallery</a
+            >
+            <a
+              href="/contact.html"
+              class="text-gray-500 hover:text-white transition"
+              >Contact</a
+            >
+            <a
+              href="/faq.html"
+              class="text-gray-500 hover:text-white transition"
+              >FAQ</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /* ════════════════════ PRODUCT DATA ════════════════════ */
+      const allProducts = [
+        {
+          id: 1,
+          name: "Wooden Photo Engraving",
+          category: "wooden",
+          cat: "personalized",
+          price: 500,
+          maxPrice: 2000,
+          stars: 5,
+          reviews: 124,
+          popular: true,
+          inStock: true,
+          forWho: [
+            "mother",
+            "sister",
+            "wife",
+            "girlfriend",
+            "friend",
+            "father",
+            "brother",
+            "husband",
+          ],
+          festival: [
+            "mothers-day",
+            "fathers-day",
+            "dashain",
+            "tihar",
+            "christmas",
+          ],
+          occasion: ["anniversary", "birthday", "wedding"],
+          image:
+            "https://images.unsplash.com/photo-1582269847642-87432658c952?q=80&w=600&auto=format&fit=crop",
+          desc: "Personalized wooden photo engravings with premium laser finish. Perfect for any occasion.",
+          badge: "Popular",
+          badgeColor: "bg-green-500",
+        },
+
+        {
+          id: 2,
+          name: "Wooden QR Code Stand",
+          category: "qr",
+          cat: "corporate",
+          price: 800,
+          maxPrice: 2500,
+          stars: 5,
+          reviews: 87,
+          popular: true,
+          inStock: true,
+          forWho: [],
+          festival: [],
+          occasion: [],
+          image:
+            "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop",
+          desc: "Fully scannable laser-engraved wooden QR stands for restaurants and businesses.",
+          badge: "Trending",
+          badgeColor: "bg-primary",
+        },
+
+        {
+          id: 3,
+          name: "Custom Keyrings",
+          category: "keyring",
+          cat: "personalized",
+          price: 300,
+          maxPrice: 800,
+          stars: 4,
+          reviews: 56,
+          popular: false,
+          inStock: true,
+          forWho: [
+            "mother",
+            "sister",
+            "wife",
+            "girlfriend",
+            "friend",
+            "father",
+            "brother",
+            "husband",
+            "boyfriend",
+          ],
+          festival: ["mothers-day", "fathers-day", "rakhi", "dashain", "tihar"],
+          occasion: ["anniversary", "birthday", "valentines"],
+          image:
+            "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=600&auto=format&fit=crop",
+          desc: "Personalized wooden and acrylic keyrings with names, logos, or custom designs.",
+          badge: "New",
+          badgeColor: "bg-secondary",
+        },
+
+        {
+          id: 4,
+          name: "Acrylic Awards & Trophies",
+          category: "award",
+          cat: "corporate",
+          price: 1200,
+          maxPrice: 5000,
+          stars: 5,
+          reviews: 43,
+          popular: true,
+          inStock: true,
+          forWho: [],
+          festival: [],
+          occasion: [],
+          image:
+            "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?q=80&w=600&auto=format&fit=crop",
+          desc: "Premium acrylic trophies and awards for corporate events and recognition.",
+          badge: "",
+          badgeColor: "",
+        },
+
+        {
+          id: 5,
+          name: "3D Vehicle Number Plate",
+          category: "numberplate",
+          cat: "corporate",
+          price: 1500,
+          maxPrice: 3000,
+          stars: 5,
+          reviews: 98,
+          popular: true,
+          inStock: true,
+          forWho: ["father", "brother", "husband", "boyfriend"],
+          festival: [],
+          occasion: [],
+          image:
+            "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=600&auto=format&fit=crop",
+          desc: "Custom 3D acrylic number plates for bikes and cars. Durable and precise.",
+          badge: "Hot",
+          badgeColor: "bg-orange-500",
+        },
+
+        {
+          id: 6,
+          name: "ACP Signboard",
+          category: "signboard",
+          cat: "corporate",
+          price: 5000,
+          maxPrice: 50000,
+          stars: 4,
+          reviews: 31,
+          popular: false,
+          inStock: true,
+          forWho: [],
+          festival: [],
+          occasion: [],
+          image:
+            "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop",
+          desc: "Professional ACP business signboards with LED backing options.",
+          badge: "",
+          badgeColor: "",
+        },
+
+        {
+          id: 7,
+          name: "Custom Engraved Mug",
+          category: "mug",
+          cat: "personalized",
+          price: 600,
+          maxPrice: 1200,
+          stars: 5,
+          reviews: 72,
+          popular: false,
+          inStock: true,
+          forWho: [
+            "mother",
+            "sister",
+            "wife",
+            "girlfriend",
+            "friend",
+            "father",
+            "brother",
+            "husband",
+            "boyfriend",
+          ],
+          festival: ["mothers-day", "fathers-day", "christmas", "tihar"],
+          occasion: ["birthday", "anniversary", "valentines"],
+          image:
+            "https://images.unsplash.com/photo-1512054502232-10a0a035d672?q=80&w=600&auto=format&fit=crop",
+          desc: "Laser-engraved custom mugs with your name, photo, or message.",
+          badge: "New",
+          badgeColor: "bg-secondary",
+        },
+
+        {
+          id: 8,
+          name: "Neon Light Advertising Board",
+          category: "neon",
+          cat: "homedecor",
+          price: 8000,
+          maxPrice: 80000,
+          stars: 5,
+          reviews: 28,
+          popular: true,
+          inStock: true,
+          forWho: [],
+          festival: [],
+          occasion: [],
+          image:
+            "https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=600&auto=format&fit=crop",
+          desc: "Vibrant LED neon advertising boards for businesses and home decor.",
+          badge: "Premium",
+          badgeColor: "bg-purple-600",
+        },
+
+        {
+          id: 9,
+          name: "Leaf Art & Framing",
+          category: "leafart",
+          cat: "homedecor",
+          price: 1500,
+          maxPrice: 6000,
+          stars: 5,
+          reviews: 19,
+          popular: false,
+          inStock: true,
+          forWho: ["mother", "sister", "wife", "girlfriend"],
+          festival: ["mothers-day", "dashain"],
+          occasion: ["anniversary", "birthday"],
+          image:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop",
+          desc: "Unique leaf art with custom engravings, beautifully framed for home decor.",
+          badge: "Unique",
+          badgeColor: "bg-green-600",
+        },
+
+        {
+          id: 10,
+          name: "Wooden Logo Plaque",
+          category: "wooden",
+          cat: "corporate",
+          price: 800,
+          maxPrice: 3000,
+          stars: 5,
+          reviews: 64,
+          popular: true,
+          inStock: true,
+          forWho: [],
+          festival: [],
+          occasion: [],
+          image:
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=600&auto=format&fit=crop",
+          desc: "Premium wooden plaques with your logo or brand name for offices.",
+          badge: "Popular",
+          badgeColor: "bg-green-500",
+        },
+
+        {
+          id: 11,
+          name: "Wooden Wedding Invitation",
+          category: "wooden",
+          cat: "personalized",
+          price: 2000,
+          maxPrice: 8000,
+          stars: 5,
+          reviews: 52,
+          popular: true,
+          inStock: true,
+          forWho: [],
+          festival: [],
+          occasion: ["wedding"],
+          image:
+            "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?q=80&w=600&auto=format&fit=crop",
+          desc: "Elegantly laser-engraved wooden wedding invitations.",
+          badge: "Trending",
+          badgeColor: "bg-primary",
+        },
+
+        {
+          id: 12,
+          name: "Wooden Wall Clock",
+          category: "wooden",
+          cat: "homedecor",
+          price: 1500,
+          maxPrice: 4000,
+          stars: 4,
+          reviews: 22,
+          popular: false,
+          inStock: false,
+          forWho: ["mother", "father", "husband", "wife"],
+          festival: ["dashain", "tihar", "christmas"],
+          occasion: ["anniversary", "birthday"],
+          image:
+            "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?q=80&w=600&auto=format&fit=crop",
+          desc: "Beautiful laser-engraved wooden wall clocks for home decor.",
+          badge: "",
+          badgeColor: "",
+        },
+      ];
+
+      /* ════ STATE ════ */
+      let currentSort = "default";
+      let currentView = "grid";
+      let visibleCount = 12;
+      let qvProduct = null;
+      let qvQtyVal = 1;
+      let urlFilters = {};
+
+      /* ════ FILTER LOGIC ════ */
+      function getActiveFilters() {
+        const minPrice = parseInt(
+          document.getElementById("priceMin")?.value || 0,
+        );
+        const maxPrice = parseInt(
+          document.getElementById("priceMax")?.value || 100000,
+        );
+        const cats = [...document.querySelectorAll(".cat-check:checked")].map(
+          (c) => c.value,
+        );
+        const forWho = [...document.querySelectorAll(".for-check:checked")].map(
+          (c) => c.value,
+        );
+        const inStock = document.getElementById("inStock")?.checked;
+        const outStock = document.getElementById("outStock")?.checked;
+        const minRating = parseInt(
+          document.querySelector("input[name=rating]:checked")?.value || 0,
+        );
+        const search = (document.getElementById("headerSearch")?.value || "")
+          .toLowerCase()
+          .trim();
+        return {
+          minPrice,
+          maxPrice,
+          cats,
+          forWho,
+          inStock,
+          outStock,
+          minRating,
+          search,
+        };
+      }
+
+      function getFiltered() {
+        const f = getActiveFilters();
+
+        let list = allProducts.filter((p) => {
+          // Price
+          if (p.price < f.minPrice || p.price > f.maxPrice) return false;
+
+          // Stock
+          if (f.inStock && !f.outStock && !p.inStock) return false;
+          if (!f.inStock && f.outStock && p.inStock) return false;
+
+          // Category checkboxes
+          if (f.cats.length > 0 && !f.cats.includes(p.category)) return false;
+
+          // For whom checkboxes
+          if (
+            f.forWho.length > 0 &&
+            !f.forWho.some((w) => p.forWho.includes(w))
+          )
+            return false;
+
+          // Min rating
+          if (p.stars < f.minRating) return false;
+
+          // URL params
+          const u = urlFilters;
+          if (u.type && p.category !== u.type) return false;
+          if (u.cat && p.cat !== u.cat) return false;
+          if (u.forWho && !p.forWho.includes(u.forWho)) return false;
+          if (u.festival && !p.festival.includes(u.festival)) return false;
+          if (u.occ && !p.occasion.includes(u.occ)) return false;
+          if (u.maxprice && p.price > u.maxprice) return false;
+          if (u.event && p.category !== u.event && p.cat !== u.event)
+            return false;
+
+          // Search
+          if (f.search) {
+            const hay = (
+              p.name +
+              " " +
+              p.desc +
+              " " +
+              p.category +
+              " " +
+              p.forWho.join(" ")
+            ).toLowerCase();
+            const words = f.search.split(" ").filter(Boolean);
+            if (!words.some((w) => hay.includes(w))) return false;
+          }
+
+          return true;
+        });
+
+        // Sort
+        if (currentSort === "popular")
+          list.sort((a, b) => (b.popular ? 1 : 0) - (a.popular ? 1 : 0));
+        if (currentSort === "price-asc") list.sort((a, b) => a.price - b.price);
+        if (currentSort === "price-desc")
+          list.sort((a, b) => b.price - a.price);
+        if (currentSort === "name-asc")
+          list.sort((a, b) => a.name.localeCompare(b.name));
+        if (currentSort === "rating")
+          list.sort((a, b) => b.stars - a.stars || b.reviews - a.reviews);
+        if (currentSort === "newest") list.sort((a, b) => b.id - a.id);
+
+        return list;
+      }
+
+      /* ════ RENDER ════ */
+      function renderProducts() {
+        const grid = document.getElementById("productGrid");
+        const empty = document.getElementById("emptyState");
+        const lmWrap = document.getElementById("loadMoreWrap");
+        const perPage = parseInt(
+          document.getElementById("perPage")?.value || 12,
+        );
+
+        const filtered = getFiltered();
+        document.getElementById("productCount").textContent = filtered.length;
+
+        updateFilterChips();
+
+        if (filtered.length === 0) {
+          grid.innerHTML = "";
+          empty.classList.remove("hidden");
+          lmWrap.classList.add("hidden");
+          return;
+        }
+        empty.classList.add("hidden");
+
+        const visible = filtered.slice(
+          0,
+          Math.min(visibleCount, perPage * Math.ceil(visibleCount / perPage)),
+        );
+        lmWrap.classList.toggle("hidden", filtered.length <= visible.length);
+
+        if (currentView === "grid") {
+          grid.className =
+            "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5";
+          grid.innerHTML = visible.map((p, idx) => gridCard(p, idx)).join("");
+        } else {
+          grid.className = "flex flex-col gap-4";
+          grid.innerHTML = visible.map((p, idx) => listCard(p, idx)).join("");
+        }
+      }
+
+      function gridCard(p, idx) {
+        const stars = Array.from(
+          { length: 5 },
+          (_, i) =>
+            `<i class="fas fa-star text-xs ${i < p.stars ? "text-amber-400" : "text-gray-200"}"></i>`,
+        ).join("");
+        const badge = p.badge
+          ? `<span class="absolute top-3 left-3 ${p.badgeColor} text-white text-[11px] font-sub font-bold px-2.5 py-1 rounded-full shadow">${p.badge}</span>`
+          : "";
+        const stockBadge = !p.inStock
+          ? `<span class="absolute top-3 right-3 bg-gray-500 text-white text-[10px] font-sub px-2 py-0.5 rounded-full">Out of Stock</span>`
+          : "";
+
+        return `
+  <div class="prod-card bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden card-shine group hover:-translate-y-1.5 flex flex-col" style="animation-delay:${idx * 50}ms">
+    <div class="relative overflow-hidden flex-shrink-0">
+      <img src="${p.image}" alt="${p.name}" class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy"/>
+      ${badge}${stockBadge}
+      <button onclick="openQV(${p.id})"
+        class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm text-primary hover:bg-primary hover:text-white font-sub text-xs font-medium px-3 py-1.5 rounded-xl transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 shadow">
+        <i class="fas fa-eye mr-1"></i> Quick View
+      </button>
+    </div>
+    <div class="p-5 flex flex-col flex-1">
+      <h3 class="font-main text-[16px] text-primary mb-1 group-hover:text-secondary transition-colors line-clamp-1">${p.name}</h3>
+      <p class="font-sub text-gray-400 text-xs leading-relaxed mb-2 line-clamp-2 flex-1">${p.desc}</p>
+      <div class="flex items-center gap-1.5 mb-3">
+        ${stars}
+        <span class="font-sub text-xs text-gray-400">(${p.reviews})</span>
+      </div>
+      <div class="flex items-end justify-between mb-3">
+        <div>
+          <p class="font-sub text-gray-400 text-[10px]">Starting from</p>
+          <p class="font-sub text-secondary font-bold text-xl">Rs. ${p.price.toLocaleString()}</p>
+          <p class="font-sub text-gray-300 text-[10px]">Up to Rs. ${p.maxPrice.toLocaleString()}</p>
+        </div>
+        <span class="font-sub text-[10px] text-gray-400 bg-gray-50 border border-gray-100 px-2 py-1 rounded-lg capitalize">${p.category}</span>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="${p.inStock ? `addToCart(${p.id},'${p.name.replace(/'/g, "\\'")}',${p.price},'${p.image}')` : "showToast2('Out of stock','error')"}"
+          class="flex items-center justify-center gap-1.5 ${p.inStock ? "bg-primary hover:bg-secondary" : "bg-gray-300 cursor-not-allowed"} text-white py-2.5 rounded-xl font-sub text-xs font-medium transition-all ${p.inStock ? "hover:shadow-lg" : ""}">
+          <i class="fas fa-shopping-cart text-sm"></i> Add to Cart
+        </button>
+        <a href="https://wa.me/9779823939106?text=Hi! I'm interested in: ${encodeURIComponent(p.name)}" target="_blank"
+           class="flex items-center justify-center gap-1.5 bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-xl font-sub text-xs font-medium transition-all hover:shadow-lg">
+          <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>`;
+      }
+
+      function listCard(p, idx) {
+        const stars = Array.from(
+          { length: 5 },
+          (_, i) =>
+            `<i class="fas fa-star text-xs ${i < p.stars ? "text-amber-400" : "text-gray-200"}"></i>`,
+        ).join("");
+        const badge = p.badge
+          ? `<span class="${p.badgeColor} text-white text-[10px] font-sub font-bold px-2 py-0.5 rounded-full">${p.badge}</span>`
+          : "";
+
+        return `
+  <div class="prod-card bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex gap-4 p-4 group" style="animation-delay:${idx * 50}ms">
+    <div class="relative overflow-hidden rounded-xl flex-shrink-0 w-32 h-32">
+      <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy"/>
+    </div>
+    <div class="flex-1 min-w-0 flex flex-col">
+      <div class="flex items-start justify-between gap-2 mb-1">
+        <h3 class="font-main text-base text-primary group-hover:text-secondary transition-colors">${p.name}</h3>
+        ${badge}
+      </div>
+      <p class="font-sub text-gray-400 text-xs leading-relaxed mb-2 line-clamp-2">${p.desc}</p>
+      <div class="flex items-center gap-1 mb-2">${stars}<span class="font-sub text-xs text-gray-400 ml-1">(${p.reviews})</span></div>
+      <div class="flex items-center justify-between mt-auto">
+        <div>
+          <p class="font-sub text-gray-400 text-[10px]">Starting from</p>
+          <p class="font-sub text-secondary font-bold text-lg">Rs. ${p.price.toLocaleString()}</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="${p.inStock ? `addToCart(${p.id},'${p.name.replace(/'/g, "\\'")}',${p.price},'${p.image}')` : ""}"
+            class="${p.inStock ? "bg-primary hover:bg-secondary" : "bg-gray-300 cursor-not-allowed"} text-white font-sub text-xs font-medium px-4 py-2 rounded-xl transition flex items-center gap-1.5">
+            <i class="fas fa-shopping-cart"></i> Add to Cart
+          </button>
+          <a href="https://wa.me/9779823939106?text=Hi! I'm interested in: ${encodeURIComponent(p.name)}" target="_blank"
+             class="bg-green-600 hover:bg-green-700 text-white font-sub text-xs font-medium px-4 py-2 rounded-xl transition flex items-center gap-1.5">
+            <i class="fa-brands fa-whatsapp"></i> Order
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>`;
+      }
+
+      /* ════ ACTIVE FILTER CHIPS ════ */
+      function updateFilterChips() {
+        const container = document.getElementById("activeFilterChips");
+        const chips = [];
+
+        // URL filter
+        const labels = {
+          festival: {
+            "mothers-day": "Mother's Day",
+            "fathers-day": "Father's Day",
+            rakhi: "Rakhi",
+            dashain: "Dashain",
+            tihar: "Tihar",
+            christmas: "Christmas",
+          },
+          occ: {
+            anniversary: "Anniversary",
+            birthday: "Birthday",
+            wedding: "Wedding",
+            valentines: "Valentine's",
+          },
+          for: {
+            mother: "For Mother",
+            sister: "For Sister",
+            wife: "For Wife",
+            father: "For Father",
+            brother: "For Brother",
+            husband: "For Husband",
+            girlfriend: "For Girlfriend",
+            boyfriend: "For Boyfriend",
+          },
+        };
+
+        if (urlFilters.festival)
+          chips.push({
+            label: labels.festival[urlFilters.festival] || urlFilters.festival,
+            key: "festival",
+          });
+        if (urlFilters.occ)
+          chips.push({
+            label: labels.occ[urlFilters.occ] || urlFilters.occ,
+            key: "occ",
+          });
+        if (urlFilters.forWho)
+          chips.push({
+            label: labels.for[urlFilters.forWho] || urlFilters.forWho,
+            key: "forWho",
+          });
+        if (urlFilters.maxprice)
+          chips.push({
+            label: `Under Rs.${urlFilters.maxprice.toLocaleString()}`,
+            key: "maxprice",
+          });
+        if (urlFilters.type)
+          chips.push({
+            label:
+              urlFilters.type.charAt(0).toUpperCase() +
+              urlFilters.type.slice(1),
+            key: "type",
+          });
+        if (urlFilters.cat)
+          chips.push({
+            label:
+              urlFilters.cat.charAt(0).toUpperCase() + urlFilters.cat.slice(1),
+            key: "cat",
+          });
+
+        // Checkbox filters
+        document.querySelectorAll(".cat-check:checked").forEach((c) =>
+          chips.push({
+            label: c.value.charAt(0).toUpperCase() + c.value.slice(1),
+            el: c,
+          }),
+        );
+        document.querySelectorAll(".for-check:checked").forEach((c) =>
+          chips.push({
+            label: "For " + c.value.charAt(0).toUpperCase() + c.value.slice(1),
+            el: c,
+          }),
+        );
+
+        container.innerHTML = chips
+          .map(
+            (chip, i) => `
+    <button onclick="removeChip(${i})" data-idx="${i}"
+      class="flex items-center gap-1.5 bg-primary/10 text-primary border border-primary/20 font-sub text-xs font-medium px-3 py-1.5 rounded-full hover:bg-secondary/10 hover:text-secondary hover:border-secondary/20 transition">
+      ${chip.label} <i class="fas fa-times text-[10px]"></i>
+    </button>`,
+          )
+          .join("");
+
+        // Store for removal
+        window._filterChips = chips;
+      }
+
+      function removeChip(idx) {
+        const chip = window._filterChips?.[idx];
+        if (!chip) return;
+        if (chip.key) delete urlFilters[chip.key];
+        if (chip.el) {
+          chip.el.checked = false;
+        }
+        visibleCount = 12;
+        renderProducts();
+        updatePageMeta();
+      }
+
+      /* ════ SORT / VIEW / LOAD MORE ════ */
+      function sortProducts(val) {
+        currentSort = val;
+        visibleCount = 12;
+        renderProducts();
+      }
+      function setView(v) {
+        currentView = v;
+        document.getElementById("gridViewBtn").className =
+          v === "grid"
+            ? "view-btn active px-3 py-2 transition"
+            : "view-btn px-3 py-2 bg-white text-gray-400 hover:text-primary transition";
+        document.getElementById("listViewBtn").className =
+          v === "list"
+            ? "view-btn active px-3 py-2 transition"
+            : "view-btn px-3 py-2 bg-white text-gray-400 hover:text-primary transition";
+        renderProducts();
+      }
+      function loadMore() {
+        visibleCount += 8;
+        renderProducts();
+      }
+
+      /* ════ PRICE FILTER ════ */
+      function applyPriceFilter() {
+        visibleCount = 12;
+        renderProducts();
+      }
+      function setPriceRange(min, max) {
+        document.getElementById("priceMin").value = min;
+        document.getElementById("priceMax").value = max;
+        applyPriceFilter();
+      }
+
+      /* ════ CLEAR FILTERS ════ */
+      function clearAllFilters() {
+        urlFilters = {};
+        document
+          .querySelectorAll(".cat-check,.for-check")
+          .forEach((c) => (c.checked = false));
+        document.getElementById("inStock").checked = false;
+        document.getElementById("outStock").checked = false;
+        document.getElementById("priceMin").value = 0;
+        document.getElementById("priceMax").value = 100000;
+        const noRating = document.querySelector(
+          'input[name=rating][value="0"]',
+        );
+        if (noRating) noRating.checked = true;
+        visibleCount = 12;
+        currentSort = "default";
+        document.getElementById("sortSelect").value = "default";
+        window.history.pushState({}, "", "/product.html");
+        updatePageMeta();
+        renderProducts();
+      }
+
+      /* ════ FILTER SECTION TOGGLE ════ */
+      function toggleSection(id) {
+        document.getElementById(id).classList.toggle("hidden");
+      }
+
+      /* ════ MOBILE FILTER DRAWER ════ */
+      function toggleFilterDrawer() {
+        const drawer = document.getElementById("filterDrawer");
+        const overlay = document.getElementById("filterOverlay");
+        const isOpen = !drawer.classList.contains("-translate-x-full");
+        if (isOpen) {
+          drawer.classList.add("-translate-x-full");
+          overlay.classList.add("hidden");
+          document.body.style.overflow = "";
+        } else {
+          // Clone sidebar content to mobile drawer
+          document.getElementById("mobileFilterBody").innerHTML =
+            document.querySelector("aside .bg-white").innerHTML;
+          drawer.classList.remove("-translate-x-full");
+          overlay.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        }
+      }
+
+      /* ════ CART ════ */
+      function getCart() {
+        return JSON.parse(localStorage.getItem("radhana_cart") || "[]");
+      }
+      function saveCart(c) {
+        localStorage.setItem("radhana_cart", JSON.stringify(c));
+        updateBadges();
+      }
+
+      function addToCart(id, name, price, image) {
+        const c = getCart();
+        const ex = c.find((i) => i.id === id);
+        if (ex) ex.qty += 1;
+        else c.push({ id, name, price, image, qty: 1 });
+        saveCart(c);
+        showToast2(`"${name}" added to cart!`);
+      }
+
+      function updateBadges() {
+        const total = getCart().reduce((s, i) => s + i.qty, 0);
+        document
+          .querySelectorAll(".cart-badge")
+          .forEach((el) => (el.textContent = total));
+      }
+
+      let toastTimer2;
+      function showToast2(msg, type = "success") {
+        const t = document.getElementById("toast2");
+        document.getElementById("toastMsg2").textContent = msg;
+        document.getElementById("toastIcon2").className =
+          `fas fa-${type === "success" ? "check-circle text-green-400" : "exclamation-circle text-red-400"}`;
+        t.classList.remove("hidden");
+        clearTimeout(toastTimer2);
+        toastTimer2 = setTimeout(() => t.classList.add("hidden"), 2500);
+      }
+
+      /* ════ QUICK VIEW ════ */
+      function openQV(id) {
+        const p = allProducts.find((x) => x.id === id);
+        if (!p) return;
+        qvProduct = p;
+        qvQtyVal = 1;
+        document.getElementById("qvTitle").textContent = p.name;
+        document.getElementById("qvImg").src = p.image.replace(
+          "w=600",
+          "w=800",
+        );
+        document.getElementById("qvDesc").textContent = p.desc;
+        document.getElementById("qvPrice").textContent =
+          "Rs. " + p.price.toLocaleString();
+        document.getElementById("qvCat").textContent = "📦 " + p.category;
+        document.getElementById("qvQtyNum").textContent = 1;
+        document.getElementById("qvBadge").innerHTML = p.badge
+          ? `<span class="${p.badgeColor} text-white text-xs font-sub font-bold px-3 py-1 rounded-full">${p.badge}</span>`
+          : "";
+        document.getElementById("qvStars").innerHTML =
+          Array.from(
+            { length: 5 },
+            (_, i) =>
+              `<i class="fas fa-star text-sm ${i < p.stars ? "text-amber-400" : "text-gray-200"}"></i>`,
+          ).join("") +
+          `<span class="font-sub text-xs text-gray-400 ml-1">(${p.reviews})</span>`;
+
+        const modal = document.getElementById("quickView");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        setTimeout(() => (modal.style.opacity = "1"), 10);
+        document.body.style.overflow = "hidden";
+      }
+      function closeQV() {
+        const modal = document.getElementById("quickView");
+        modal.style.opacity = "0";
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+        }, 300);
+        document.body.style.overflow = "";
+      }
+      function qvQtyChange(d) {
+        qvQtyVal = Math.max(1, qvQtyVal + d);
+        document.getElementById("qvQtyNum").textContent = qvQtyVal;
+      }
+      function addFromQV() {
+        if (!qvProduct) return;
+        addToCart(
+          qvProduct.id,
+          qvProduct.name,
+          qvProduct.price,
+          qvProduct.image,
+        );
+        closeQV();
+      }
+      document
+        .getElementById("quickView")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeQV();
+        });
+
+      /* ════ SEARCH ════ */
+      function handleHeaderSearch(val) {
+        urlFilters.q = val.toLowerCase().trim();
+        visibleCount = 12;
+        renderProducts();
+      }
+      function doHeaderSearch() {
+        const val = document.getElementById("headerSearch")?.value || "";
+        if (val.trim())
+          window.location.href = "/product.html?q=" + encodeURIComponent(val);
+      }
+
+      /* ════ URL PARAMS ════ */
+      function readURLParams() {
+        const params = new URLSearchParams(window.location.search);
+        urlFilters = {};
+
+        if (params.get("cat")) urlFilters.cat = params.get("cat");
+        if (params.get("type")) urlFilters.type = params.get("type");
+        if (params.get("for")) urlFilters.forWho = params.get("for");
+        if (params.get("festival"))
+          urlFilters.festival = params.get("festival");
+        if (params.get("occ")) urlFilters.occ = params.get("occ");
+        if (params.get("event")) urlFilters.event = params.get("event");
+        if (params.get("maxprice"))
+          urlFilters.maxprice = parseInt(params.get("maxprice"));
+        if (params.get("q")) urlFilters.q = params.get("q").toLowerCase();
+
+        // Sync search input
+        const q = params.get("q");
+        if (q && document.getElementById("headerSearch"))
+          document.getElementById("headerSearch").value = q;
+
+        // Auto-check category checkboxes
+        const type = params.get("type");
+        if (type) {
+          const cb = document.querySelector(`.cat-check[value="${type}"]`);
+          if (cb) cb.checked = true;
+        }
+
+        const forWho = params.get("for");
+        if (forWho) {
+          const cb = document.querySelector(`.for-check[value="${forWho}"]`);
+          if (cb) cb.checked = true;
+        }
+
+        updatePageMeta();
+        renderProducts();
+      }
+
+      function updatePageMeta() {
+        const u = urlFilters;
+        const titleMap = {
+          homedecor: {
+            h: "Home Decor",
+            s: "Beautiful laser-engraved home decoration products",
+          },
+          corporate: {
+            h: "Corporate Gifting",
+            s: "Premium gifts and awards for businesses and events",
+          },
+          personalized: {
+            h: "Personalized Gifts",
+            s: "Unique gifts crafted just for you",
+          },
+          wooden: {
+            h: "Wooden Engravings",
+            s: "Personalized wooden laser engraved products",
+          },
+          qr: {
+            h: "Wooden QR Codes",
+            s: "Scannable laser-engraved QR codes for businesses",
+          },
+          keyring: {
+            h: "Custom Keyrings",
+            s: "Personalized wooden and acrylic keyrings",
+          },
+          award: {
+            h: "Awards & Trophies",
+            s: "Premium acrylic and wooden awards",
+          },
+          numberplate: {
+            h: "3D Number Plates",
+            s: "Custom 3D acrylic number plates for vehicles",
+          },
+          signboard: {
+            h: "Signboards",
+            s: "Professional ACP and acrylic signboards",
+          },
+          neon: {
+            h: "Neon Light Boards",
+            s: "Vibrant LED neon advertising and decor boards",
+          },
+          mug: { h: "Custom Mugs", s: "Personalized laser engraved mugs" },
+          leafart: {
+            h: "Leaf Art & Framing",
+            s: "Unique leaf art for home decor",
+          },
+        };
+        const forMap = {
+          mother: "Gifts for Mother",
+          sister: "Gifts for Sister",
+          wife: "Gifts for Wife",
+          father: "Gifts for Father",
+          brother: "Gifts for Brother",
+          husband: "Gifts for Husband",
+          girlfriend: "Gifts for Girlfriend",
+          boyfriend: "Gifts for Boyfriend",
+          friend: "Gifts for Friend",
+        };
+        const festMap = {
+          "mothers-day": "Mother's Day Gifts",
+          "fathers-day": "Father's Day Gifts",
+          rakhi: "Rakhi Gifts",
+          dashain: "Dashain Gifts",
+          tihar: "Tihar Gifts",
+          christmas: "Christmas Gifts",
+        };
+        const occMap = {
+          anniversary: "Anniversary Gifts",
+          birthday: "Birthday Gifts",
+          wedding: "Wedding Gifts",
+          valentines: "Valentine's Day Gifts",
+        };
+
+        let h = "All Products",
+          s = "Explore our full collection of laser-engraved products";
+
+        if (u.cat && titleMap[u.cat]) {
+          h = titleMap[u.cat].h;
+          s = titleMap[u.cat].s;
+        }
+        if (u.type && titleMap[u.type]) {
+          h = titleMap[u.type].h;
+          s = titleMap[u.type].s;
+        }
+        if (u.forWho && forMap[u.forWho]) {
+          h = forMap[u.forWho];
+          s = "Thoughtful laser-engraved gifts crafted with love";
+        }
+        if (u.festival && festMap[u.festival]) {
+          h = festMap[u.festival];
+          s = "Beautiful laser-engraved gifts for the festive season";
+        }
+        if (u.occ && occMap[u.occ]) {
+          h = occMap[u.occ];
+          s = "Special gifts for your most important moments";
+        }
+        if (u.maxprice) {
+          h = `Gifts Under Rs.${u.maxprice.toLocaleString()}`;
+          s = "Quality laser-engraved gifts within your budget";
+        }
+        if (u.q) {
+          h = `Search: "${u.q}"`;
+          s = "Showing results for your search";
+        }
+
+        const h1 = document.getElementById("pageHeading");
+        const sub = document.getElementById("pageSubtext");
+        const bc2 = document.getElementById("breadcrumb2");
+        if (h1) h1.textContent = h;
+        if (sub) sub.textContent = s;
+        if (bc2) bc2.textContent = h;
+        document.title = h + " — Radhana Art";
+      }
+
+      /* ════ MOBILE MENU ════ */
+      function toggleMenu() {
+        document.getElementById("mobileMenu").classList.toggle("hidden");
+        const icon = document.getElementById("menuIcon");
+        icon.classList.toggle("fa-bars");
+        icon.classList.toggle("fa-times");
+      }
+
+      /* ════ INIT ════ */
+      updateBadges();
+      readURLParams();
+    </script>
+  </body>
+</html>

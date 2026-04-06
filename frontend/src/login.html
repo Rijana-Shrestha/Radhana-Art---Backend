@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — Radhana Art</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#145faf", secondary: "#D93A6A" },
+            fontFamily: {
+              main: ["Playfair Display", "serif"],
+              sub: ["Poppins", "sans-serif"],
+            },
+            keyframes: {
+              fadeInUp: {
+                from: { opacity: "0", transform: "translateY(24px)" },
+                to: { opacity: "1", transform: "translateY(0)" },
+              },
+              float: {
+                "0%,100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+            },
+            animation: {
+              fadeInUp: "fadeInUp .6s ease forwards",
+              float: "float 4s ease-in-out infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .card-1 {
+        animation: fadeInUp 0.5s 0.1s ease both;
+      }
+      .card-2 {
+        animation: fadeInUp 0.5s 0.2s ease both;
+      }
+      .card-3 {
+        animation: fadeInUp 0.5s 0.3s ease both;
+      }
+      .card-4 {
+        animation: fadeInUp 0.5s 0.4s ease both;
+      }
+      .card-5 {
+        animation: fadeInUp 0.5s 0.5s ease both;
+      }
+      .input-field {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.08);
+        border: 2px solid rgba(255, 255, 255, 0.12);
+        color: #fff;
+        border-radius: 12px;
+        padding: 13px 16px 13px 44px;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .input-field::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .input-field:focus {
+        border-color: #145faf;
+        background: rgba(255, 255, 255, 0.14);
+      }
+      .input-field.error {
+        border-color: #ef4444;
+      }
+      /* Floating Om symbols */
+      .om-float {
+        position: absolute;
+        font-family: "Playfair Display", serif;
+        color: rgba(255, 255, 255, 0.04);
+        pointer-events: none;
+        select: none;
+      }
+      /* Strength bar */
+      .strength-bar {
+        height: 3px;
+        border-radius: 3px;
+        transition: all 0.3s;
+      }
+      /* Social btn */
+      .social-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1.5px solid rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border-radius: 12px;
+        padding: 11px;
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .social-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-1px);
+      }
+    </style>
+    <script src="/frontend/api.js"></script>
+    <script src="/frontend/auth-pages.js"></script>
+  </head>
+  <body
+    class="min-h-screen overflow-x-hidden"
+    style="
+      background: linear-gradient(
+        135deg,
+        #0a0f1e 0%,
+        #0f1f3d 40%,
+        #1a0a2e 100%
+      );
+    "
+  >
+    <!-- Floating decorations -->
+    <div
+      class="om-float text-[200px] top-10 left-10 animate-float"
+      style="animation-delay: 0s"
+    >
+      ॐ
+    </div>
+    <div
+      class="om-float text-[120px] bottom-20 right-20 animate-float"
+      style="animation-delay: 1.5s"
+    >
+      ॐ
+    </div>
+    <div
+      class="om-float text-[80px] top-1/2 right-10 animate-float"
+      style="animation-delay: 0.7s"
+    >
+      🪷
+    </div>
+    <div
+      class="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden"
+    >
+      <div
+        class="absolute top-1/4 -left-32 w-96 h-96 rounded-full blur-3xl"
+        style="background: rgba(20, 95, 175, 0.15)"
+      ></div>
+      <div
+        class="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full blur-3xl"
+        style="background: rgba(217, 58, 106, 0.12)"
+      ></div>
+    </div>
+
+    <div
+      class="min-h-screen flex items-center justify-center px-4 py-12 relative z-10"
+    >
+      <div class="w-full max-w-md">
+        <!-- Logo -->
+        <div class="text-center mb-8 card-1">
+          <a href="/" class="inline-flex flex-col items-center gap-3">
+            <div
+              class="w-18 h-18 w-[72px] h-[72px] bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30 animate-float"
+            >
+              <span class="text-white font-bold font-main text-3xl">RA</span>
+            </div>
+            <div>
+              <h1 class="font-main text-white text-2xl font-bold">
+                Radhana Art
+              </h1>
+              <p class="font-sub text-white/40 text-xs mt-0.5">
+                Laser Engraving · Kathmandu
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Card -->
+        <div
+          class="card-2 rounded-2xl p-8"
+          style="
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+          "
+        >
+          <h2
+            class="font-main text-white text-2xl font-semibold text-center mb-1"
+          >
+            Welcome Back
+          </h2>
+          <p class="font-sub text-white/40 text-sm text-center mb-7">
+            Sign in to your Radhana Art account
+          </p>
+
+          <form id="loginForm" novalidate>
+            <!-- Email -->
+            <div class="relative mb-4">
+              <i
+                class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30 text-sm"
+              ></i>
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="Email address"
+                class="input-field"
+                autocomplete="email"
+              />
+              <p
+                class="font-sub text-red-400 text-xs mt-1.5 hidden"
+                id="emailErr"
+              >
+                Please enter a valid email address
+              </p>
+            </div>
+
+            <!-- Password -->
+            <div class="relative mb-4">
+              <i
+                class="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30 text-sm z-10"
+              ></i>
+              <input
+                type="password"
+                id="loginPwd"
+                placeholder="Password"
+                class="input-field"
+                autocomplete="current-password"
+              />
+              <button
+                type="button"
+                onclick="togglePwd('loginPwd', 'loginEye')"
+                class="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/70 transition z-10"
+              >
+                <i id="loginEye" class="fas fa-eye text-sm"></i>
+              </button>
+              <p
+                class="font-sub text-red-400 text-xs mt-1.5 hidden"
+                id="pwdErr"
+              >
+                Password is required
+              </p>
+            </div>
+
+            <!-- Remember + Forgot -->
+            <div class="flex justify-between items-center mb-6">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  class="w-4 h-4 rounded border-white/20 bg-white/10 text-primary focus:ring-primary"
+                />
+                <span class="font-sub text-white/50 text-sm">Remember me</span>
+              </label>
+              <a
+                href="/forgot-password.html"
+                class="font-sub text-sm text-primary hover:text-blue-300 transition"
+                >Forgot password?</a
+              >
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              id="loginBtn"
+              class="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 text-white font-sub font-semibold py-3.5 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-0.5 flex items-center justify-center gap-2 mb-5"
+            >
+              <span id="loginBtnText">Sign In</span>
+              <i id="loginBtnIcon" class="fas fa-arrow-right text-sm"></i>
+            </button>
+
+            <!-- Divider -->
+            <div class="flex items-center gap-3 mb-5">
+              <div
+                class="flex-1 h-px"
+                style="background: rgba(255, 255, 255, 0.1)"
+              ></div>
+              <span
+                class="font-sub text-white/30 text-xs uppercase tracking-wider"
+                >or continue with</span
+              >
+              <div
+                class="flex-1 h-px"
+                style="background: rgba(255, 255, 255, 0.1)"
+              ></div>
+            </div>
+
+            <!-- Social -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+              <button type="button" class="social-btn">
+                <img
+                  src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                  class="w-4 h-4"
+                />
+                Google
+              </button>
+              <button type="button" class="social-btn">
+                <i class="fab fa-facebook-f text-blue-400"></i> Facebook
+              </button>
+            </div>
+
+            <p class="font-sub text-white/40 text-sm text-center">
+              Don't have an account?
+              <a
+                href="/register.html"
+                class="text-secondary hover:text-pink-300 font-semibold transition ml-1"
+                >Create one free</a
+              >
+            </p>
+          </form>
+        </div>
+
+        <!-- Admin link -->
+        <div class="card-3 text-center mt-5">
+          <a
+            href="/admin.html"
+            class="font-sub text-white/25 text-xs hover:text-white/50 transition flex items-center justify-center gap-1.5"
+          >
+            <i class="fas fa-lock text-[10px]"></i> Admin Dashboard
+          </a>
+        </div>
+
+        <p class="text-center mt-4 card-4">
+          <a
+            href="/"
+            class="font-sub text-white/25 text-xs hover:text-white/50 transition"
+          >
+            <i class="fas fa-arrow-left mr-1"></i> Back to Home
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function togglePwd(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+      }
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          let valid = true;
+          const email = document.getElementById("loginEmail");
+          const pwd = document.getElementById("loginPwd");
+          const emailErr = document.getElementById("emailErr");
+          const pwdErr = document.getElementById("pwdErr");
+
+          // Validate
+          if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+            email.classList.add("error");
+            emailErr.classList.remove("hidden");
+            valid = false;
+          } else {
+            email.classList.remove("error");
+            emailErr.classList.add("hidden");
+          }
+
+          if (!pwd.value) {
+            pwd.classList.add("error");
+            pwdErr.classList.remove("hidden");
+            valid = false;
+          } else {
+            pwd.classList.remove("error");
+            pwdErr.classList.add("hidden");
+          }
+
+          if (!valid) return;
+
+          // Loading state
+          const btn = document.getElementById("loginBtn");
+          const btnText = document.getElementById("loginBtnText");
+          const btnIcon = document.getElementById("loginBtnIcon");
+          btn.disabled = true;
+          btnText.textContent = "Signing in...";
+          btnIcon.className = "fas fa-spinner fa-spin text-sm";
+
+          // Simulate → connect to your backend here
+          setTimeout(() => {
+            // Demo: admin check
+            if (email.value === "admin@radhanaart.com") {
+              window.location.href = "/admin.html";
+            } else {
+              window.location.href = "/";
+            }
+          }, 1500);
+        });
+    </script>
+  </body>
+</html>

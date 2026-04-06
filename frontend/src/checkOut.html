@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout — Radhana Art</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#145faf", secondary: "#D93A6A" },
+            fontFamily: {
+              main: ["Playfair Display", "serif"],
+              sub: ["Poppins", "sans-serif"],
+            },
+            keyframes: {
+              fadeInUp: {
+                from: { opacity: "0", transform: "translateY(16px)" },
+                to: { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+            animation: { fadeInUp: "fadeInUp .5s ease forwards" },
+          },
+        },
+      };
+    </script>
+    <style>
+      .step-active {
+        background: #145faf;
+        color: #fff;
+        border-color: #145faf;
+      }
+      .step-done {
+        background: #22c55e;
+        color: #fff;
+        border-color: #22c55e;
+      }
+      .step-inactive {
+        background: #fff;
+        color: #9ca3af;
+        border-color: #e5e7eb;
+      }
+      .step-line-done {
+        background: #22c55e;
+      }
+      .step-line-active {
+        background: #145faf;
+      }
+      .step-line-idle {
+        background: #e5e7eb;
+      }
+      .input-field {
+        font-family: "Poppins", sans-serif;
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #f3f4f6;
+        background: #f9fafb;
+        border-radius: 12px;
+        font-size: 14px;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .input-field:focus {
+        border-color: #145faf;
+        background: #fff;
+      }
+      .input-label {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        color: #6b7280;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .pay-card {
+        border: 2px solid #f3f4f6;
+        border-radius: 14px;
+        padding: 14px 16px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .pay-card:hover {
+        border-color: #145faf;
+        background: #f0f7ff;
+      }
+      .pay-card.selected {
+        border-color: #145faf;
+        background: #f0f7ff;
+      }
+      .wa-float {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        z-index: 999;
+        width: 56px;
+        height: 56px;
+        background: #25d366;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+        transition: transform 0.3s;
+        text-decoration: none;
+      }
+      .wa-float:hover {
+        transform: scale(1.12);
+      }
+      /* File drop */
+      .drop-zone {
+        border: 2px dashed #e5e7eb;
+        border-radius: 14px;
+        padding: 28px;
+        text-align: center;
+        transition: all 0.25s;
+        cursor: pointer;
+      }
+      .drop-zone:hover,
+      .drop-zone.drag-over {
+        border-color: #145faf;
+        background: #f0f7ff;
+      }
+      /* Success overlay */
+      #successOverlay {
+        transition: opacity 0.5s ease;
+      }
+      @keyframes checkAnim {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      .check-path {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: checkAnim 0.7s 0.3s ease forwards;
+      }
+    </style>
+    <script src="/frontend/api.js"></script>
+    <script src="/frontend/checkout-page.js"></script>
+  </head>
+  <body class="bg-gray-50">
+    <a href="https://wa.me/9779823939106" target="_blank" class="wa-float"
+      ><i class="fa-brands fa-whatsapp"></i
+    ></a>
+
+    <!-- Success Overlay -->
+    <div
+      id="successOverlay"
+      class="fixed inset-0 bg-black/60 z-[500] hidden items-center justify-center p-4 opacity-0"
+    >
+      <div
+        class="bg-white rounded-3xl shadow-2xl p-10 max-w-md w-full text-center"
+      >
+        <div class="relative inline-block mb-6">
+          <div
+            class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center shadow-xl shadow-green-500/40 mx-auto"
+          >
+            <svg class="w-12 h-12" viewBox="0 0 52 52" fill="none">
+              <path
+                class="check-path"
+                d="M14 27L22 35L38 19"
+                stroke="white"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div
+            class="absolute inset-0 w-24 h-24 mx-auto rounded-full bg-green-400/20 animate-ping"
+          ></div>
+        </div>
+        <h2 class="font-main text-2xl text-gray-800 mb-2">Order Placed! 🎉</h2>
+        <p class="font-sub text-gray-500 text-sm mb-2">
+          Thank you! Your order has been received.
+        </p>
+        <p class="font-sub text-xs text-gray-400 mb-5">
+          Order ID:
+          <strong id="successOrderId" class="text-primary">#RA-2025-001</strong>
+        </p>
+        <div
+          class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6 text-left"
+        >
+          <p class="font-sub text-sm text-blue-700 font-semibold mb-2">
+            What happens next?
+          </p>
+          <ol
+            class="font-sub text-xs text-blue-600 space-y-1 list-decimal list-inside"
+          >
+            <li>We'll contact you on WhatsApp within 1 hour</li>
+            <li>Send your photo/design if not uploaded</li>
+            <li>We send a design preview for your approval</li>
+            <li>After approval we engrave and deliver in 2–3 days</li>
+          </ol>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a
+            href="https://wa.me/9779823939106"
+            target="_blank"
+            class="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-sub font-medium px-5 py-3 rounded-xl transition flex-1"
+          >
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+          </a>
+          <a
+            href="/frontend/src/product.html"
+            class="flex items-center justify-center gap-2 bg-primary hover:bg-secondary text-white font-sub font-medium px-5 py-3 rounded-xl transition flex-1"
+          >
+            <i class="fas fa-store"></i> Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simple header -->
+    <header class="bg-white shadow-sm">
+      <div
+        class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center"
+      >
+        <a href="/" class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-md"
+          >
+            <span class="text-white font-bold font-main text-lg">RA</span>
+          </div>
+          <div>
+            <span class="font-main text-primary text-xl font-bold block"
+              >Radhana Art</span
+            >
+            <span class="font-sub text-[10px] text-gray-400 hidden md:block"
+              >Laser Engraving · Kathmandu</span
+            >
+          </div>
+        </a>
+
+        <!-- Checkout steps -->
+        <div class="hidden md:flex items-center gap-0">
+          <div class="flex items-center gap-2" id="step1Wrap">
+            <div
+              id="step1Circle"
+              class="step-active w-8 h-8 rounded-full border-2 flex items-center justify-center font-sub font-bold text-sm transition-all"
+            >
+              1
+            </div>
+            <span
+              id="step1Label"
+              class="font-sub text-sm font-medium text-primary"
+              >Shipping</span
+            >
+          </div>
+          <div
+            id="line12"
+            class="w-12 h-0.5 bg-gray-200 mx-2 step-line-idle transition-all duration-500"
+          ></div>
+          <div class="flex items-center gap-2">
+            <div
+              id="step2Circle"
+              class="step-inactive w-8 h-8 rounded-full border-2 flex items-center justify-center font-sub font-bold text-sm transition-all"
+            >
+              2
+            </div>
+            <span
+              id="step2Label"
+              class="font-sub text-sm text-gray-400 transition-colors"
+              >Payment</span
+            >
+          </div>
+          <div
+            id="line23"
+            class="w-12 h-0.5 bg-gray-200 mx-2 step-line-idle transition-all duration-500"
+          ></div>
+          <div class="flex items-center gap-2">
+            <div
+              id="step3Circle"
+              class="step-inactive w-8 h-8 rounded-full border-2 flex items-center justify-center font-sub font-bold text-sm transition-all"
+            >
+              3
+            </div>
+            <span
+              id="step3Label"
+              class="font-sub text-sm text-gray-400 transition-colors"
+              >Review</span
+            >
+          </div>
+        </div>
+
+        <a
+          href="/cart.html"
+          class="font-sub text-sm text-gray-500 hover:text-primary transition flex items-center gap-1.5"
+        >
+          <i class="fas fa-arrow-left text-xs"></i> Back to Cart
+        </a>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-8 lg:px-12 py-10">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- LEFT: Steps -->
+        <div class="lg:col-span-2 space-y-5">
+          <!-- ══ STEP 1: Shipping ══ -->
+          <div
+            id="sectionStep1"
+            class="bg-white rounded-2xl shadow-sm overflow-hidden"
+          >
+            <div
+              class="flex items-center justify-between px-6 py-4 border-b border-gray-50 cursor-pointer"
+              onclick="goToStep(1)"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-sub font-bold text-sm"
+                >
+                  1
+                </div>
+                <h2 class="font-main text-lg text-primary">
+                  Shipping Information
+                </h2>
+              </div>
+              <i
+                class="fas fa-chevron-down text-gray-400 text-sm"
+                id="s1arrow"
+              ></i>
+            </div>
+            <div id="step1Content" class="px-6 pb-6 pt-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="input-label">First Name *</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    placeholder="Ramesh"
+                    class="input-field"
+                    oninput="validateStep1()"
+                  />
+                </div>
+                <div>
+                  <label class="input-label">Last Name *</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    placeholder="Shrestha"
+                    class="input-field"
+                    oninput="validateStep1()"
+                  />
+                </div>
+                <div>
+                  <label class="input-label">Email Address *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="your@email.com"
+                    class="input-field"
+                    oninput="validateStep1()"
+                  />
+                </div>
+                <div>
+                  <label class="input-label">Phone Number *</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    placeholder="+977 98XXXXXXXX"
+                    class="input-field"
+                    oninput="validateStep1()"
+                  />
+                </div>
+                <div class="md:col-span-2">
+                  <label class="input-label">Delivery Address *</label>
+                  <input
+                    type="text"
+                    id="address"
+                    placeholder="Street address, locality, landmark"
+                    class="input-field"
+                    oninput="validateStep1()"
+                  />
+                </div>
+                <div>
+                  <label class="input-label">City / District *</label>
+                  <select
+                    id="city"
+                    class="input-field bg-gray-50"
+                    onchange="validateStep1()"
+                  >
+                    <option value="">Select city</option>
+                    <option>Kathmandu</option>
+                    <option>Lalitpur</option>
+                    <option>Bhaktapur</option>
+                    <option>Pokhara</option>
+                    <option>Chitwan</option>
+                    <option>Butwal</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="input-label">Landmark (Optional)</label>
+                  <input
+                    type="text"
+                    id="landmark"
+                    placeholder="Near school, temple, etc."
+                    class="input-field"
+                  />
+                </div>
+                <div class="md:col-span-2">
+                  <label class="input-label">Order Notes (Optional)</label>
+                  <textarea
+                    id="notes"
+                    rows="2"
+                    placeholder="Any special instructions for your order or delivery..."
+                    class="input-field resize-none"
+                  ></textarea>
+                </div>
+              </div>
+              <button
+                id="step1Next"
+                onclick="goToStep(2)"
+                class="mt-5 w-full bg-primary hover:bg-secondary text-white font-sub font-semibold py-3.5 rounded-xl transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled
+              >
+                Continue to Payment <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- ══ STEP 2: Upload + Payment ══ -->
+          <div
+            id="sectionStep2"
+            class="bg-white rounded-2xl shadow-sm overflow-hidden opacity-50 pointer-events-none transition-all duration-300"
+          >
+            <div
+              class="flex items-center justify-between px-6 py-4 border-b border-gray-50 cursor-pointer"
+              onclick="goToStep(2)"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-sub font-bold text-sm"
+                  id="step2Num"
+                >
+                  2
+                </div>
+                <h2 class="font-main text-lg text-gray-400" id="step2Head">
+                  Design Upload &amp; Payment
+                </h2>
+              </div>
+              <i
+                class="fas fa-chevron-right text-gray-300 text-sm"
+                id="s2arrow"
+              ></i>
+            </div>
+            <div id="step2Content" class="hidden px-6 pb-6 pt-4">
+              <!-- Upload -->
+              <div class="mb-6">
+                <h3 class="font-main text-base text-primary mb-1">
+                  Upload Your Photo/Design
+                </h3>
+                <p class="font-sub text-xs text-gray-400 mb-4">
+                  We'll send you a design preview before crafting. You can also
+                  send via WhatsApp later.
+                </p>
+                <div
+                  id="dropZone"
+                  class="drop-zone"
+                  onclick="document.getElementById('fileInput').click()"
+                  ondragover="
+                    event.preventDefault();
+                    this.classList.add('drag-over');
+                  "
+                  ondragleave="this.classList.remove('drag-over')"
+                  ondrop="handleDrop(event)"
+                >
+                  <i
+                    class="fas fa-cloud-upload-alt text-4xl text-gray-300 mb-3 block"
+                  ></i>
+                  <p class="font-sub text-gray-500 text-sm font-medium">
+                    Click to upload or drag &amp; drop
+                  </p>
+                  <p class="font-sub text-gray-400 text-xs mt-1">
+                    JPG, PNG, PDF, AI, CDR — up to 20MB
+                  </p>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    class="hidden"
+                    accept="image/*,.pdf,.ai,.cdr"
+                    multiple
+                    onchange="handleFiles(this.files)"
+                  />
+                </div>
+                <div id="fileList" class="mt-3 space-y-2"></div>
+              </div>
+
+              <!-- Payment method -->
+              <div>
+                <h3 class="font-main text-base text-primary mb-1">
+                  Payment Method
+                </h3>
+                <p class="font-sub text-xs text-gray-400 mb-4">
+                  Choose how you'd like to pay for your order
+                </p>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 gap-3"
+                  id="paymentCards"
+                >
+                  <div
+                    class="pay-card selected flex items-center gap-3"
+                    onclick="selectPayment(this, 'esewa')"
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="esewa"
+                      checked
+                      class="text-primary w-4 h-4"
+                    />
+                    <div
+                      class="w-10 h-10 bg-green-50 border border-green-200 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <i class="fas fa-mobile-alt text-green-600 text-lg"></i>
+                    </div>
+                    <div>
+                      <p class="font-sub font-semibold text-sm text-gray-800">
+                        eSewa
+                      </p>
+                      <p class="font-sub text-xs text-gray-400">
+                        Digital Wallet
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="pay-card flex items-center gap-3"
+                    onclick="selectPayment(this, 'khalti')"
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="khalti"
+                      class="text-primary w-4 h-4"
+                    />
+                    <div
+                      class="w-10 h-10 bg-purple-50 border border-purple-200 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <i class="fas fa-wallet text-purple-600 text-lg"></i>
+                    </div>
+                    <div>
+                      <p class="font-sub font-semibold text-sm text-gray-800">
+                        Khalti
+                      </p>
+                      <p class="font-sub text-xs text-gray-400">
+                        Digital Wallet
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="pay-card flex items-center gap-3"
+                    onclick="selectPayment(this, 'bank')"
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="bank"
+                      class="text-primary w-4 h-4"
+                    />
+                    <div
+                      class="w-10 h-10 bg-blue-50 border border-blue-200 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <i class="fas fa-university text-blue-600 text-lg"></i>
+                    </div>
+                    <div>
+                      <p class="font-sub font-semibold text-sm text-gray-800">
+                        Bank Transfer
+                      </p>
+                      <p class="font-sub text-xs text-gray-400">
+                        Direct transfer
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="pay-card flex items-center gap-3"
+                    onclick="selectPayment(this, 'cod')"
+                  >
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="cod"
+                      class="text-primary w-4 h-4"
+                    />
+                    <div
+                      class="w-10 h-10 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <i class="fas fa-money-bill text-amber-600 text-lg"></i>
+                    </div>
+                    <div>
+                      <p class="font-sub font-semibold text-sm text-gray-800">
+                        Cash on Delivery
+                      </p>
+                      <p class="font-sub text-xs text-gray-400">
+                        Pay on receipt
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onclick="goToStep(3)"
+                class="mt-6 w-full bg-primary hover:bg-secondary text-white font-sub font-semibold py-3.5 rounded-xl transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2"
+              >
+                Continue to Review <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- ══ STEP 3: Review & Confirm ══ -->
+          <div
+            id="sectionStep3"
+            class="bg-white rounded-2xl shadow-sm overflow-hidden opacity-50 pointer-events-none transition-all duration-300"
+          >
+            <div
+              class="flex items-center justify-between px-6 py-4 border-b border-gray-50 cursor-pointer"
+              onclick="goToStep(3)"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-sub font-bold text-sm"
+                  id="step3Num"
+                >
+                  3
+                </div>
+                <h2 class="font-main text-lg text-gray-400" id="step3Head">
+                  Review Your Order
+                </h2>
+              </div>
+              <i
+                class="fas fa-chevron-right text-gray-300 text-sm"
+                id="s3arrow"
+              ></i>
+            </div>
+            <div id="step3Content" class="hidden px-6 pb-6 pt-4">
+              <!-- Shipping summary -->
+              <div class="bg-gray-50 rounded-xl p-4 mb-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h3
+                    class="font-sub font-semibold text-gray-700 text-sm flex items-center gap-2"
+                  >
+                    <i class="fas fa-map-marker-alt text-primary"></i> Shipping
+                    To
+                  </h3>
+                  <button
+                    onclick="goToStep(1)"
+                    class="font-sub text-xs text-primary hover:text-secondary transition"
+                  >
+                    Edit
+                  </button>
+                </div>
+                <div
+                  id="reviewShipping"
+                  class="font-sub text-sm text-gray-600 space-y-0.5"
+                ></div>
+              </div>
+              <!-- Payment summary -->
+              <div class="bg-gray-50 rounded-xl p-4 mb-5">
+                <div class="flex justify-between items-start mb-3">
+                  <h3
+                    class="font-sub font-semibold text-gray-700 text-sm flex items-center gap-2"
+                  >
+                    <i class="fas fa-credit-card text-primary"></i> Payment
+                    Method
+                  </h3>
+                  <button
+                    onclick="goToStep(2)"
+                    class="font-sub text-xs text-primary hover:text-secondary transition"
+                  >
+                    Edit
+                  </button>
+                </div>
+                <p
+                  id="reviewPayment"
+                  class="font-sub text-sm text-gray-600"
+                ></p>
+              </div>
+              <!-- Items review -->
+              <div class="mb-5">
+                <h3
+                  class="font-sub font-semibold text-gray-700 text-sm flex items-center gap-2 mb-3"
+                >
+                  <i class="fas fa-box text-primary"></i> Order Items
+                </h3>
+                <div id="reviewItems" class="space-y-3"></div>
+              </div>
+              <!-- Terms -->
+              <label class="flex items-start gap-3 cursor-pointer mb-5">
+                <input
+                  type="checkbox"
+                  id="termsCheck"
+                  class="w-4 h-4 mt-0.5 rounded border-gray-300 text-primary focus:ring-primary"
+                  onchange="togglePlaceOrder()"
+                />
+                <span class="font-sub text-sm text-gray-600">
+                  I agree to the
+                  <a href="#" class="text-primary hover:underline"
+                    >Terms of Service</a
+                  >
+                  and
+                  <a href="#" class="text-primary hover:underline"
+                    >Privacy Policy</a
+                  >. I confirm the order details are correct.
+                </span>
+              </label>
+              <button
+                id="placeOrderBtn"
+                onclick="placeOrder()"
+                class="w-full bg-gradient-to-r from-primary to-blue-600 text-white font-sub font-bold py-4 rounded-xl transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2 text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                disabled
+              >
+                <i class="fas fa-check-circle"></i> Place Order
+              </button>
+              <p class="font-sub text-xs text-gray-400 text-center mt-3">
+                <i class="fas fa-lock text-green-500 mr-1"></i>Your order is
+                100% secure
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Order Summary -->
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-2xl shadow-md p-6 sticky top-6">
+            <h2
+              class="font-main text-xl text-gray-800 mb-5 pb-4 border-b border-gray-100"
+            >
+              Order Summary
+            </h2>
+
+            <div
+              id="checkoutItemsList"
+              class="space-y-3 mb-5 max-h-72 overflow-y-auto pr-1"
+            >
+              <!-- Rendered by JS -->
+            </div>
+
+            <div class="border-t border-gray-100 pt-4 space-y-2.5">
+              <div class="flex justify-between font-sub text-sm">
+                <span class="text-gray-500">Subtotal</span
+                ><span id="coSubtotal" class="font-medium text-gray-800"
+                  >Rs. 0</span
+                >
+              </div>
+              <div class="flex justify-between font-sub text-sm">
+                <span class="text-gray-500">Delivery</span
+                ><span class="text-green-600 font-medium">Free</span>
+              </div>
+              <div class="flex justify-between font-sub text-sm">
+                <span class="text-gray-500">VAT (13%)</span
+                ><span id="coTax" class="font-medium text-gray-800">Rs. 0</span>
+              </div>
+              <div
+                class="flex justify-between font-sub font-bold text-base border-t border-gray-100 pt-2.5 mt-1"
+              >
+                <span class="text-gray-800">Total</span>
+                <span id="coTotal" class="text-secondary text-xl">Rs. 0</span>
+              </div>
+            </div>
+
+            <!-- Security -->
+            <div class="mt-5 pt-4 border-t border-gray-100 space-y-2.5">
+              <div
+                class="flex items-center gap-2 font-sub text-xs text-gray-500"
+              >
+                <i class="fas fa-shield-alt text-green-500 w-4"></i> SSL Secured
+                Checkout
+              </div>
+              <div
+                class="flex items-center gap-2 font-sub text-xs text-gray-500"
+              >
+                <i class="fas fa-truck-fast text-blue-500 w-4"></i> Free
+                delivery within Kathmandu
+              </div>
+              <div
+                class="flex items-center gap-2 font-sub text-xs text-gray-500"
+              >
+                <i class="fas fa-eye text-amber-500 w-4"></i> Design preview
+                before crafting
+              </div>
+              <div
+                class="flex items-center gap-2 font-sub text-xs text-gray-500"
+              >
+                <i class="fas fa-headset text-secondary w-4"></i> WhatsApp
+                support throughout
+              </div>
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-gray-100">
+              <p class="font-sub text-xs text-gray-400 text-center">
+                Need help?
+              </p>
+              <a
+                href="https://wa.me/9779823939106"
+                target="_blank"
+                class="flex items-center justify-center gap-2 mt-2 text-green-600 font-sub text-sm font-medium hover:underline"
+              >
+                <i class="fa-brands fa-whatsapp text-lg"></i> Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      /* ════ CART ════ */
+      function getCart() {
+        return JSON.parse(localStorage.getItem("radhana_cart") || "[]");
+      }
+
+      function renderSummary() {
+        const cart = getCart();
+        const list = document.getElementById("checkoutItemsList");
+        let sub = 0;
+
+        if (cart.length === 0) {
+          list.innerHTML =
+            '<p class="font-sub text-sm text-gray-400 text-center py-4">Cart is empty. <a href="/product.html" class="text-primary hover:underline">Browse Products</a></p>';
+          return;
+        }
+
+        list.innerHTML = cart
+          .map((item) => {
+            sub += item.price * item.qty;
+            return `
+    <div class="flex gap-3 items-center">
+      <img src="${item.image || "https://images.unsplash.com/photo-1582269847642-87432658c952?q=80&w=120"}"
+           class="w-14 h-14 rounded-xl object-cover flex-shrink-0 shadow-sm" alt="${item.name}"/>
+      <div class="flex-1 min-w-0">
+        <p class="font-main text-sm text-gray-800 truncate">${item.name}</p>
+        <p class="font-sub text-xs text-gray-400 mt-0.5">Qty: ${item.qty} × Rs. ${item.price.toLocaleString()}</p>
+      </div>
+      <p class="font-sub text-sm font-semibold text-secondary flex-shrink-0">Rs. ${(item.price * item.qty).toLocaleString()}</p>
+    </div>`;
+          })
+          .join("");
+
+        const tax = Math.round(sub * 0.13);
+        const total = sub + tax;
+        document.getElementById("coSubtotal").textContent =
+          "Rs. " + sub.toLocaleString();
+        document.getElementById("coTax").textContent =
+          "Rs. " + tax.toLocaleString();
+        document.getElementById("coTotal").textContent =
+          "Rs. " + total.toLocaleString();
+      }
+
+      /* ════ STEPS ════ */
+      let currentStep = 1;
+      let selectedPayment = "eSewa";
+
+      function goToStep(n) {
+        if (n > currentStep) {
+          if (n === 2 && !isStep1Valid()) return;
+        }
+        currentStep = n;
+        updateStepUI();
+      }
+
+      function updateStepUI() {
+        [1, 2, 3].forEach((n) => {
+          const section = document.getElementById(`sectionStep${n}`);
+          const content = document.getElementById(`step${n}Content`);
+          const num = document.getElementById(`step${n}Num`);
+          const head = document.getElementById(`step${n}Head`);
+          const arrow = document.getElementById(`s${n}arrow`);
+
+          if (n < currentStep) {
+            section.classList.remove("opacity-50", "pointer-events-none");
+            content.classList.add("hidden");
+            if (num) {
+              num.className =
+                "w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-sub font-bold text-sm";
+              num.innerHTML = '<i class="fas fa-check text-xs"></i>';
+            }
+            if (head) head.className = "font-main text-lg text-green-600";
+            if (arrow) {
+              arrow.className = "fas fa-chevron-down text-gray-400 text-sm";
+            }
+          } else if (n === currentStep) {
+            section.classList.remove("opacity-50", "pointer-events-none");
+            content.classList.remove("hidden");
+            if (num) {
+              num.className =
+                "w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-sub font-bold text-sm";
+              num.textContent = n;
+            }
+            if (head) head.className = "font-main text-lg text-primary";
+            if (arrow) {
+              arrow.className = "fas fa-chevron-up text-primary text-sm";
+            }
+          } else {
+            section.classList.add("opacity-50", "pointer-events-none");
+            content.classList.add("hidden");
+            if (num) {
+              num.className =
+                "w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-sub font-bold text-sm";
+              num.textContent = n;
+            }
+            if (head) head.className = "font-main text-lg text-gray-400";
+            if (arrow) {
+              arrow.className = "fas fa-chevron-right text-gray-300 text-sm";
+            }
+          }
+        });
+
+        // Step indicators in header
+        [1, 2, 3].forEach((n) => {
+          const c = document.getElementById(`step${n}Circle`);
+          const l = document.getElementById(`step${n}Label`);
+          if (!c) return;
+          if (n < currentStep) {
+            c.className =
+              "step-done w-8 h-8 rounded-full border-2 flex items-center justify-center font-sub font-bold text-sm transition-all";
+            c.innerHTML = '<i class="fas fa-check text-xs"></i>';
+          } else if (n === currentStep) {
+            c.className =
+              "step-active w-8 h-8 rounded-full border-2 flex items-center justify-center font-sub font-bold text-sm transition-all";
+            c.textContent = n;
+          } else {
+            c.className =
+              "step-inactive w-8 h-8 rounded-full border-2 flex items-center justify-center font-sub font-bold text-sm transition-all";
+            c.textContent = n;
+          }
+          if (l)
+            l.className =
+              n <= currentStep
+                ? "font-sub text-sm font-medium text-primary"
+                : "font-sub text-sm text-gray-400";
+        });
+
+        const lines = { line12: currentStep >= 2, line23: currentStep >= 3 };
+        Object.entries(lines).forEach(([id, done]) => {
+          const el = document.getElementById(id);
+          if (el)
+            el.className = `w-12 h-0.5 mx-2 transition-all duration-500 ${done ? "bg-green-500" : "bg-gray-200"}`;
+        });
+
+        if (currentStep === 3) populateReview();
+      }
+
+      /* ════ VALIDATION ════ */
+      function isStep1Valid() {
+        return [
+          "firstName",
+          "lastName",
+          "email",
+          "phone",
+          "address",
+          "city",
+        ].every((id) => {
+          const el = document.getElementById(id);
+          return el && el.value.trim() !== "";
+        });
+      }
+      function validateStep1() {
+        const btn = document.getElementById("step1Next");
+        btn.disabled = !isStep1Valid();
+      }
+
+      /* ════ PAYMENT SELECTION ════ */
+      function selectPayment(card, method) {
+        document.querySelectorAll(".pay-card").forEach((c) => {
+          c.classList.remove("selected");
+          c.querySelector("input[type=radio]").checked = false;
+        });
+        card.classList.add("selected");
+        card.querySelector("input[type=radio]").checked = true;
+        const labels = {
+          esewa: "eSewa Digital Wallet",
+          khalti: "Khalti Digital Wallet",
+          bank: "Bank Transfer",
+          cod: "Cash on Delivery",
+        };
+        selectedPayment = labels[method] || method;
+      }
+
+      /* ════ FILE UPLOAD ════ */
+      function handleFiles(files) {
+        const list = document.getElementById("fileList");
+        Array.from(files).forEach((file) => {
+          const div = document.createElement("div");
+          div.className =
+            "flex items-center gap-3 bg-green-50 border border-green-100 rounded-xl px-3 py-2.5";
+          div.innerHTML = `
+      <i class="fas fa-file-image text-green-500"></i>
+      <div class="flex-1 min-w-0">
+        <p class="font-sub text-sm text-green-700 font-medium truncate">${file.name}</p>
+        <p class="font-sub text-xs text-green-500">${(file.size / 1024).toFixed(1)} KB — Ready</p>
+      </div>
+      <button onclick="this.parentElement.remove()" class="text-red-400 hover:text-red-600 transition text-sm"><i class="fas fa-times"></i></button>`;
+          list.appendChild(div);
+          document.getElementById("dropZone").style.borderColor = "#22c55e";
+          document.getElementById("dropZone").style.background = "#f0fdf4";
+        });
+      }
+      function handleDrop(e) {
+        e.preventDefault();
+        document.getElementById("dropZone").classList.remove("drag-over");
+        handleFiles(e.dataTransfer.files);
+      }
+
+      /* ════ REVIEW ════ */
+      function populateReview() {
+        const f = (id) => document.getElementById(id)?.value || "";
+        document.getElementById("reviewShipping").innerHTML = `
+    <p><strong>${f("firstName")} ${f("lastName")}</strong></p>
+    <p>${f("address")}, ${f("city")}</p>
+    ${f("landmark") ? `<p>Landmark: ${f("landmark")}</p>` : ""}
+    <p>${f("phone")} &nbsp;·&nbsp; ${f("email")}</p>
+    ${f("notes") ? `<p class="text-xs text-gray-500 mt-1">Note: ${f("notes")}</p>` : ""}`;
+        document.getElementById("reviewPayment").innerHTML =
+          `<span class="font-medium">${selectedPayment}</span>`;
+
+        const cart = getCart();
+        document.getElementById("reviewItems").innerHTML = cart
+          .map(
+            (item) => `
+    <div class="flex gap-3 items-center bg-gray-50 rounded-xl p-3">
+      <img src="${item.image || ""}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0"/>
+      <div class="flex-1">
+        <p class="font-main text-sm text-gray-800">${item.name}</p>
+        <p class="font-sub text-xs text-gray-400">Qty: ${item.qty}</p>
+      </div>
+      <p class="font-sub text-sm font-semibold text-secondary">Rs. ${(item.price * item.qty).toLocaleString()}</p>
+    </div>`,
+          )
+          .join("");
+      }
+
+      /* ════ TERMS ════ */
+      function togglePlaceOrder() {
+        document.getElementById("placeOrderBtn").disabled =
+          !document.getElementById("termsCheck").checked;
+      }
+
+      /* ════ PLACE ORDER ════ */
+      function placeOrder() {
+        const btn = document.getElementById("placeOrderBtn");
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+          // Clear cart
+          localStorage.removeItem("radhana_cart");
+
+          // Show success
+          const overlay = document.getElementById("successOverlay");
+          const orderId =
+            "#RA-" +
+            new Date().getFullYear() +
+            "-" +
+            Math.floor(Math.random() * 9000 + 1000);
+          document.getElementById("successOrderId").textContent = orderId;
+          overlay.classList.remove("hidden");
+          overlay.classList.add("flex");
+          setTimeout(() => {
+            overlay.style.opacity = "1";
+          }, 10);
+          document.body.style.overflow = "hidden";
+        }, 1500);
+      }
+
+      /* ════ INIT ════ */
+      renderSummary();
+      validateStep1();
+      updateStepUI();
+    </script>
+  </body>
+</html>
