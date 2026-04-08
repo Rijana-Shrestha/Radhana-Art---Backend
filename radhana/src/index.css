@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+
+@font-face {
+  font-family: "common";
+  src: url("/fonts/Questrial-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "smthg";
+  src: url("/fonts/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2") format("woff2");
+}
