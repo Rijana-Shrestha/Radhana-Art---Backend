@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, LogIn, Mail } from 'lucide-react'
+import { AuthContext } from '../context/AuthContext'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,10 @@ const Login = () => {
   })
   const [rememberMe, setRememberMe] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const { loginUser } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setFormData({
@@ -17,10 +22,29 @@ const Login = () => {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Login submitted:', formData)
-    // Add your login logic here
+    
+    if (!formData.email || !formData.password) {
+      setError('Please fill in all fields')
+      return
+    }
+    
+    setLoading(true)
+    setError('')
+    
+    try {
+      const res = await loginUser(formData.email, formData.password)
+      console.log('Login successful:', res)
+      
+      // Navigate to home page
+      navigate('/')
+    } catch (error) {
+      console.error('Login error:', error)
+      setError(error.response?.data?.message || 'Login failed. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -39,6 +63,13 @@ const Login = () => {
           {/* Login Card */}
           <div className='bg-white rounded-2xl shadow-lg p-8 border border-gray-100'>
             <form onSubmit={handleSubmit} className='space-y-5'>
+              {/* Error Message */}
+              {error && (
+                <div className='p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm'>
+                  {error}
+                </div>
+              )}
+
               {/* Email */}
               <div>
                 <label className='block text-sm font-bold text-gray-800 mb-2'>Email Address</label>
@@ -95,10 +126,11 @@ const Login = () => {
               {/* Submit Button */}
               <button
                 type='submit'
-                className='w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2'
+                disabled={loading}
+                className='w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed'
               >
                 <LogIn size={18} />
-                Sign In
+                {loading ? 'Signing In...' : 'Sign In'}
               </button>
             </form>
 

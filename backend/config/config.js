@@ -4,7 +4,7 @@ dotenv.config();
 
 const config = {
   appUrl: process.env.APP_URL || "http://localhost:5000",
-  frontendUrl: process.env.FRONTEND_URL || "http://127.0.0.1:5500",
+  frontendUrl: process.env.FRONTEND_URL || "http://localhost:5173",
   PORT: process.env.PORT || 5000,
   MONGODB_URL: process.env.MONGODB_URL || "",
   jwtSecret: process.env.JWT_SECRET || "radhana_secret_key",

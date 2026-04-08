@@ -66,7 +66,11 @@ const updateProfileImage = async (id, file, authUser) => {
     { new: true },
   ).select("-password");
 };
-
+const getProfile = async (id) => {
+  const user = await User.findById(id).select("-password");
+  if (!user) throw { statusCode: 404, message: "User not found." };
+  return user;
+};
 export default {
   createUser,
   getUsers,
@@ -74,4 +78,5 @@ export default {
   updateUser,
   deleteUser,
   updateProfileImage,
+  getProfile
 };

@@ -1,9 +1,14 @@
 import express from "express";
 import userController from "../controllers/userController.js";
 import roleBasedAuth from "../middlewares/roleBasedAuth.js";
+import auth from "../middlewares/auth.js";
 import { ADMIN } from "../constants/roles.js";
 
 const router = express.Router();
+
+
+// get profile (authenticated user only)
+router.get("/profile", auth, userController.getProfile);
 
 // Admin only
 router.post("/", roleBasedAuth(ADMIN), userController.createUser);

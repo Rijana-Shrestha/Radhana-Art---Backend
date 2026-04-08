@@ -23,7 +23,7 @@ connectDB();
 // ── CORS ── allow your frontend origin (update in production)
 app.use(
   cors({
-    origin: config.frontendUrl || "http://127.0.0.1:5500", // Live Server default
+    origin: config.frontendUrl || "http://localhost:5173", // Live Server default
     credentials: true, // allow cookies
   }),
 );

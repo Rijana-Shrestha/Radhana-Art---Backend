@@ -40,6 +40,7 @@ const register = async (data) => {
     password: hashedPassword,
     phone: data.phone,
     address: data.address || { city: "", province: "", country: "Nepal" },
+    roles: data.roles || ["USER"],
   });
 
   return safeUser(created);

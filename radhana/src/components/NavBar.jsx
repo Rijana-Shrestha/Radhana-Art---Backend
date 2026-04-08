@@ -1,13 +1,16 @@
-import { ShoppingCart, User } from 'lucide-react'
+import { ShoppingCart, User, LogOut } from 'lucide-react'
 import React, { useState } from 'react'
 import { useContext } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { CartContext, CartProvider } from '../context/CartContext'
+import { AuthContext } from '../context/AuthContext'
 
 const NavBar = () => {
   const {getCartTotal, getCartCount}= useContext(CartContext)
+  const { user, isLoggedIn, logout, loading } = useContext(AuthContext)
+  const [showProfileMenu, setShowProfileMenu] = useState(false)
   const location = useLocation()
-    const navigate=useNavigate()
+  const navigate = useNavigate()
   const isActive = (path) => location.pathname === path
 
   return (
@@ -61,14 +64,72 @@ const NavBar = () => {
 
         {/* Right Icons */}
         <div className='flex items-center gap-4 ml-4'>
-          {/* Profile Icon */}
-          <button onClick={()=>navigate("/login")} className='text-gray-700 bg-gray-200 rounded-full p-1 text-2xl hover:text-blue-600'>
-            <User size={24} />
-          </button>
+          {/* Profile Icon / User Menu */}
+          {loading ? (
+            // Loading skeleton while fetching user data
+            <div className='flex items-center gap-2 bg-gray-300 rounded-full px-3 py-2 animate-pulse w-32 h-10'>
+              <div className='w-6 h-6 bg-gray-400 rounded-full'></div>
+              <div className='w-16 h-3 bg-gray-400 rounded'></div>
+            </div>
+          ) : isLoggedIn && user ? (
+            <div className='relative'>
+              <button 
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+                className='flex items-center gap-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full px-3 py-2 hover:from-blue-600 hover:to-blue-700 transition'
+              >
+                {user.profileImageUrl ? (
+                  <img src={user.profileImageUrl} alt={user.name} className='w-6 h-6 rounded-full object-cover' />
+                ) : (
+                  <User size={20} />
+                )}
+                <span className='text-sm font-medium max-w-[80px] truncate'>{user.name}</span>
+              </button>
+              
+              {/* Dropdown Menu */}
+              {showProfileMenu && (
+                <div className='absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50'>
+                  <div className='px-4 py-2 border-b border-gray-200'>
+                    <p className='text-sm font-bold text-gray-800'>{user.name}</p>
+                    <p className='text-xs text-gray-600'>{user.email}</p>
+                  </div>
+                  <Link 
+                    to='/profile' 
+                    onClick={() => setShowProfileMenu(false)}
+                    className='block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50'
+                  >
+                    View Profile
+                  </Link>
+                  {user.roles && user.roles.includes('ADMIN') && (
+                    <Link 
+                      to='/admin-dashboard' 
+                      onClick={() => setShowProfileMenu(false)}
+                      className='block px-4 py-2 text-sm text-purple-700 hover:bg-purple-50 font-semibold'
+                    >
+                      📊 Admin Dashboard
+                    </Link>
+                  )}
+                  <button 
+                    onClick={() => {
+                      logout()
+                      setShowProfileMenu(false)
+                      navigate('/login')
+                    }}
+                    className='w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2'
+                  >
+                    <LogOut size={16} /> Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : !loading && (
+            <button onClick={() => navigate("/login")} className='text-gray-700 bg-gray-200 rounded-full p-1 text-2xl hover:text-blue-600'>
+              <User size={24} />
+            </button>
+          )}
 
           {/* WhatsApp */}
           <a href='https://wa.me/9779823939106' target='_blank' rel='noopener noreferrer' className='text-green-600  font-semibold hover:text-green-700 '>
-            +977 9823939106
+            +977-9823939106
           </a>
 
           {/* Cart Icon */}

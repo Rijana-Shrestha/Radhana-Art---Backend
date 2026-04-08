@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserPlus } from 'lucide-react'
+import { AuthContext } from '../context/AuthContext'
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +12,11 @@ const Register = () => {
     confirmPassword: '',
   })
   const [agreed, setAgreed] = useState(false)
-
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const {registerUser}= useContext(AuthContext)
+  const navigate = useNavigate()
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -19,13 +24,50 @@ const Register = () => {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    if (!agreed) {
+      alert('Please agree to the Terms of Service and Privacy Policy')
+      return
+    }
+    
     if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match!')
       return
     }
-    console.log('Register submitted:', formData)
+    
+    if (formData.password.length < 6) {
+      alert('Password must be at least 6 characters')
+      return
+    }
+    
+    setLoading(true)
+    setError('')
+    
+    try {
+      const res = await registerUser(formData.name, formData.email, formData.phone, formData.password, formData.confirmPassword)
+      console.log('Registration successful:', res)
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        password: '',
+        confirmPassword: '',
+      })
+      setAgreed(false)
+      
+      // Redirect to home page
+      navigate('/')
+    } catch (error) {
+      console.error('Registration error:', error)
+      setError(error.response?.data?.message || 'Registration failed. Please try again.')
+      alert(error.response?.data?.message || 'Registration failed')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -135,13 +177,21 @@ const Register = () => {
                 </span>
               </label>
 
+              {/* Error Message */}
+              {error && (
+                <div className='p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm'>
+                  {error}
+                </div>
+              )}
+
               {/* Submit Button */}
               <button
                 type='submit'
-                className='w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2'
+                disabled={loading}
+                className='w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed'
               >
                 <UserPlus size={18} />
-                Create Account
+                {loading ? 'Creating Account...' : 'Create Account'}
               </button>
             </form>
 
