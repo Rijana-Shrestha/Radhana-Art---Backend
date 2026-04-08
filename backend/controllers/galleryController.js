@@ -12,9 +12,11 @@ const getGallery = async (req, res) => {
 
 const createGalleryItem = async (req, res) => {
   try {
+    const imageFiles = req.files?.images || [];
+    
     const data = await galleryService.createGalleryItem(
       req.body,
-      req.files,
+      imageFiles,
       req.user._id,
     );
     res.status(201).json(data);
@@ -25,10 +27,12 @@ const createGalleryItem = async (req, res) => {
 
 const updateGalleryItem = async (req, res) => {
   try {
+    const imageFiles = req.files?.images || [];
+    
     const data = await galleryService.updateGalleryItem(
       req.params.id,
       req.body,
-      req.files,
+      imageFiles,
     );
     res.json(data);
   } catch (error) {

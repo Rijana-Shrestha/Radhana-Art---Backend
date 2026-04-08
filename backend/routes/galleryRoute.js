@@ -9,7 +9,8 @@ const router = express.Router();
 // Public
 router.get("/", galleryController.getGallery);
 
-// Admin only — multer applied in app.js for this route group
+// Admin only — multer middleware applied in app.js for this route group
+// Expects FormData with field name "images" (for multiple files)
 router.post(
   "/",
   auth,

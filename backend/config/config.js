@@ -9,9 +9,9 @@ const config = {
   MONGODB_URL: process.env.MONGODB_URL || "",
   jwtSecret: process.env.JWT_SECRET || "radhana_secret_key",
   cloudinary: {
-    cloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
-    apiKey: process.env.CLOUDINARY_API_KEY || "",
-    apiSecret: process.env.CLOUDINARY_API_SECRET || "",
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME || "dbzmbhrsc",
+    apiKey: process.env.CLOUDINARY_API_KEY || "843111676667755",
+    apiSecret: process.env.CLOUDINARY_API_SECRET || "ohEBwzyrzDhXE3LPYltExYxlwTc",
   },
 
   khalti: {
