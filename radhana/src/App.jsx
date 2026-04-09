@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import ProtectedAuthRoute from './components/ProtectedRoute'
 import ProtectedAdminRoute from './components/ProtectedAdminRoute'
+import AdminHomeGuard from './components/AdminHomeGuard'
 import Home from './pages/Home'
 import AboutUs from './pages/AboutUs'
 import Products from './pages/Products'
@@ -15,6 +16,7 @@ import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import AdminDashboard from './pages/AdminDashboard'
 import Footer from './components/Footer'
+import { AdminProvider } from './context/AdminContext'
 
 const App = () => {
   const location = useLocation()
@@ -24,7 +26,7 @@ const App = () => {
     <div className="flex flex-col min-h-screen">
       {!isAuthPage && <NavBar />}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<AdminHomeGuard><Home /></AdminHomeGuard>} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/products" element={<Products />} />
           <Route path="/gallery" element={<Gallery />} />
@@ -34,7 +36,7 @@ const App = () => {
           <Route path="/register" element={<ProtectedAuthRoute><Register /></ProtectedAuthRoute>} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/admin-dashboard" element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>} />
+          <Route path="/admin-dashboard" element={<ProtectedAdminRoute><AdminProvider><AdminDashboard /></AdminProvider></ProtectedAdminRoute>} />
         </Routes>
         {!isAuthPage && <Footer />}
     </div>

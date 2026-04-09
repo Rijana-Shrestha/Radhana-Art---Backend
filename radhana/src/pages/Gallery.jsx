@@ -39,12 +39,12 @@ const Gallery = () => {
   // Extract unique categories from gallery items
   useEffect(() => {
     if (galleryItems.length > 0) {
-      const uniqueCategories = ['All', ...new Set(galleryItems.map((item) => item.cat))]
+      const uniqueCategories = ['All', ...new Set(galleryItems.map((item) => item.cat || 'Uncategorized'))]
       setCategories(uniqueCategories)
     }
   }, [galleryItems])
 
-  const filteredItems = filter === 'All' ? galleryItems : galleryItems.filter((item) => item.cat === filter)
+  const filteredItems = filter === 'All' ? galleryItems : galleryItems.filter((item) => (item.cat || 'Uncategorized') === filter)
 
   return (
     <main>
@@ -91,15 +91,16 @@ const Gallery = () => {
             ) : (
               filteredItems.map((item) => (
               <div
-                key={item.id}
+                key={item._id || item.id}
                 onClick={() => setSelectedImage(item)}
                 className='group cursor-pointer rounded-lg overflow-hidden bg-white hover:shadow-xl transition transform hover:-translate-y-1'
               >
                 <div className='relative overflow-hidden h-64 bg-gray-200'>
                   <img
-                    src={item.imageUrls[0]}
+                    src={item.imageUrls?.[0] || item.images?.[0]}
                     alt={item.title}
                     className='w-full h-full object-cover group-hover:scale-110 transition duration-500'
+                    onError={(e) => e.target.src = 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27300%27 height=%27300%27%3E%3Crect fill=%27%23f0f0f0%27 width=%27300%27 height=%27300%27/%3E%3C/svg%3E'}
                   />
                   <div className='absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-center justify-center'>
                     <button className='opacity-0 group-hover:opacity-100 bg-white text-blue-600 w-12 h-12 rounded-full flex items-center justify-center transition'>
@@ -108,8 +109,8 @@ const Gallery = () => {
                   </div>
                 </div>
                 <div className='p-4'>
-                  <p className='text-xs text-blue-600 font-semibold mb-1'>{item.cat}</p>
-                  <h3 className='font-bold text-gray-800'>{item.title}</h3>
+                  <p className='text-xs text-blue-600 font-semibold mb-1'>{item.cat || 'Uncategorized'}</p>
+                  <h3 className='font-bold text-gray-800'>{item.title || 'Untitled'}</h3>
                 </div>
               </div>
             ))  )}
@@ -126,7 +127,7 @@ const Gallery = () => {
             <X size={24} />
           </button>
           <img
-            src={selectedImage.image}
+            src={selectedImage.imageUrls?.[0] || selectedImage.images?.[0]}
             alt={selectedImage.title}
             className='max-w-full max-h-[90vh] rounded-xl object-contain'
             onClick={(e) => e.stopPropagation()}

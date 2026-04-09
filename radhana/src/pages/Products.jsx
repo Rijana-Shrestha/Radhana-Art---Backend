@@ -10,6 +10,20 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [addedToCart, setAddedToCart] = useState(null);
+
+  const handleAddToCart = (product) => {
+    try {
+      addToCart(product);
+      setAddedToCart(product.name);
+      setTimeout(() => setAddedToCart(null), 2000); // Show notification for 2 seconds
+      console.log(`Added ${product.name} to cart`);
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      setServerError('Failed to add item to cart');
+    }
+  };
+
   const loadProducts = async () => {
     try {
       const data = await fetchProducts();
@@ -78,6 +92,13 @@ const Products = () => {
         </div>
       </section>
 
+      {/* Toast Notification */}
+      {addedToCart && (
+        <div className="fixed top-20 right-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-pulse">
+          ✓ {addedToCart} added to cart!
+        </div>
+      )}
+
       <section className="py-12 px-6 md:px-8 lg:px-12 bg-white">
         <div className="container mx-auto">
           <div className="flex flex-col lg:flex-row gap-8">
@@ -139,14 +160,15 @@ const Products = () => {
                 ) : (
                   filteredProducts.map((product) => (
                   <div
-                    key={product.id}
+                    key={product._id || product.id}
                     className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group"
                   >
                     <div className="relative overflow-hidden bg-gray-100 h-48">
                       <img
-                        src={product.imageUrls[0]}
+                        src={product.imageUrls?.[0] || product.images?.[0]}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                        onError={(e) => e.target.src = 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27300%27 height=%27300%27%3E%3Crect fill=%27%23f0f0f0%27 width=%27300%27 height=%27300%27/%3E%3C/svg%3E'}
                       />
                       <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">
                         Popular
@@ -184,7 +206,7 @@ const Products = () => {
                           Rs. {product.price}
                         </span>
                         <button
-                          onClick={() => addToCart(product)}
+                          onClick={() => handleAddToCart(product)}
                           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
                         >
                           <ShoppingCart size={18} />

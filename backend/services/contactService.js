@@ -1,6 +1,7 @@
 import Contact from "../models/Contact.js";
 import uploadFile from "../utils/file.js";
 import sendEmail from "../utils/email.js";
+import config from "../config/config.js";
 
 const createMessage = async (data, file) => {
   let attachmentUrl = "";
@@ -13,7 +14,7 @@ const createMessage = async (data, file) => {
   const message = await Contact.create({ ...data, attachmentUrl });
 
   // Notify admin by email (non-blocking)
-  sendEmail("radhanaart@gmail.com", {
+  sendEmail(config.adminEmail, {
     subject: `New Contact Message: ${data.subject}`,
     body: `
       <h3>New message from ${data.name}</h3>

@@ -2,16 +2,21 @@ import React, { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
-// ProtectedRoute for auth pages - redirects logged-in users to home
+// ProtectedRoute for auth pages - redirects logged-in users
+// Admins go to /admin-dashboard, regular users go to /
 const ProtectedAuthRoute = ({ children }) => {
-  const { isLoggedIn, loading } = useContext(AuthContext)
+  const { isLoggedIn, user, loading } = useContext(AuthContext)
   
   if (loading) {
     return <div className='flex items-center justify-center h-screen'>Loading...</div>
   }
   
   if (isLoggedIn) {
-    return <Navigate to="/" replace />
+    // Check if user is admin
+    const isAdmin = user?.roles && user.roles.includes('ADMIN')
+    
+    // Redirect admins to dashboard, others to home
+    return <Navigate to={isAdmin ? "/admin-dashboard" : "/"} replace />
   }
   
   return children

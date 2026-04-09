@@ -1,29 +1,108 @@
-import React, { useState } from 'react'
-import { CheckCircle, Send, Phone, Mail, MessageCircle, MapPin, ChevronDown } from 'lucide-react'
+import React, { useState, useRef } from 'react'
+import { CheckCircle, Send, Phone, Mail, MessageCircle, MapPin, ChevronDown, AlertCircle, Upload, X } from 'lucide-react'
+import { axiosInstance } from '../utils/axios'
 
 const Contact = () => {
+  const fileInputRef = useRef(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     subject: '',
     message: '',
+    attachment: null,
   })
+  const [attachmentPreview, setAttachmentPreview] = useState(null)
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e) => {
+    const { name, value } = e.target
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('File size must be less than 5MB')
+        return
+      }
+      setFormData({
+        ...formData,
+        attachment: file,
+      })
+      setAttachmentPreview({
+        name: file.name,
+        size: (file.size / 1024).toFixed(2),
+        type: file.type,
+      })
+      setError('')
+    }
+  }
+
+  const removeAttachment = () => {
+    setFormData({
+      ...formData,
+      attachment: null,
+    })
+    setAttachmentPreview(null)
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+    
+    // Validation
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setError('Please fill in all required fields')
+      return
+    }
+
+    setLoading(true)
+    setError('')
+
+    try {
+      // Create FormData for multipart/form-data submission
+      const submitData = new FormData()
+      submitData.append('name', formData.name)
+      submitData.append('email', formData.email)
+      submitData.append('phone', formData.phone)
+      submitData.append('subject', formData.subject)
+      submitData.append('message', formData.message)
+      
+      // Append file if exists
+      if (formData.attachment) {
+        submitData.append('attachment', formData.attachment)
+      }
+
+      const res = await axiosInstance.post("/contact/", submitData)
+      
+      console.log('Contact form submitted:', res.data)
+      setSubmitted(true)
+      
+      // Reset form
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '', attachment: null })
+      setAttachmentPreview(null)
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+      
+      // Hide success message after 3 seconds
+      setTimeout(() => setSubmitted(false), 3000)
+    } catch (err) {
+      console.error('Contact submission error:', err)
+      setError(err.response?.data?.message || 'Failed to send message. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -51,12 +130,22 @@ const Contact = () => {
                 </div>
               )}
 
+              {error && (
+                <div className='mb-6 p-4 bg-red-50 border-2 border-red-500 rounded-lg flex items-center gap-3'>
+                  <AlertCircle size={24} className='text-red-600' />
+                  <div>
+                    <p className='font-bold text-red-800'>Error</p>
+                    <p className='text-sm text-red-700'>{error}</p>
+                  </div>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className='space-y-4'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   <input
                     type='text'
                     name='name'
-                    placeholder='Your Name'
+                    placeholder='Your Name *'
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -65,7 +154,7 @@ const Contact = () => {
                   <input
                     type='email'
                     name='email'
-                    placeholder='Your Email'
+                    placeholder='Your Email *'
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -89,7 +178,7 @@ const Contact = () => {
                   required
                   className='w-full border-2 border-gray-200 bg-gray-50 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-600 focus:bg-white transition text-gray-700'
                 >
-                  <option value=''>Select Subject</option>
+                  <option value=''>Select Subject *</option>
                   <option value='general'>General Inquiry</option>
                   <option value='custom'>Custom Order</option>
                   <option value='bulk'>Bulk Order</option>
@@ -98,7 +187,7 @@ const Contact = () => {
 
                 <textarea
                   name='message'
-                  placeholder='Your Message'
+                  placeholder='Your Message *'
                   value={formData.message}
                   onChange={handleChange}
                   required
@@ -106,12 +195,58 @@ const Contact = () => {
                   className='w-full border-2 border-gray-200 bg-gray-50 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-600 focus:bg-white transition resize-none'
                 ></textarea>
 
+                {/* File Attachment Section */}
+                <div className='border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50 hover:border-blue-600 transition'>
+                  <input
+                    ref={fileInputRef}
+                    type='file'
+                    onChange={handleFileChange}
+                    className='hidden'
+                    accept='*'
+                  />
+                  
+                  {!attachmentPreview ? (
+                    <button
+                      type='button'
+                      onClick={() => fileInputRef.current?.click()}
+                      className='w-full flex flex-col items-center justify-center gap-2 text-gray-600 hover:text-blue-600 transition'
+                    >
+                      <Upload size={24} />
+                      <div className='text-center'>
+                        <p className='font-semibold'>Upload Attachment (Optional)</p>
+                        <p className='text-sm text-gray-500'>Max 5MB - Images, PDFs, documents</p>
+                      </div>
+                    </button>
+                  ) : (
+                    <div className='flex items-center justify-between bg-white p-3 rounded-md'>
+                      <div className='flex items-center gap-3 flex-1'>
+                        <div className='w-10 h-10 bg-blue-100 rounded flex items-center justify-center'>
+                          <Upload size={18} className='text-blue-600' />
+                        </div>
+                        <div className='flex-1 min-w-0'>
+                          <p className='font-semibold text-gray-800 truncate text-sm'>{attachmentPreview.name}</p>
+                          <p className='text-xs text-gray-500'>{attachmentPreview.size} KB</p>
+                        </div>
+                      </div>
+                      <button
+                        type='button'
+                        onClick={removeAttachment}
+                        className='ml-2 p-1 hover:bg-red-100 rounded transition text-red-600'
+                        title='Remove file'
+                      >
+                        <X size={18} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
                 <button
                   type='submit'
-                  className='w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2'
+                  disabled={loading}
+                  className='w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed'
                 >
                   <Send size={18} />
-                  Send Message
+                  {loading ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </div>

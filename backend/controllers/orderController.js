@@ -30,26 +30,36 @@ const getOrderById = async (req, res) => {
 
 const createOrder = async (req, res) => {
   try {
-    const {
+    let {
       orderItems,
       totalPrice,
       shippingAddress,
       paymentMethod,
       orderNotes,
-    } = req.body;
+    } = req.body || {};
+
+    if (typeof orderItems === "string") {
+      orderItems = JSON.parse(orderItems);
+    }
+
+    if (typeof shippingAddress === "string") {
+      shippingAddress = JSON.parse(shippingAddress);
+    }
 
     if (!orderItems || !orderItems.length) {
       return res.status(400).json({ message: "Order items are required." });
     }
+
     if (!totalPrice) {
       return res.status(400).json({ message: "Total price is required." });
     }
+
     if (!shippingAddress) {
       return res.status(400).json({ message: "Shipping address is required." });
     }
 
     let designFileUrl = "";
-    // Handle design file upload if attached
+
     if (req.file) {
       const uploaded = await uploadFile([req.file]);
       designFileUrl = uploaded[0]?.secure_url || uploaded[0]?.url || "";
@@ -64,8 +74,9 @@ const createOrder = async (req, res) => {
         orderNotes,
         designFileUrl,
       },
-      req.user,
+      req.user
     );
+
     res.status(201).json(data);
   } catch (error) {
     res.status(error.statusCode || 500).json({ message: error.message });

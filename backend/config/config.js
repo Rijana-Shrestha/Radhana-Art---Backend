@@ -22,6 +22,7 @@ const config = {
       "http://localhost:5000/api/orders/confirm-payment",
   },
   emailApiKey: process.env.EMAIL_API_KEY || "",
+  adminEmail: process.env.ADMIN_EMAIL || "rijanashrestha037@gmail.com",
 };
 
 export default config;
