@@ -8,14 +8,27 @@ const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [filter, setFilter] = useState('All')
   const [categories, setCategories] = useState(['All'])
+  const [error, setError] = useState(false)
+  const [serverError, setServerError] = useState('')
 
   const loadGallery = async () => {
     try {
       const data = await fetchGallery()
-      setGalleryItems(data)
+      if (Array.isArray(data) && data.length > 0) {
+        setGalleryItems(data)
+        setError(false)
+        setServerError('')
+      } else {
+        setGalleryItems([])
+        setError(true)
+        setServerError('No gallery items available at the moment.')
+      }
       console.log(data)
     } catch (error) {
       console.log(error)
+      setError(true)
+      setGalleryItems([])
+      setServerError('Unable to connect to the server. Please try again later.')
     }
   }
 
@@ -63,7 +76,20 @@ const Gallery = () => {
       <section className='py-12 px-6 md:px-8 lg:px-12 bg-gray-50'>
         <div className='container mx-auto'>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-max'>
-            {filteredItems.map((item) => (
+            {error ? (
+              <div className='col-span-full text-center py-16'>
+                <div className='bg-red-50 border-2 border-red-200 rounded-lg p-8 inline-block'>
+                  <p className='text-xl text-red-700 font-semibold'>⚠️ Server Error</p>
+                  <p className='text-red-600 mt-2'>{serverError}</p>
+                </div>
+              </div>
+            ) : filteredItems.length === 0 ? (
+              <div className='col-span-full text-center py-16'>
+                <p className='text-xl text-gray-600 font-semibold'>No Gallery Items Available</p>
+                <p className='text-gray-500 mt-2'>Try adjusting your filters.</p>
+              </div>
+            ) : (
+              filteredItems.map((item) => (
               <div
                 key={item.id}
                 onClick={() => setSelectedImage(item)}
@@ -86,7 +112,7 @@ const Gallery = () => {
                   <h3 className='font-bold text-gray-800'>{item.title}</h3>
                 </div>
               </div>
-            ))}
+            ))  )}
           </div>
         </div>
       </section>
