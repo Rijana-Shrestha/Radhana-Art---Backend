@@ -25,7 +25,7 @@ const ProductPage = () => {
     stock: '',
     description: '',
     isActive: true,
-    images: [],
+    imageFile: null,
   })
 
   // Fetch products on component mount
@@ -84,24 +84,33 @@ const ProductPage = () => {
       return
     }
 
+    if (!editingId && !formData.imageFile) {
+      alert('Please select a product image')
+      return
+    }
+
     try {
-      const productData = {
-        name: formData.name,
-        category: formData.category,
-        price: parseInt(formData.price),
-        stock: parseInt(formData.stock),
-        description: formData.description,
-        isActive: formData.isActive,
+      const formDataToSend = new FormData()
+      formDataToSend.append('name', formData.name)
+      formDataToSend.append('category', formData.category)
+      formDataToSend.append('price', parseInt(formData.price))
+      formDataToSend.append('stock', parseInt(formData.stock))
+      formDataToSend.append('description', formData.description)
+      formDataToSend.append('isActive', formData.isActive)
+      
+      // Append the image file
+      if (formData.imageFile instanceof File) {
+        formDataToSend.append('images', formData.imageFile)
       }
 
       if (editingId) {
         // Update existing product
-        await updateProduct(editingId, productData)
+        await updateProduct(editingId, formDataToSend)
         const updatedProducts = await getAllProducts()
         setProducts(updatedProducts)
       } else {
         // Create new product
-        await createProduct(productData)
+        await createProduct(formDataToSend)
         const updatedProducts = await getAllProducts()
         setProducts(updatedProducts)
       }
@@ -112,7 +121,7 @@ const ProductPage = () => {
     }
   }
 
-  // Handle edit
+  // HandleFile: null
   const handleEdit = (product) => {
     setFormData({
       name: product.name,
@@ -148,7 +157,7 @@ const ProductPage = () => {
       stock: '',
       description: '',
       isActive: true,
-      images: [],
+      imageFile: null,
     })
     setEditingId(null)
     setShowModal(false)

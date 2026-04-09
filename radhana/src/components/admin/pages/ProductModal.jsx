@@ -14,9 +14,9 @@ const ProductModal = ({
   const handleImageChange = (imageData) => {
     onInputChange({
       target: {
-        name: 'image',
+        name: 'imageFile',
         value: imageData,
-        type: 'text'
+        type: 'file'
       }
     })
   }
@@ -142,10 +142,11 @@ const ProductModal = ({
 
             {/* Image URL */}
             <ImageSelector 
-              image={formData.image}
+              image={formData.imageFile}
               onImageChange={handleImageChange}
               label="Product Image"
               preview={true}
+              returnFile={true}
             />
           </div>
 
