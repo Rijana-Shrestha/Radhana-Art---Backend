@@ -22,6 +22,7 @@ const upload = multer({
   limits: { fileSize: 50 * 1024 * 1024 } // 50MB limit
 });
 
+// Connect to database
 connectDB();
 connectCloudinary();
 
@@ -52,6 +53,12 @@ app.use("/api/gallery", upload.fields([
   { name: "category", maxCount: 1 },
   { name: "description", maxCount: 1 },
 ]), galleryRoutes);
+
+// Graceful error handling for unhandled errors
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err.message);
+  res.status(500).json({ message: "Internal server error" });
+});
 
 app.listen(config.PORT, () => {
   console.log(`Server running at port ${config.PORT}...`);

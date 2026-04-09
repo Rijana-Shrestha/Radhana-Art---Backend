@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Email is required."],
     unique: true,
+    sparse: true,
     trim: true,
     lowercase: true,
     validate: {
@@ -27,6 +28,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Phone number is required."],
     unique: true,
+    sparse: true,
   },
   address: {
     city: { type: String, default: "" },
@@ -48,6 +50,13 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
     immutable: true,
   },
+});
+
+// Drop existing indexes before recreating them
+userSchema.on('index', function(error) {
+  if (error.code === 11000) {
+    console.warn('⚠ Duplicate key error - ensure unique email/phone');
+  }
 });
 
 const model = mongoose.model("User", userSchema);
