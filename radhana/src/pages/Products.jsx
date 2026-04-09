@@ -8,13 +8,26 @@ const Products = () => {
   const { addToCart } = useCart();
   const { fetchProducts } = useContext(ProductContext);
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(false);
+  const [serverError, setServerError] = useState("");
   const loadProducts = async () => {
     try {
       const data = await fetchProducts();
-      setProducts(data);
+      if (Array.isArray(data) && data.length > 0) {
+        setProducts(data);
+        setError(false);
+        setServerError("");
+      } else {
+        setProducts([]);
+        setError(true);
+        setServerError("No products available at the moment.");
+      }
       console.log(data)
     } catch (error) {
       console.log(error)
+      setError(true);
+      setProducts([]);
+      setServerError("Unable to connect to the server. Please try again later.");
     }
   };
   useEffect(() => {
@@ -111,7 +124,20 @@ const Products = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map((product) => (
+                {error ? (
+                  <div className="col-span-full text-center py-16">
+                    <div className="bg-red-50 border-2 border-red-200 rounded-lg p-8 inline-block">
+                      <p className="text-xl text-red-700 font-semibold">⚠️ Server Error</p>
+                      <p className="text-red-600 mt-2">{serverError}</p>
+                    </div>
+                  </div>
+                ) : filteredProducts.length === 0 ? (
+                  <div className="col-span-full text-center py-16">
+                    <p className="text-xl text-gray-600 font-semibold">No Products Available</p>
+                    <p className="text-gray-500 mt-2">Try adjusting your filters.</p>
+                  </div>
+                ) : (
+                  filteredProducts.map((product) => (
                   <div
                     key={product.id}
                     className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group"
@@ -166,7 +192,8 @@ const Products = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))
+                )}
               </div>
             </div>
           </div>
