@@ -12,13 +12,12 @@ import ProductPage from "../components/admin/pages/ProductPage";
 import CustomersPage from "../components/admin/pages/CustomersPage";
 import GalleryPage from "../components/admin/pages/GalleryPage";
 import ContactsPage from "../components/admin/pages/ContactsPage";
-import InvoicePage from "../components/admin/pages/InvoicePage";
+import InvoicePage from "../components/admin/pages/Invoicepage";
 import { AdminContext } from "../context/AdminContext";
 
-
-
 function AdminDashboard() {
-  const {getAllOrders, getAllUsers, getAllProducts}=useContext(AdminContext)
+  const { getAllOrders, getAllUsers, getAllProducts } =
+    useContext(AdminContext);
   const [collapsed, setCollapsed] = useState(false);
   const [activePage, setActivePage] = useState("dashboard");
   const [toastMsg, setToastMsg] = useState("");
@@ -61,7 +60,7 @@ function AdminDashboard() {
     };
 
     loadData();
-  },[])
+  }, []);
 
   const sidebarWidth = collapsed ? 70 : 260;
 
@@ -86,44 +85,38 @@ function AdminDashboard() {
         {/* Page Content */}
         <div className="flex-1 overflow-auto p-6">
           {activePage === "dashboard" && (
-            <DashboardPage orders={orders} products={products} users={users} setPage={setActivePage} />
+            <DashboardPage
+              orders={orders}
+              products={products}
+              users={users}
+              setPage={setActivePage}
+            />
           )}
 
           {/* More pages coming soon */}
           {activePage === "orders" && (
             <OrderPage orders={orders} setPage={setActivePage} />
           )}
-          {activePage === "products" && (
-            <ProductPage />
-          )}
-          {activePage === "customers" && (
-            <CustomersPage />   
-          )}
-          {activePage === "gallery" && (
-            <GalleryPage />
-          )}
-          {activePage === "contacts" && (
-            <ContactsPage />
-          )}
-          {activePage === "invoices" && (
-            <InvoicePage orders={orders} />
-          )}
-          {activePage === "estimates" && (
-            <div className="text-center py-12">
-              <p className="text-gray-500">Estimates Page - Coming Soon</p>
-              <p className="text-gray-400 text-sm mt-2">Extract EstimatesPage component</p>
-            </div>
-          )}
+          {activePage === "products" && <ProductPage />}
+          {activePage === "customers" && <CustomersPage />}
+          {activePage === "gallery" && <GalleryPage />}
+          {activePage === "contacts" && <ContactsPage />}
+          {activePage === "invoices" && <InvoicePage />}
+          {activePage === "estimates" && <QuotationPage />}
           {activePage === "reports" && (
             <div className="text-center py-12">
               <p className="text-gray-500">Reports Page - Coming Soon</p>
-              <p className="text-gray-400 text-sm mt-2">Extract ReportsPage component</p>
+              <p className="text-gray-400 text-sm mt-2">
+                Extract ReportsPage component
+              </p>
             </div>
           )}
           {activePage === "settings" && (
             <div className="text-center py-12">
               <p className="text-gray-500">Settings Page - Coming Soon</p>
-              <p className="text-gray-400 text-sm mt-2">Extract SettingsPage component</p>
+              <p className="text-gray-400 text-sm mt-2">
+                Extract SettingsPage component
+              </p>
             </div>
           )}
         </div>
