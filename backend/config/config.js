@@ -6,12 +6,15 @@ const config = {
   appUrl: process.env.APP_URL || "http://localhost:5000",
   frontendUrl: process.env.FRONTEND_URL || "http://localhost:5173",
   PORT: process.env.PORT || 5000,
-  MONGODB_URL: process.env.MONGODB_URL || "mongodb://radhanaDB:radhanaDBuser@ac-mowzjya-shard-00-00.rqj0ckw.mongodb.net:27017,ac-mowzjya-shard-00-01.rqj0ckw.mongodb.net:27017,ac-mowzjya-shard-00-02.rqj0ckw.mongodb.net:27017/?ssl=true&replicaSet=atlas-140lv9-shard-0&authSource=admin&appName=Cluster0",
+  MONGODB_URL:
+    process.env.MONGODB_URL ||
+    "mongodb://radhanaDB:radhanaDBuser@ac-mowzjya-shard-00-00.rqj0ckw.mongodb.net:27017,ac-mowzjya-shard-00-01.rqj0ckw.mongodb.net:27017,ac-mowzjya-shard-00-02.rqj0ckw.mongodb.net:27017/?ssl=true&replicaSet=atlas-140lv9-shard-0&authSource=admin&appName=Cluster0",
   jwtSecret: process.env.JWT_SECRET || "radhana_secret_key",
   cloudinary: {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME || "dbzmbhrsc",
     apiKey: process.env.CLOUDINARY_API_KEY || "843111676667755",
-    apiSecret: process.env.CLOUDINARY_API_SECRET || "ohEBwzyrzDhXE3LPYltExYxlwTc",
+    apiSecret:
+      process.env.CLOUDINARY_API_SECRET || "ohEBwzyrzDhXE3LPYltExYxlwTc",
   },
 
   khalti: {
