@@ -105,6 +105,10 @@ const updateProduct = async (id, data, files, user) => {
   if (updateData.price) updateData.price = Number(updateData.price);
   if (updateData.maxPrice) updateData.maxPrice = Number(updateData.maxPrice);
   if (updateData.stock) updateData.stock = Number(updateData.stock);
+  if (updateData.popular !== undefined)
+    updateData.popular = updateData.popular === "true" || updateData.popular === true;
+  if (updateData.inStock !== undefined)
+    updateData.inStock = updateData.inStock !== "false" && updateData.inStock !== false;
 
   return await Product.findByIdAndUpdate(id, updateData, { new: true });
 };

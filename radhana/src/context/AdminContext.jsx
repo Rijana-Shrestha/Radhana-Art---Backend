@@ -58,7 +58,7 @@ export const AdminProvider = ({ children }) => {
 
   const updateProduct = useCallback(async (productId, productData) => {
     try {
-      const res = await axiosInstance.patch(
+      const res = await axiosInstance.put(
         `/products/${productId}`,
         productData,
       );
