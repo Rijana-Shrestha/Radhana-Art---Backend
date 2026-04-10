@@ -28,7 +28,7 @@ export const AdminProvider = ({ children }) => {
 
     const updateOrderStatus = useCallback(async (orderId, status) => {
         try {
-            const res = await axiosInstance.patch(`/orders/${orderId}`, { status });
+            const res = await axiosInstance.put(`/orders/${orderId}`, { status });
             return res.data;
         } catch (error) {
             console.error("Failed to update order status:", error);

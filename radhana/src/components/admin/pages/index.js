@@ -18,3 +18,6 @@ export { default as GalleryPage } from "./GalleryPage";
 
 // Re-export contacts page components
 export { default as ContactsPage } from "./ContactsPage";
+
+// Re-export invoice page components
+export { default as InvoicePage } from "./InvoicePage";

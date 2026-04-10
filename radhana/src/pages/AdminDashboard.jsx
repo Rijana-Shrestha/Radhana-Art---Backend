@@ -12,6 +12,7 @@ import ProductPage from "../components/admin/pages/ProductPage";
 import CustomersPage from "../components/admin/pages/CustomersPage";
 import GalleryPage from "../components/admin/pages/GalleryPage";
 import ContactsPage from "../components/admin/pages/ContactsPage";
+import InvoicePage from "../components/admin/pages/InvoicePage";
 import { AdminContext } from "../context/AdminContext";
 
 
@@ -105,10 +106,7 @@ function AdminDashboard() {
             <ContactsPage />
           )}
           {activePage === "invoices" && (
-            <div className="text-center py-12">
-              <p className="text-gray-500">Invoices Page - Coming Soon</p>
-              <p className="text-gray-400 text-sm mt-2">Extract InvoicesPage component</p>
-            </div>
+            <InvoicePage orders={orders} />
           )}
           {activePage === "estimates" && (
             <div className="text-center py-12">

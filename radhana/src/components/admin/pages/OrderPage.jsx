@@ -1,14 +1,18 @@
-import React, { useState, useMemo } from 'react'
-import { StatusBadge } from '../index'
+import React, { useState, useMemo, useContext } from 'react'
+import { StatusBadge, Toast } from '../index'
 import { INITIAL_ORDERS } from '../constants'
+import { AdminContext } from '../../../context/AdminContext'
 
 const OrderPage = ({orders}) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStatus, setFilterStatus] = useState('all')
   const [selectedOrder, setSelectedOrder] = useState(null)
+  const [isUpdating, setIsUpdating] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
+  const [toast, setToast] = useState({ visible: false, msg: '', type: 'success' })
 
-  const statuses = ['all', 'pending', 'confirmed', 'delivered', 'cancelled']
-
+  const statuses = ['all', 'pending', 'delivered']
+  const {updateOrderStatus}= useContext(AdminContext);
   // Filter orders based on search and status
   const filteredOrders = useMemo(() => {
     if (!orders || !Array.isArray(orders)) return [];
@@ -33,9 +37,28 @@ const OrderPage = ({orders}) => {
   const stats = {
     total: orders?.length || 0,
     pending: orders?.filter(o => (o.status || 'pending').toLowerCase() === 'pending').length || 0,
-    processing: orders?.filter(o => (o.status || 'pending').toLowerCase() === 'confirmed').length || 0,
-    completed: orders?.filter(o => (o.status || 'pending').toLowerCase() === 'delivered').length || 0,
+    delivered: orders?.filter(o => (o.status || 'pending').toLowerCase() === 'delivered').length || 0,
     totalAmount: orders?.reduce((sum, o) => sum + (o.totalPrice || 0), 0) || 0,
+  }
+
+  // Show toast notification
+  const showToast = (msg, type = 'success') => {
+    setToast({ visible: true, msg, type })
+    setTimeout(() => setToast({ visible: false, msg: '', type: 'success' }), 3000)
+  }
+
+  const handleUpdate = async () => {
+    try {
+      setIsUpdating(true)
+      await updateOrderStatus(selectedOrder._id, 'delivered')
+      showToast('Order status updated to delivered successfully!', 'success')
+      setShowConfirm(false)
+      setSelectedOrder(null)
+    } catch (error) {
+      showToast(error.message || 'Failed to update order status', 'error')
+    } finally {
+      setIsUpdating(false)
+    }
   }
 
   return (
@@ -47,7 +70,7 @@ const OrderPage = ({orders}) => {
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
           <p className="text-gray-600 text-sm font-medium mb-1">Total Orders</p>
           <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
@@ -57,13 +80,10 @@ const OrderPage = ({orders}) => {
           <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-          <p className="text-gray-600 text-sm font-medium mb-1">Processing</p>
-          <p className="text-2xl font-bold text-blue-600">{stats.processing}</p>
+          <p className="text-gray-600 text-sm font-medium mb-1">Delivered</p>
+          <p className="text-2xl font-bold text-blue-600">{stats.delivered}</p>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-          <p className="text-gray-600 text-sm font-medium mb-1">Completed</p>
-          <p className="text-2xl font-bold text-green-600">{stats.completed}</p>
-        </div>
+        
       </div>
 
       {/* Filters and Search */}
@@ -88,9 +108,7 @@ const OrderPage = ({orders}) => {
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
-            <option value="confirmed">Processing</option>
-            <option value="delivered">Completed</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="delivered">Delivered</option>
           </select>
         </div>
 
@@ -124,7 +142,7 @@ const OrderPage = ({orders}) => {
                 const amount = order.totalPrice || 0;
                 const status = order.status || 'pending';
                 const itemCount = order.orderItems?.length || 0;
-                
+                  console.log(status)
                 return (
                   <tr key={order._id || index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                     <td className="px-6 py-4 text-sm font-semibold text-gray-900">{orderId}</td>
@@ -165,7 +183,8 @@ const OrderPage = ({orders}) => {
               <h3 className="text-xl font-bold text-gray-900">Order Details - {selectedOrder.orderNumber || selectedOrder._id || 'N/A'}</h3>
               <button
                 onClick={() => setSelectedOrder(null)}
-                className="text-gray-400 hover:text-gray-600 text-2xl"
+                disabled={isUpdating}
+                className="text-gray-400 hover:text-gray-600 text-2xl disabled:cursor-not-allowed"
               >
                 ×
               </button>
@@ -211,13 +230,31 @@ const OrderPage = ({orders}) => {
 
               {/* Action Buttons */}
               <div className="pt-4 border-t border-gray-200 flex gap-3">
-                <button disabled={true} className="flex-1 bg-gray-200 text-gray-900 py-2 rounded-lg hover:bg-gray-300 font-medium transition  cursor-not-allowed">
-                  Update Status
+                <button 
+                  onClick={()=>setShowConfirm(true)}
+                  disabled={isUpdating || selectedOrder.status?.toLowerCase() === 'delivered'}
+                  className={`flex-1 py-2 rounded-lg font-medium transition flex items-center justify-center gap-2 ${
+                    isUpdating || selectedOrder.status?.toLowerCase() === 'delivered'
+                      ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
+                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                  }`}
+                >
+                  {isUpdating ? (
+                    <>
+                      <span className="animate-spin">⟳</span>
+                      Updating...
+                    </>
+                  ) : selectedOrder.status?.toLowerCase() === 'delivered' ? (
+                    'Already Delivered'
+                  ) : (
+                    'Mark as Delivered'
+                  )}
                 </button>
-                <button  disabled={true} className="flex-1 bg-gray-200 text-gray-900 py-2 rounded-lg hover:bg-gray-300 font-medium transition  cursor-not-allowed">
-                  Send Invoice
-                </button>
-                <button onClick={()=>setSelectedOrder(null)} className="flex-1 bg-gray-200 text-gray-900 py-2 rounded-lg hover:bg-gray-300 font-medium transition">
+                
+                <button 
+                  onClick={()=>setSelectedOrder(null)} 
+                  className="flex-1 bg-gray-200 text-gray-900 py-2 rounded-lg hover:bg-gray-300 font-medium transition"
+                >
                   Close
                 </button>
               </div>
@@ -225,6 +262,52 @@ const OrderPage = ({orders}) => {
           </div>
         </div>
       )}
+
+      {/* Confirmation Modal */}
+      {showConfirm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-sm w-full mx-4">
+            <div className="p-6">
+              <div className="flex items-center justify-center w-12 h-12 mx-auto bg-orange-100 rounded-full mb-4">
+                <span className="text-orange-600 text-xl">⚠</span>
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 text-center mb-2">Confirm Status Update</h3>
+              <p className="text-gray-600 text-center mb-6">
+                Mark order <span className="font-semibold">{selectedOrder.orderNumber || selectedOrder._id}</span> as delivered?
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  disabled={isUpdating}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-900 rounded-lg hover:bg-gray-50 font-medium transition disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdate}
+                  disabled={isUpdating}
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {isUpdating ? (
+                    <>
+                      <span className="animate-spin">⟳</span>
+                      Updating...
+                    </>
+                  ) : (
+                    'Confirm'
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast Notification */}
+      <Toast 
+        msg={toast.msg} 
+        visible={toast.visible}
+      />
     </div>
   )
 }

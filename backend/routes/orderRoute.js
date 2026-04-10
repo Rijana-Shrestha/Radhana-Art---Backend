@@ -20,7 +20,7 @@ router.get("/:id", roleBasedAuth(ADMIN), orderController.getOrderById);
 router.post("/", orderController.createOrder);
 
 // Update order status (admin) or cancel (user)
-router.put("/:id", orderController.updateOrder);
+router.put("/:id", roleBasedAuth(ADMIN), orderController.updateOrder);
 
 // Delete order
 router.delete("/:id", orderController.deleteOrder);
