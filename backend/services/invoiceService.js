@@ -145,6 +145,15 @@ const createInvoice = async (data, user) => {
     createdBy: user._id,
   });
 
+  // Update the order's isInvoiceGenerated flag if an orderId was provided
+  if (orderId) {
+    await Order.findByIdAndUpdate(
+      orderId,
+      { isInvoiceGenerated: true },
+      { new: true },
+    );
+  }
+
   return invoice;
 };
 
@@ -199,6 +208,16 @@ const deleteInvoice = async (id) => {
     err.statusCode = 404;
     throw err;
   }
+
+  // Reset the order's isInvoiceGenerated flag if this invoice was linked to an order
+  if (invoice.order) {
+    await Order.findByIdAndUpdate(
+      invoice.order,
+      { isInvoiceGenerated: false },
+      { new: true },
+    );
+  }
+
   return invoice;
 };
 

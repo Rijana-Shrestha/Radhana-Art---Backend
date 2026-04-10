@@ -72,6 +72,10 @@ const orderSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "Payment",
   },
+  isInvoiceGenerated: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

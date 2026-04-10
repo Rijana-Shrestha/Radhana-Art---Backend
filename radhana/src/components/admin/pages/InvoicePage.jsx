@@ -713,10 +713,11 @@ const InvoiceModal = ({ onClose, onSave, orders, editData, invoiceType }) => {
 
   const filteredOrders = orders.filter(
     (o) =>
-      (o.orderNumber || "").toLowerCase().includes(orderSearch.toLowerCase()) ||
-      (o.shippingAddress?.firstName || "")
-        .toLowerCase()
-        .includes(orderSearch.toLowerCase()),
+      !o.isInvoiceGenerated &&
+      ((o.orderNumber || "").toLowerCase().includes(orderSearch.toLowerCase()) ||
+        (o.shippingAddress?.firstName || "")
+          .toLowerCase()
+          .includes(orderSearch.toLowerCase())),
   );
 
   const subTotal = form.items.reduce(
