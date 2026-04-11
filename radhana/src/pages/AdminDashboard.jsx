@@ -13,6 +13,7 @@ import CustomersPage from "../components/admin/pages/CustomersPage";
 import GalleryPage from "../components/admin/pages/GalleryPage";
 import ContactsPage from "../components/admin/pages/ContactsPage";
 import InvoicePage from "../components/admin/pages/Invoicepage";
+import QuotationPage from "../components/admin/pages/QuotationPage";
 import ReportsPage from "../components/admin/pages/ReportsPage";
 import { AdminContext } from "../context/AdminContext";
 import SettingsPage from "../components/admin/pages/SettingsPage";
