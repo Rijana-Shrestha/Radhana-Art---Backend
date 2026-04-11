@@ -1,19 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { ShoppingCart, Plus, Minus, Trash2, ArrowLeft, Lock, MessageCircle } from 'lucide-react'
 import { useCart } from '../context/CartContext'
+import { AuthContext } from '../context/AuthContext'
 
 const Cart = () => {
   const { cartItems, updateQuantity, removeFromCart, getCartTotal } = useCart()
-
+  const navigate=useNavigate()
+  const { isLoggedIn } = useContext(AuthContext)
   const handleQuantityChange = (productId, newQty) => {
     if (newQty <= 0) {
       removeFromCart(productId)
     } else {
-      const currentItem = cartItems.find(item => (item._id || item.id) === productId)
-      if (currentItem) {
-        updateQuantity(productId, newQty - currentItem.qty)
-      }
+      // updateQuantity now takes the absolute quantity value
+      updateQuantity(productId, newQty)
     }
   }
   const removeItem = (productId) => {
@@ -55,7 +55,7 @@ const Cart = () => {
                 <div className='bg-white border border-gray-200 rounded-lg overflow-hidden'>
                   {cartItems.map((item) => {
                     const productId = item._id || item.id
-                    const image = item.image || item.images?.[0] || item.imageUrls?.[0]
+                    const image = item.image || item.images?.[0] || item.product.imageUrls?.[0]
                     return (
                     <div key={productId} className='flex items-center gap-6 p-6 border-b border-gray-200 hover:bg-gray-50'>
                       <img 
@@ -72,27 +72,27 @@ const Cart = () => {
 
                       <div className='flex items-center gap-3'>
                         <button
-                          onClick={() => handleQuantityChange(productId, item.qty - 1)}
+                          onClick={() => handleQuantityChange(productId, item.quantity - 1)}
                           className='w-8 h-8 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-100'
                         >
                           <Minus size={16} />
                         </button>
                         <input
                           type='number'
-                          value={item.qty}
+                          value={item.quantity}
                           onChange={(e) => handleQuantityChange(productId, parseInt(e.target.value))}
                           className='w-12 border border-gray-300 rounded text-center py-1'
                           min='1'
                         />
                         <button
-                          onClick={() => handleQuantityChange(productId, item.qty + 1)}
+                          onClick={() => handleQuantityChange(productId, item.quantity + 1)}
                           className='w-8 h-8 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-100'
                         >
                           <Plus size={16} />
                         </button>
                       </div>
 
-                      <p className='font-bold text-gray-800 w-24 text-right'>Rs. {((item.price || 0) * (item.qty || 1)).toLocaleString()}</p>
+                      <p className='font-bold text-gray-800 w-24 text-right'>Rs. {((item.price || 0) * (item.quantity || 1)).toLocaleString()}</p>
 
                       <button
                         onClick={() => removeItem(productId)}
@@ -135,10 +135,10 @@ const Cart = () => {
                     <span className='text-blue-600'>Rs. {total.toLocaleString()}</span>
                   </div>
 
-                  <Link to='/checkout' className='w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 flex items-center justify-center gap-2 mb-3'>
+                  <div onClick={isLoggedIn ? () => navigate('/checkout') : () => navigate('/login')} className='w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 flex items-center justify-center gap-2 mb-3'>
                     <Lock size={18} />
                     Proceed to Checkout
-                  </Link>
+                  </div>
 
                   <button className='w-full border-2 border-gray-300 py-3 rounded-lg font-bold text-gray-700 hover:bg-gray-100'>
                     Continue Shopping

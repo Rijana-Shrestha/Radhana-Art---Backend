@@ -18,9 +18,7 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="bg-gradient-to-br from-pink-500 to-purple-600 text-white rounded-xl p-2 font-bold text-xl w-12 h-12 flex items-center justify-center shrink-0">
-                RA
-              </div>
+              <img src='/fonts/assets/Logo.png' alt='Radhana Art Logo' className='w-12 h-12 rounded-xl object-cover shrink-0' />
               <div>
                 <h3 className="text-xl font-bold text-yellow-500">Radhana Art</h3>
                 <p className="text-sm text-gray-400">Laser Engraving • Kathmandu</p>

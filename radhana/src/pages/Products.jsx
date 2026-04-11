@@ -1,18 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Star, ShoppingCart } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { ProductContext } from "../context/ProductsContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Products = () => {
   const { addToCart } = useCart();
   const { fetchProducts } = useContext(ProductContext);
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(false);
   const [serverError, setServerError] = useState("");
   const [addedToCart, setAddedToCart] = useState(null);
 
   const handleAddToCart = (product) => {
+    // Check if user is logged in
+    if (!isLoggedIn) {
+      // Redirect to login page
+      navigate('/login');
+      return;
+    }
+
     try {
       addToCart(product);
       setAddedToCart(product.name);

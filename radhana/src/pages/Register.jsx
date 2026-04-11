@@ -76,9 +76,7 @@ const Register = () => {
         <div className='w-full max-w-md'>
           {/* Logo */}
           <div className='text-center mb-10'>
-            <div className='inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-red-600 rounded-xl mb-4'>
-              <span className='text-white font-bold text-2xl'>RA</span>
-            </div>
+            <img src='/fonts/assets/Logo.png' alt='Radhana Art Logo' className='w-16 h-16 rounded-xl mb-4 mx-auto object-cover' />
             <h1 className='text-2xl font-bold text-gray-800'>Create Account</h1>
             <p className='text-gray-600 text-sm mt-1'>Join us for exclusive deals</p>
           </div>

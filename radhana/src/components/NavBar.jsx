@@ -39,9 +39,7 @@ const NavBar = () => {
       <div className='flex items-center justify-between px-6 py-4 bg-white shadow-md'>
         {/* Logo Section */}
         <Link to="/" className='flex items-center gap-3 flex-shrink-0'>
-          <div className='bg-gradient-to-br from-purple-600 to-purple-800 text-white rounded-xl p-3 font-bold text-xl w-12 h-12 flex items-center justify-center'>
-            RA
-          </div>
+          <img src='/fonts/assets/Logo.png' alt='Radhana Art Logo' className='w-15 h-15 object-cover rounded' />
           <div className='flex flex-col'>
             <h1 className='font-bold text-lg text-gray-800'>Radhana Art</h1>
             <p className='text-xs text-gray-600'>Laser Engraving - Kathmandu</p>

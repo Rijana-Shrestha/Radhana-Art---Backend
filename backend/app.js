@@ -12,6 +12,7 @@ import userRoutes from "./routes/userRoute.js";
 import contactRoutes from "./routes/contactRoute.js";
 import galleryRoutes from "./routes/galleryRoute.js";
 import invoiceRoutes from "./routes/invoiceRoute.js";
+import cartRoutes from "./routes/cartRoute.js";
 import bodyParser from "body-parser";
 import logger from "./middlewares/logger.js";
 import auth from "./middlewares/auth.js";
@@ -48,6 +49,7 @@ app.use("/api/orders", auth, upload.single("designFile"), orderRoutes);
 app.use("/api/users", auth, upload.single("image"), userRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/invoices", auth, invoiceRoutes);
+app.use("/api/cart", auth, cartRoutes);
 
 // Gallery accepts multiple files + text fields (title, category, description, etc.)
 app.use(

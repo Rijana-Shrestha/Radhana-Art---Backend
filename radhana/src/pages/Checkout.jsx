@@ -54,6 +54,10 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if(!isLoggedIn){
+      navigate('/login')
+      return
+    }
 
     // Validation
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.address || !formData.city) {
@@ -69,7 +73,7 @@ const Checkout = () => {
     console.log('Cart items:', cartItems);
 
     // Validate each cart item
-    const invalidItems = cartItems.filter(item => !item.price || item.qty < 1 || !item._id && !item.id);
+    const invalidItems = cartItems.filter(item => !item.price || item.quantity < 1 || !item.product && !item._id && !item.id);
     if (invalidItems.length > 0) {
       console.error('Invalid items found:', invalidItems);
       setError('Some cart items have invalid data. Please review your cart.')
@@ -84,8 +88,8 @@ const Checkout = () => {
       const items = cartItems.map(item => {
         console.log('Processing item:', item);
         return {
-          product: item._id || item.id, // Handle both _id and id
-          quantity: item.qty || 1,
+          product: item.product || item._id || item.id, // Handle both formats
+          quantity: item.quantity || 1,
           price: Math.max(0, item.price), // Ensure positive price
         };
       });
@@ -382,16 +386,16 @@ const Checkout = () => {
                   {cartItems.map((item) => (
                     <div key={item._id || item.id} className='flex items-center gap-4'>
                       <img 
-                        src={item.image || item.images?.[0]} 
+                        src={item.image || item.product.imageUrls?.[0]} 
                         alt={item.name}
                         className='w-16 h-16 object-cover rounded'
                         onError={(e) => e.target.src = 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27%3E%3Crect fill=%27%23f0f0f0%27 width=%27100%27 height=%27100%27/%3E%3C/svg%3E'}
                       />
                       <div className='flex-1'>
-                        <p className='font-bold text-gray-800'>{item.name}</p>
-                        <p className='text-sm text-gray-600'>Qty: {item.qty}</p>
+                        <p className='font-bold text-gray-800'>{item.product.name}</p>
+                        <p className='text-sm text-gray-600'>Qty: {item.quantity}</p>
                       </div>
-                      <p className='font-bold'>Rs. {item.price * item.qty}</p>
+                      <p className='font-bold'>Rs. {item.product.price * item.quantity}</p>
                     </div>
                   ))}
                 </div>

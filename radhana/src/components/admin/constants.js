@@ -1,22 +1,5 @@
 export const INITIAL_ORDERS = [
-  {
-    id: "#RA-247",
-    customer: "Ramesh Shrestha",
-    product: "Wooden Photo Engraving",
-    date: "2025-01-20",
-    amount: 1500,
-    status: "Processing",
-    phone: "+977 9812345678",
-  },
-  {
-    id: "#RA-246",
-    customer: "Sita Poudel",
-    product: "Wooden QR Code x3",
-    date: "2025-01-19",
-    amount: 2400,
-    status: "Completed",
-    phone: "+977 9823456789",
-  },
+ 
   {
     id: "#RA-245",
     customer: "Bikram Thapa",

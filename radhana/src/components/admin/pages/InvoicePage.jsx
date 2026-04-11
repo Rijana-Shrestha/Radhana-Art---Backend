@@ -223,21 +223,16 @@ const InvoicePreview = ({ invoice, onClose }) => {
               marginBottom: 24,
             }}
           >
-            <div
+            <img
+              src="/fonts/assets/Logo.png"
+              alt="Radhana Art Logo"
               style={{
                 width: 64,
                 height: 64,
-                background: "#fff2",
+                objectFit: "cover",
                 borderRadius: 8,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
               }}
-            >
-              <span style={{ color: "#fff", fontWeight: 700, fontSize: 20 }}>
-                RA
-              </span>
-            </div>
+            />
             <div style={{ textAlign: "right" }}>
               <h1
                 style={{

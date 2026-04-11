@@ -71,9 +71,7 @@ function Sidebar({ collapsed, setCollapsed, activePage, setPage }) {
       {/* Brand */}
       <div className="px-4 py-5 border-b border-white/10 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gradient-to-br from-primary-600 to-accent-600 rounded-2xl flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-playfair font-bold text-sm">RA</span>
-          </div>
+          <img src='/fonts/assets/Logo.png' alt='Radhana Art Logo' className='w-9 h-9 rounded-2xl flex-shrink-0 object-cover' />
           {!collapsed && (
             <div>
               <p className="text-white font-poppins font-semibold text-sm m-0">
