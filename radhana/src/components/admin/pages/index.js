@@ -21,3 +21,6 @@ export { default as ContactsPage } from "./ContactsPage";
 
 // Re-export invoice page components
 export { default as InvoicePage } from "./InvoicePage";
+
+// Re-export reports page component
+export { default as ReportsPage } from "./ReportsPage";

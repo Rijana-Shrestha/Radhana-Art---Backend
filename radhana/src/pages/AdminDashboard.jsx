@@ -13,6 +13,7 @@ import CustomersPage from "../components/admin/pages/CustomersPage";
 import GalleryPage from "../components/admin/pages/GalleryPage";
 import ContactsPage from "../components/admin/pages/ContactsPage";
 import InvoicePage from "../components/admin/pages/Invoicepage";
+import ReportsPage from "../components/admin/pages/ReportsPage";
 import { AdminContext } from "../context/AdminContext";
 import SettingsPage from "../components/admin/pages/SettingsPage";
 
@@ -104,14 +105,7 @@ function AdminDashboard() {
           {activePage === "contacts" && <ContactsPage />}
           {activePage === "invoices" && <InvoicePage />}
           {activePage === "estimates" && <QuotationPage />}
-          {activePage === "reports" && (
-            <div className="text-center py-12">
-              <p className="text-gray-500">Reports Page - Coming Soon</p>
-              <p className="text-gray-400 text-sm mt-2">
-                Extract ReportsPage component
-              </p>
-            </div>
-          )}
+          {activePage === "reports" && <ReportsPage />}
           {activePage === "settings" && (
             <SettingsPage />
           )}
