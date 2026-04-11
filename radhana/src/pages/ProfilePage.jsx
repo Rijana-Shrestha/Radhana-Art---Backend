@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, Mail, Phone, MapPin, Calendar, Edit2, LogOut } from 'lucide-react'
+import { User, Mail, Phone, MapPin, Calendar, Edit2, LogOut, Settings } from 'lucide-react'
 import { AuthContext } from '../context/AuthContext'
 
 const ProfilePage = () => {
@@ -34,6 +34,8 @@ const ProfilePage = () => {
     logout()
     navigate('/login')
   }
+
+  const isAdmin = user?.roles?.includes('ADMIN')
 
   return (
     <main className='min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 md:px-8'>
@@ -74,14 +76,25 @@ const ProfilePage = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className='flex gap-3 w-full md:w-auto'>
-                <button
-                  onClick={handleEditProfile}
-                  className='flex-1 md:flex-none flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition'
-                >
-                  <Edit2 size={18} />
-                  Edit Profile
-                </button>
+              <div className='flex gap-3 w-full md:w-auto flex-wrap'>
+                {!isAdmin && (
+                  <button
+                    onClick={handleEditProfile}
+                    className='flex-1 md:flex-none flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition'
+                  >
+                    <Edit2 size={18} />
+                    Edit Profile
+                  </button>
+                )}
+                {isAdmin && (
+                  <button
+                    onClick={() => navigate('/settings')}
+                    className='flex-1 md:flex-none flex items-center justify-center gap-2 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition'
+                  >
+                    <Settings size={18} />
+                    Admin Settings
+                  </button>
+                )}
                 <button
                   onClick={handleLogout}
                   className='flex-1 md:flex-none flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition'

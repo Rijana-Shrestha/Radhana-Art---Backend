@@ -43,6 +43,25 @@ const EditPage = () => {
     )
   }
 
+  // Redirect if admin (admins cannot edit their profile)
+  const isAdmin = user?.roles?.includes('ADMIN')
+  if (isAdmin) {
+    return (
+      <main className='min-h-screen bg-gray-50 py-12 px-4'>
+        <div className='max-w-md mx-auto text-center'>
+          <h2 className='text-2xl font-bold text-gray-800 mb-4'>Access Denied</h2>
+          <p className='text-gray-600 mb-6'>Admin accounts cannot edit their profile through this interface</p>
+          <button
+            onClick={() => navigate('/settings')}
+            className='bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition'
+          >
+            Go to Admin Settings
+          </button>
+        </div>
+      </main>
+    )
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     

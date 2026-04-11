@@ -17,6 +17,8 @@ import Checkout from './pages/Checkout'
 import AdminDashboard from './pages/AdminDashboard'
 import Footer from './components/Footer'
 import { AdminProvider } from './context/AdminContext'
+import ProfilePage from './pages/ProfilePage'
+import EditPage from './pages/EditPage'
 
 const App = () => {
   const location = useLocation()
@@ -32,6 +34,9 @@ const App = () => {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/edit-profile" element={<EditPage />} />
           <Route path="/login" element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute>} />
           <Route path="/register" element={<ProtectedAuthRoute><Register /></ProtectedAuthRoute>} />
           <Route path="/cart" element={<Cart />} />

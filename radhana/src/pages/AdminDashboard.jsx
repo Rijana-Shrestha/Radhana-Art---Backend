@@ -14,6 +14,7 @@ import GalleryPage from "../components/admin/pages/GalleryPage";
 import ContactsPage from "../components/admin/pages/ContactsPage";
 import InvoicePage from "../components/admin/pages/Invoicepage";
 import { AdminContext } from "../context/AdminContext";
+import SettingsPage from "../components/admin/pages/SettingsPage";
 
 function AdminDashboard() {
   const { getAllOrders, getAllUsers, getAllProducts } =
@@ -112,12 +113,7 @@ function AdminDashboard() {
             </div>
           )}
           {activePage === "settings" && (
-            <div className="text-center py-12">
-              <p className="text-gray-500">Settings Page - Coming Soon</p>
-              <p className="text-gray-400 text-sm mt-2">
-                Extract SettingsPage component
-              </p>
-            </div>
+            <SettingsPage />
           )}
         </div>
       </main>
