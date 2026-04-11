@@ -708,7 +708,7 @@ const InvoiceModal = ({ onClose, onSave, orders, editData, invoiceType }) => {
 
   const filteredOrders = orders.filter(
     (o) =>
-      !o.isInvoiceGenerated &&
+      !o.isInvoiceGenerated && o.status==="delivered" &&
       ((o.orderNumber || "").toLowerCase().includes(orderSearch.toLowerCase()) ||
         (o.shippingAddress?.firstName || "")
           .toLowerCase()

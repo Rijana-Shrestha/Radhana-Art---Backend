@@ -149,7 +149,7 @@ const createInvoice = async (data, user) => {
   if (orderId) {
     await Order.findByIdAndUpdate(
       orderId,
-      { isInvoiceGenerated: true },
+      { isInvoiceGenerated: true, invoice: invoice._id },
       { new: true },
     );
   }
@@ -213,7 +213,7 @@ const deleteInvoice = async (id) => {
   if (invoice.order) {
     await Order.findByIdAndUpdate(
       invoice.order,
-      { isInvoiceGenerated: false },
+      { isInvoiceGenerated: false, invoice: null },
       { new: true },
     );
   }
